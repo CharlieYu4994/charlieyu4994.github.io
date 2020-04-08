@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://charlieyu4994.github.io</id>
     <title>CharlieYu的博客</title>
-    <updated>2020-04-08T04:39:38.813Z</updated>
+    <updated>2020-04-08T05:33:35.893Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://charlieyu4994.github.io"/>
     <link rel="self" href="https://charlieyu4994.github.io/atom.xml"/>
@@ -10,4 +10,17 @@
     <logo>https://charlieyu4994.github.io/images/avatar.png</logo>
     <icon>https://charlieyu4994.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, CharlieYu的博客</rights>
+    <entry>
+        <title type="html"><![CDATA[Py-Minecraft-AFK项目]]></title>
+        <id>https://charlieyu4994.github.io/post/py-minecraft-afk/</id>
+        <link href="https://charlieyu4994.github.io/post/py-minecraft-afk/">
+        </link>
+        <updated>2020-04-08T05:15:59.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="起因">起因</h2>
+<p>Py-Minecraft-AFK项目是我和Xiao_Jin受到Cheny的Cpp-Minecraft-AFK项目的启发而诞生的。<br>
+最开始我在机缘巧合下找到了一个名为win32api的Python轮子，因此我就萌发了重写一个Python版本的Minecraft-AFK，而这个想法吸引了群里的Python大佬（Xiao_Jin)，在商议下我们开始了合作。</p>
+<h2 id="现状">现状</h2>
+<p>经过半个多月的努力，Py-Minecraft-AFK项目已经初具规模了，现阶段正在考虑加入多线程以实现动作的并发，并且我们成立了一个Super-Coffee组织，在这个组织里你会找到很多<s>没用</s>有意思的项目。</p>
+]]></content>
+    </entry>
 </feed>
