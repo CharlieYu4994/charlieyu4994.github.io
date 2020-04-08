@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://charlieyu.github.io</id>
+    <title>CharlieYu的博客</title>
+    <updated>2020-04-08T04:28:07.436Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://charlieyu.github.io"/>
+    <link rel="self" href="https://charlieyu.github.io/atom.xml"/>
+    <subtitle>就只是博客而已</subtitle>
+    <logo>https://charlieyu.github.io/images/avatar.png</logo>
+    <icon>https://charlieyu.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2020, CharlieYu的博客</rights>
+</feed>
