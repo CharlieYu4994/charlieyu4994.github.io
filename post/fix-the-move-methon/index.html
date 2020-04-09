@@ -7,7 +7,7 @@
 <meta name="keywords" content="CharlieYu的个人博客">
 <meta name="description" content="就只是博客而已">
 <meta name="theme-color" content="#000">
-<title>Py-Minecraft-AFK项目 | CharlieYu的个人博客</title>
+<title>关于鼠标移动的修复 | CharlieYu的个人博客</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1586418263517">
 <link rel="stylesheet" href="/styles/main.css">
 <link rel="stylesheet" href="/media/css/pisces.css">
@@ -27,7 +27,7 @@
 
 
 
-    <meta name="description" content="Py-Minecraft-AFK项目" />
+    <meta name="description" content="关于鼠标移动的修复" />
     <meta name="keywords" content="MC,AFK" />
   </head>
   <body>
@@ -177,8 +177,11 @@
     <ul class="markdownIt-TOC">
 <li>
 <ul>
-<li><a href="#%E8%B5%B7%E5%9B%A0">起因</a></li>
-<li><a href="#%E7%8E%B0%E7%8A%B6">现状</a></li>
+<li><a href="#%E7%BC%98%E7%94%B1"><strong>缘由</strong></a></li>
+<li><a href="#%E8%BD%AC%E6%8A%98"><strong>转折</strong></a></li>
+<li><a href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><strong>解决方法</strong></a></li>
+<li><a href="#%E7%8E%B0%E7%8A%B6"><strong>现状</strong></a></li>
+<li><a href="#%E6%B1%82%E6%8F%B4"><strong>求援</strong></a></li>
 </ul>
 </li>
 </ul>
@@ -442,8 +445,8 @@ window.addEventListener('load', function() {
             <div class="section bg-color post post-page">
               <header class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://charlieyu4994.github.io/post/py-minecraft-afk/">
-      Py-Minecraft-AFK项目
+    <a class="post-title-link" href="https://charlieyu4994.github.io/post/fix-the-move-methon/">
+      关于鼠标移动的修复
     </a>
   </h1>
   <div class="post-meta">
@@ -451,7 +454,7 @@ window.addEventListener('load', function() {
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span>发布于</span>
-      <span>2020-04-08</span>
+      <span>2020-04-09</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
@@ -476,22 +479,56 @@ window.addEventListener('load', function() {
     
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>1分钟</span>
+      <span>3分钟</span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>163<span class="pc-show">字数</span></span>
+      <span>617<span class="pc-show">字数</span></span>
     </span>
     
   </div>
 </header>
               <div class="post-body next-md-body" id="post_body">
-                <h2 id="起因">起因</h2>
-<p><a href="https://github.com/super-coffee/py-Minecraft-AFK">Py-Minecraft-AFK</a>项目是我和Xiao_Jin受到Cheny的<a href="https://github.com/super-coffee/cpp-Minecraft-AFK">Cpp-Minecraft-AFK</a>项目的启发而诞生的。<br>
-最开始我在机缘巧合下找到了一个名为win32api的Python轮子，因此我就萌发了重写一个Python版本的Minecraft-AFK，而这个想法吸引了群里的Python大佬（Xiao_Jin)，在商议下我们开始了合作。</p>
-<h2 id="现状">现状</h2>
-<p>经过半个多月的努力，Py-Minecraft-AFK项目已经初具规模了，现阶段正在考虑加入多线程以实现动作的并发，并且我们成立了一个Super-Coffee组织，在这个组织里你会找到很多<s>没用</s>有意思的项目。</p>
+                <h2 id="缘由"><strong>缘由</strong></h2>
+<ul>
+<li>关于1.12.2及以前版本
+<ul>
+<li>我们在项目一开始就很希望加入鼠标移动的功能，但是由于对WindowsAPI的不熟悉，我们并没有办法在焦点不在MC窗口时操作鼠标移动，因此我们只能退而求其次使用全局的方法操作。想到全局的方法，我第一时间想到的是 <code>SetCursorPos()</code> 函数，确实我成功了，但在Xiao_Jin 测试时却失效了，在不断的测试下我们了解到MC在海洋更新之后对鼠标移动做出了破坏性的修改</li>
+</ul>
+</li>
+<li>关于1.12.2以上版本
+<ul>
+<li>既然想到是MC更新产生的变化，我们便当机立断决定分析MC的源码，但很明显我们三人之中没有人会Java语言，我们凭借别的语言的基础完全无法理解 <s>Bugjang</s> Mojang高深的代码，我们只得放弃。</li>
+</ul>
+</li>
+</ul>
+<h2 id="转折"><strong>转折</strong></h2>
+<p>在Cheny 不断地试验下，我们发现可以用 <code>SendInput()</code> 函数实现鼠标移动，但是我和Xiao_Jin 发现在win32api这个Python轮子里面并没有 <code>SendInput()</code> ，这也是这篇文章诞生的原因。</p>
+<h2 id="解决方法"><strong>解决方法</strong></h2>
+<ul>
+<li>我们可以另找别的方法
+<ul>
+<li>这明显不是一个好方法，不到万不得已我们不会去尝试这种不算方法的方法</li>
+</ul>
+</li>
+<li>我们可以用C++写一个Python轮子
+<ul>
+<li>但是问题又来了，我们三个中并没有人会用C++写Python的轮子，在我们三个人中Xiao_Jin 会写前端和Python（Python写得很好），Cheny C++写得很好，我只会最基础的C++和Python，让我们三个现学显然是不现实的。</li>
+</ul>
+</li>
+<li>我们可以用C++写一个外部程序（这也是最后被采纳的方法）
+<ul>
+<li>Cheny 学业繁忙（虽然我们都很忙）所以写外部程序他不能胜任，所有，这个重担（可能很简单，但我的C++很烂）就交到了我的手上。</li>
+</ul>
+</li>
+</ul>
+<h2 id="现状"><strong>现状</strong></h2>
+<p>我已把这个外部程序写出来了但是它表现得很不正常（吃了C++没学好的亏了）<br>
+<img src="https://charlieyu4994.github.io/post-images/1586417620743.png" alt="" loading="lazy"><br>
+请不要吐槽我蹩脚的C++技术，<s>我会伤心的。</s> 很显然我们还需呀很长的时间调试这个程序，但可以保证的是我们可以在月底之前完成鼠标移动的修复。</p>
+<h2 id="求援"><strong>求援</strong></h2>
+<p><strong>如果有Java大佬愿意帮助我们的话，我们将感激不尽</strong></p>
 
               </div>
               <div class="post-footer">
@@ -502,7 +539,7 @@ window.addEventListener('load', function() {
     </li>
     <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://charlieyu4994.github.io/post/py-minecraft-afk/" title="Py-Minecraft-AFK项目">Py-Minecraft-AFK项目</a>
+      <a href="https://charlieyu4994.github.io/post/fix-the-move-methon/" title="关于鼠标移动的修复">关于鼠标移动的修复</a>
     </li>
     <li class="post-copyright-license">
       <strong>版权声明： </strong>
@@ -519,12 +556,12 @@ window.addEventListener('load', function() {
   <div class="nav">
     <div class="nav-prev">
       
-        <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="关于鼠标移动的修复" href="https://charlieyu4994.github.io/post/fix-the-move-methon/">关于鼠标移动的修复</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="关于鼠标移动的修复" href="https://charlieyu4994.github.io/post/fix-the-move-methon/">上一篇</a>
-      
     </div>
     <div class="nav-next">
+      
+        <a class="nav-pc-next" title="Py-Minecraft-AFK项目" href="https://charlieyu4994.github.io/post/py-minecraft-afk/">Py-Minecraft-AFK项目</a>
+        <a class="nav-mobile-next" title="Py-Minecraft-AFK项目" href="https://charlieyu4994.github.io/post/py-minecraft-afk/">下一篇</a>
+        <i class="fa fa-chevron-right"></i>
       
     </div>
   </div>

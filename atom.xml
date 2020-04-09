@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://charlieyu4994.github.io</id>
     <title>CharlieYu的个人博客</title>
-    <updated>2020-04-09T03:04:45.219Z</updated>
+    <updated>2020-04-09T07:44:53.154Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://charlieyu4994.github.io"/>
     <link rel="self" href="https://charlieyu4994.github.io/atom.xml"/>
@@ -10,6 +10,13 @@
     <logo>https://charlieyu4994.github.io/images/avatar.png</logo>
     <icon>https://charlieyu4994.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, CharlieYu的个人博客</rights>
+    <entry>
+        <title type="html"><![CDATA[关于鼠标移动的修复]]></title>
+        <id>https://charlieyu4994.github.io/post/fix-the-move-methon/</id>
+        <link href="https://charlieyu4994.github.io/post/fix-the-move-methon/">
+        </link>
+        <updated>2020-04-09T06:50:50.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Py-Minecraft-AFK项目]]></title>
         <id>https://charlieyu4994.github.io/post/py-minecraft-afk/</id>
