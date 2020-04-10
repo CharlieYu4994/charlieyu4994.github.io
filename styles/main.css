@@ -2024,21 +2024,21 @@ body {
       color: #555;
       border-bottom: 1px solid #555;
     }a:hover {
-      color: #ffa94d;
+      color: #fd7e14;
     }
     
     .archive-timeline-box .tag-node:hover::before {
-      background-color: #ffa94d;
+      background-color: #fd7e14;
     }
     
     .markdownIt-TOC a:hover {
-      color: #ffa94d;
-      border-bottom-color: #ffa94d;
+      color: #fd7e14;
+      border-bottom-color: #fd7e14;
     }
 
     .next-md-body a:hover, .friends-box a:hover {
-      color: #ffa94d;
-      border-bottom-color: #ffa94d;
+      color: #fd7e14;
+      border-bottom-color: #fd7e14;
     }
       .nav-item a {
         color:  #555;
@@ -2088,13 +2088,13 @@ body {
       background-color: #fffffffe;
     }
       .site-meta {
-        background: #000 !important;
+        background: #343a40 !important;
       }
       .head-top-line {
-        background: #000 !important;
+        background: #343a40 !important;
       }
     .brand {
-      background: #000000fe;
+      background: #343a40fe;
     }
     .main-title {
       color: #FFF;
