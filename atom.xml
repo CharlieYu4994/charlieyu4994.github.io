@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://charlieyu4994.github.io</id>
     <title>CharlieYu4994的个人博客</title>
-    <updated>2020-04-10T13:22:21.125Z</updated>
+    <updated>2020-04-11T07:54:22.813Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://charlieyu4994.github.io"/>
     <link rel="self" href="https://charlieyu4994.github.io/atom.xml"/>
@@ -10,6 +10,19 @@
     <logo>https://charlieyu4994.github.io/images/avatar.png</logo>
     <icon>https://charlieyu4994.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, CharlieYu4994的个人博客</rights>
+    <entry>
+        <title type="html"><![CDATA[关于GitPage的自定义域名]]></title>
+        <id>https://charlieyu4994.github.io/post/gitpage-domain/</id>
+        <link href="https://charlieyu4994.github.io/post/gitpage-domain/">
+        </link>
+        <updated>2020-04-11T05:31:36.000Z</updated>
+        <summary type="html"><![CDATA[<p>本站有自定义域名啦ヾ(<em>´▽‘</em>)ﾉ<br>
+但是我在设置域名时踩了一些坑， <s>（其实是我太菜了）</s> 所有在此和大家分享一下自定义域名的过程</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>本站有自定义域名啦ヾ(<em>´▽‘</em>)ﾉ<br>
+但是我在设置域名时踩了一些坑， <s>（其实是我太菜了）</s> 所有在此和大家分享一下自定义域名的过程</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[前端QwQ]]></title>
         <id>https://charlieyu4994.github.io/post/qian-duan-qwq/</id>
