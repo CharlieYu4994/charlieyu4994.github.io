@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://charlieyu4994.github.io</id>
     <title>CharlieYu4994的个人博客</title>
-    <updated>2020-04-13T03:06:06.257Z</updated>
+    <updated>2020-04-13T04:24:05.099Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://charlieyu4994.github.io"/>
     <link rel="self" href="https://charlieyu4994.github.io/atom.xml"/>
@@ -10,6 +10,17 @@
     <logo>https://charlieyu4994.github.io/images/avatar.png</logo>
     <icon>https://charlieyu4994.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, CharlieYu4994的个人博客</rights>
+    <entry>
+        <title type="html"><![CDATA[关于昨天的盗号网站]]></title>
+        <id>https://charlieyu4994.github.io/post/guan-yu-zuo-tian-de-dao-hao-wang-zhan/</id>
+        <link href="https://charlieyu4994.github.io/post/guan-yu-zuo-tian-de-dao-hao-wang-zhan/">
+        </link>
+        <updated>2020-04-13T04:20:35.000Z</updated>
+        <summary type="html"><![CDATA[<p>显然他很顽强，直到现在还没死，有兴趣的小伙伴可以下载这个<a href="https://github.com/CharlieYu4994/CC-Tools/releases/download/0.1beta/CC.exe">小工具</a>恶心他。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>显然他很顽强，直到现在还没死，有兴趣的小伙伴可以下载这个<a href="https://github.com/CharlieYu4994/CC-Tools/releases/download/0.1beta/CC.exe">小工具</a>恶心他。</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[关于盗号网站]]></title>
         <id>https://charlieyu4994.github.io/post/guan-yu-dao-hao-wang-zhan/</id>
