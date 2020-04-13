@@ -2106,7 +2106,5 @@ blockquote {
     }.bg-img img {
         filter: blur(5px)
       }.box-shadow-wrapper {
-      padding: 10px;
-    }.box-shadow-wrapper {
       box-shadow: none !important;
     }
