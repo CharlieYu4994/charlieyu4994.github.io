@@ -7,7 +7,7 @@
 <meta name="keywords" content="CharlieYu的个人博客">
 <meta name="description" content="就只是博客而已">
 <meta name="theme-color" content="#343a40">
-<title>关于 | CharlieYu4994的个人博客</title>
+<title>鼠标移动修复的进展 | CharlieYu4994的个人博客</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1586876049917">
 <link rel="stylesheet" href="/styles/main.css">
 <link rel="stylesheet" href="/media/css/gemini.css">
@@ -37,8 +37,8 @@ var _hmt = _hmt || [];
 })();
 </script>
 
-    <meta name="description" content="关于" />
-    <meta name="keywords" content="" />
+    <meta name="description" content="鼠标移动修复的进展" />
+    <meta name="keywords" content="MC,AFK" />
   </head>
   <body>
     <div class="head-top-line"></div>
@@ -188,8 +188,7 @@ var _hmt = _hmt || [];
       <div class="sidebar-body gemini" id="sidebar_body">
         
           
-            <div class="post-side-meta" id="post_side_meta">
-              
+            
 <div class="sidebar-wrapper box-shadow-wrapper bg-color">
   <div class="sidebar-item">
     <img class="site-author-image right-motion" src="/images/avatar.png"/>
@@ -252,191 +251,6 @@ var _hmt = _hmt || [];
 
 
 </div>
-            </div>
-            <div class="post-toc sidebar-body-active" id="post_toc" style="opacity: 1;">
-              <div class="toc-box right-motion">
-  <div class="toc-wrapper auto-number auto" id="toc_wrapper">
-    <ul class="markdownIt-TOC">
-<li>
-<ul>
-<li><a href="#%E4%B8%AA%E4%BA%BA%E7%AE%80%E4%BB%8B">个人简介</a></li>
-<li><a href="#%E6%88%91%E7%9A%84%E5%90%84%E7%A7%8D%E5%85%AC%E9%92%A5">我的各种公钥：</a></li>
-</ul>
-</li>
-</ul>
-
-  </div>
-</div>
-
-<script>
-
-let lastTop = 0, lList = [], hList = [], postBody, lastIndex = -1; 
-let active = 'active-show', activeClass = 'active-current';
-let tocWrapper = document.querySelector('#toc_wrapper');
-let tocContent = tocWrapper.children[0];
-let autoNumber = tocWrapper&&tocWrapper.classList.contains('auto-number');
-
-function addTocNumber(elem, deep) {
-  if (!elem) {
-    return;
-  }
-  let prop = elem.__proto__;
-
-  if (prop === HTMLUListElement.prototype) {
-    for (let i = 0; i < elem.children.length; i++) {
-      addTocNumber(elem.children[i], deep + (i + 1) + '.');
-    }
-  } else if (prop === HTMLLIElement.prototype) {
-    // 保存li元素
-    if (elem.children[0].__proto__ === HTMLAnchorElement.prototype) {
-      lList.push(elem);
-    }
-    for (let i = 0; i < elem.children.length; i++) {
-      let cur = elem.children[i];
-      if (cur.__proto__ === HTMLAnchorElement.prototype) {
-        if (autoNumber) {
-          cur.text =  deep + ' ' + cur.text;
-        }
-      } else if (cur.__proto__ === HTMLUListElement.prototype) {
-        addTocNumber(cur, deep);
-      }
-    }
-  }
-}
-
-function removeParentActiveClass() {
-  let parents = tocContent.querySelectorAll('.'+active)
-  parents.forEach(function(elem) {
-    elem.classList.remove(active);
-  });
-}
-
-function addActiveClass(index) {
-  if (index >= 0 && index < hList.length) {
-    lList[index].classList.add(activeClass);
-  }
-}
-
-function removeActiveClass(index) {
-  if (index >= 0 && index < hList.length) {
-    lList[index].classList.remove(activeClass);
-  }
-}
-
-function addActiveLiElemment(elem, parent) {
-  if (!elem || elem === parent) {
-    return;
-  } else {
-    if (elem.__proto__ === HTMLLIElement.prototype) {
-      elem.classList.add(active);
-    }
-    addActiveLiElemment(elem.parentElement, parent);
-  }
-}
-
-function showToc() {
-  if (tocWrapper) {
-    postBody = document.querySelector('#post_body');
-    for (let i = 0; i < postBody.children.length; i++) {
-      if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
-        hList.push(postBody.children[i]);
-      }
-    }
-    if (tocWrapper.classList.contains('compress')) {
-        tocContent.classList.add('closed');
-    } else if (tocWrapper.classList.contains('no_compress')){
-      tocContent.classList.add('expanded');
-    } else {
-      if (hList.length > 10) {
-        active = 'active-hidden'
-        tocContent.classList.add('closed');
-      } else {
-        tocContent.classList.add('expanded');
-      }
-    }
-  }
-}
-
-(function() {
-  // 处理不是从#一级标题开始目录
-  if (tocContent.children.length === 1 && tocContent.children[0].__proto__ === HTMLLIElement.prototype) {
-    let con = tocContent.children[0].children[0];
-    tocContent.innerHTML = con.innerHTML;
-  }
-  addTocNumber(tocContent, '');
-})();
-
-document.addEventListener('scroll', function(e) {
-  if (lList.length <= 0) {
-    return;
-  }
-  let scrollTop = document.scrollingElement.scrollTop + 10;
-  let dir;
-
-  if (lastTop - scrollTop > 0) {
-    dir = 'up';
-  } else {
-    dir = 'down';
-  }
-
-  lastTop = scrollTop;
-  if (scrollTop <= 0) {
-    if (lastIndex >= 0 && lastIndex < hList.length) {
-      lList[lastIndex].classList.remove(activeClass);
-    }
-    return;
-  }
-
-  let current = 0, hasFind = false;
-  for (let i = 0; i < hList.length; i++) {
-    if (hList[i].offsetTop > scrollTop) {
-      current = i;
-      hasFind = true;
-      break;
-    }
-  }
-  if (!hasFind && scrollTop > lList[lList.length - 1].offsetTop) {
-    current = hList.length - 1;
-  } else {
-    current--;
-  }
-  if (dir === 'down') {
-    if (current > lastIndex) {
-      addActiveClass(current);
-      removeActiveClass(lastIndex) 
-      lastIndex = current;
-      removeParentActiveClass();
-      lList[current] && addActiveLiElemment(lList[current].parentElement,tocContent);
-    }
-  } else {
-    if (current < lastIndex) {
-      addActiveClass(current);
-      removeActiveClass(lastIndex);
-      lastIndex = current;
-      removeParentActiveClass();
-      lList[current] && addActiveLiElemment(lList[current].parentElement,tocContent);
-    }
-  }
-});
-
-window.addEventListener('load', function() {
-  showToc();
-  document.querySelector('#sidebar').style='display: block;';
-  tocWrapper.classList.add('toc-active');
-  setTimeout(function() {
-    if ("createEvent" in document) {
-      let evt = document.createEvent("HTMLEvents");
-      evt.initEvent("scroll", false, true);
-      document.dispatchEvent(evt);
-    }
-    else {
-      document.fireEvent("scroll");
-    }
-  }, 500)
-})
-
-</script>
-            </div>
           
         
       </div>
@@ -524,8 +338,8 @@ window.addEventListener('load', function() {
             <div class="section bg-color post post-page">
               <header class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://charlieyu4994.github.io/post/about/">
-      关于
+    <a class="post-title-link" href="https://charlieyu4994.github.io/post/progress-of-move-method-repairation/">
+      鼠标移动修复的进展
     </a>
   </h1>
   <div class="post-meta">
@@ -533,101 +347,45 @@ window.addEventListener('load', function() {
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span>发布于</span>
-      <span>2020-04-08</span>
+      <span>2020-04-14</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
+      <span class="meta-item">
+        <i class="fa fa-folder-o"></i>
+        <span class="pc-show">分类于</span>
+        
+          
+            <a href="https://charlieyu4994.github.io/tag/cD_Ttd7Gn/">
+              <span>MC</span>
+            </a>、
+          
+        
+          
+            <a href="https://charlieyu4994.github.io/tag/lO2WivmQt/">
+              <span>AFK</span>
+            </a>
+          
+        
+      </span>
+      <span class="post-meta-divider">|</span>
+    
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>2分钟</span>
+      <span>1分钟</span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>258<span class="pc-show">字数</span></span>
+      <span>67<span class="pc-show">字数</span></span>
     </span>
     
   </div>
 </header>
               <div class="post-body next-md-body" id="post_body">
-                <h2 id="个人简介">个人简介</h2>
-<p><img src="https://charlieyu4994.github.io/post-images/1586325888323.png" alt="" loading="lazy"><br>
-一个普普通通的高一学生狗，会一点Python和C++，是<a href="https://github.com/super-coffee">Super-Coffee</a><s>最烂的</s>的成员</p>
-<h2 id="我的各种公钥">我的各种公钥：</h2>
-<p>OpenPGP公钥：</p>
-<pre><code>-----BEGIN PGP PUBLIC KEY BLOCK-----
-Comment: 文件系统:	3072 位 RSA(绝密密钥可用)
-Comment: 指纹:	4F2197A8FA2FAA7505E5DF7E52F0DFC312A00D72
-
-
-mQGNBF5+7WgBDADfhX5/d8arX4O+Jh4LeZ4+w3GucLxzjKyGGqcCO5C07et3fwaR
-niUNpF8Gl+Mh0tT/LmvsBUmsWRoO6Us0Fct9R2v4a2X+3AdJvkNzx93ZXWFWVxNE
-MnvL22Ym3IJsgQQQJyunV+5PZce8HxozB3bVTNODTU2oC1GV8hYHJaM3NXK+dX9w
-oUaY6+9YiYow4tjKZh6PbmXSRVmBxdVCOG8Jv8UqNKo39vwVc6vBG5POZaz4wWqk
-YowOp22kPT6ddNqGbLjiV0gWwYoUgTWwcwrr7AgX+6hngO25TN692vSRv46D7r6q
-p9n8z+VJuN+YlU7Sk5OcXINFO0Kw4nUpJr1tKmIogd4XHGFfe/T7FbBv8pPpx+EZ
-0WQgNTelxl+w1m5tZ3FYkYnAWKzzWNIdsqUdeXDbohqKS2820yDCzdE6gVxBmA/v
-Vu4VLPOt4oV1fE+5z3Rehsoakjsuqkvjk0538it1Wk9eQm/OgUDSY6d+FbeRSfoY
-zJLVyM8JLktlDJcAEQEAAbQlQ2hhcmxpZVl1IDxjaGFybGlleXU0OTk0QG91dGxv
-b2suY29tPokBsAQTAQoAGgQLCQgHAhUKAhYBAhkABYJegBP4Ap4BApsjAAoJEFLw
-38MSoA1yqmoMAKspB+iRKbziMnKPHBnoOFcW27yMv/AZwTbVRG1VJtiFPAbIpydV
-+ba2RqT79f95zg/5IJFN1cE6r5LyQvPSyKi3mH6UXJ4mXbvoIoTGp0hcUoahaJWI
-1wjbtmkC15ocXodAUdIy3SrPd7GTIjnprHW+7QnvP4r5VbuMoOzUyaOYQminKAJp
-U0uYalYSAzKoEnNDgr/nVSbezy1LWdQzLZYskFz6efF4L74U2NLYTZmaXogeLUn1
-fvN2qoi+QhkG/jH3rVkn+iDUN7NIYf+mDbJPUw24wwXHIAnj9Hk/r5iloS6JKkSn
-5TVcPoD/Eyeh+0c8CcdvuSVhGUemjGUKEs8y/p6By8eVb9Rmk2vrDZsHWh2LC5Rb
-cDfYw0qWP4DB4S4Z08IGT/c/vrS6mQGei8fBEB9OWlDRE16Oi6a+eGVjRQ+3xeS6
-riMgY/IHvERzf4vUrbOvD1UqN5rIXefUFZeM2RZkLHt5vwgy9f7ZhY0HmoAvp8rP
-1cwMFxE6JAz9vbkBjQRefu1oAQwAwOwsnNhDVkhslse5klOLr47B0tPCofbzO+xL
-jWTnpAEnvu0FruQzxp/tGHFG/iDy7NOIFjLWXMFzm69rDOiILK6vMTtJFo/uJ0HV
-Pp6K1xkUtMSbBmV9NaVU6OnNe4GyCzkJUtYlV60+Tlua8LsWLh7w7J6+cOqRpuYS
-CFArTNTKKqgl4fORcbhtiM76pUAWziQ8/KNmoHesfmieQwvWvNwgmXXqV8Btvilf
-qzREHqE9qOpKfy+YapdDrFY88JwqP5K7T4yqU1GFveQWJZwAWcrdSMBtQRPwrb7D
-Mu7UHBigsh/FeFTWIhTYZ/galwsxoihQIOhqYibdZIcpzd8hZ5A1s1h9dQ7jHa+/
-XeIpZPilfG8VwuzqOIGdPvzt9xbVHT8xLG294KkfZ2UQbFNp+ThFtHFz2e92PjSl
-zOVgKgtuDF/WsDqBXiZqyB+YU0C+gq6I+r5WApMgKb538wMzY2/7Ceh7y0sQGHt3
-J/v0PbNO+x3RJRO4UJjEPL9c9YAdABEBAAGJAZ8EGAEKAAkFgl6AI8QCmwwACgkQ
-UvDfwxKgDXJ5CQv+LXdqxRXi9yGX7KtumRZXMu4i9KEqmAC4i1yt9l7Nt1rJgA9Y
-VZk3jBhypLL2lss1UiTOthy4Z0m6jA4uwD4AAVzp6ZaS2TOPknLcjB4MYn15ZdUY
-hfyIDy1IDH52WVAVynP/+A6xZDvin0cj70sN9DKUh970196aCgIrudpasO9rXUg6
-uxIPUa7EHElrtjy0NTYYRurNNs6qNBxgEQRtknkCbutakwZYA3IZ3givfKu0AgGT
-GK6yFDNk377/oL3ZR2KjOQjT5Son4swOKiz1oi8a50GUHRgtaVwly6PvH4YvTX54
-VRqba/bR+MzCoLr3WB6DYWj3MB+jCPKt/C1fGgwP/eJd22IWZMK05ndYGFhGflAH
-r9BSpsyKP7YAAeNGApjjuvxtgfDW2dPgpjnO/1ghrlQUbikBILL8W1pHnUhBQv7j
-pzprJ+XWitmeGxDfwGxfv1L7sH6zhi49YiSWA7O60b8BhHYeze0/wa0RdHUAmUab
-eAHLZzqoW0VTjWcTuFYEXn8dyRIIKoZIzj0DAQcCAwSWg3IYVyNW7eXwWhY3QyeZ
-RSg9zgwxm6rKDKh9osBm7/fBYfIDP3KWMhOlCTWoGX5wDcaHELygJduRLTVean44
-AwEIB4kBnwQYAQoACQWCXn8dyQKbDAAKCRBS8N/DEqANcuC7C/4hqQ/WDrWDcyr5
-iZb5i+GjjHPN2Sfdy6bswgY2IaTlwTcijg7sif/igvy4DBymr0holjPj8EquZLbt
-FoXpLHEsPkUxem3d+I9kW/PQATX6vVtWJk6vp4bnbZ+SoGRFcJtQqsvwv6w9Mmdi
-8q0hgFCbT1p9tE9ufCs7HjDu2tX6Y/Z46YBF903yKsl87bt3SN9QWWFTYgNffbjz
-wpbJPQ1tgbmIB03wMN3zOMhueKHFv3/tIpZxKgpJLIMht/z2FCCW75g0IKm0hxcx
-qeLK0fqcZKVeVjXBHlS71RQsTbtCw/CW8FOTBzI/BfElWZMK+LgQwF0XwIMkEApJ
-E5uJa3UmeU5sBYRUivBJJPxRWu2Nlea9nLS+59GBtRiDjGB4qptCByuEWe3K5Ne7
-0mgYpiwSdqxikz0Y1Ugn7005kAFdyNJhCmQW7vcDgP5SwuF19Uv7wXgkB86YVmRx
-YtLwD0nwzuVytaYz4TKYu+jZ+by4a1RGBRv0M684FK7e0RHCojqJAZ8EKAEKAAkC
-nQAFgl5/HewACgkQUvDfwxKgDXIxOgwA1nEoZwYZZZka255jEi1WZ45uKmwB6whh
-bJAHpomjdjnseb/ABjNkAf8L2ZJpsUaL6ipEbG1zYw8aKDh6+8r2B1uZbE7KhU5y
-M2J1IuvuGKu7txuRTDEyIu2GuP3GnHp3XLwDgYdcLjVRKRrFVBeZ5NuoEZ8z3TkI
-zjSBFG5s5IcTvlfNS/WqPvlkt7EyZij3Y0dnhxFatf7CXii2k1KVPKjvH41r9kXC
-7d6nrPfxx/B7Sv3ZOMNqr9CEfu9Sl3PhCvjA4LtyCtsQfl5iNnI58x91Gi2jsMFK
-7N/KQiuEjq5R5Jf8b/B+YTSTwMt7cVEo4ewlsbEIIzwksLQbQCuwcmNaBd/8Eq2h
-JdFzubR+PWUIVhhCCKjoK6QLbBALQ3nY7uFIwf3oGBani4CPs32cY5jwls+0hpkk
-ZrkizSlczea5FHbqTPfOh95/FZqpYX/dLvrL9itpeOYTDFD9dBEewdhG/Vn1/8yb
-+6ozctwD7PKbHPG7YjzcFTiKtUM3xTle
-=+7TX
------END PGP PUBLIC KEY BLOCK-----
-</code></pre>
-<p><a href="https://github.com/super-coffee/encrypted-coffee">Encrypted-Coffee</a>公钥：</p>
-<pre><code>-----BEGIN RSA PUBLIC KEY-----
-MIIBCgKCAQEAtuNyTQ49GSfqSrJdUL+LfutvneT92B4mLVsrzl68oZ7AQRehdPqx
-bW14om0FrWjeWzo0IKCHhPfik2hpuPE9R+h+YQAL+IPoKpn8Xta+U+TAJ18s02dm
-I3UhOIuiQB/SjrViXTsqsQUKj+AXrUUvCRlNSGTzLn09LVnsNJdez2pMZDdU4YAu
-bxED1tt4n2v/BxF+4UVcQ1pVR065BgQP+GPSzVJ91ud48tOMZ0cyzgBUmBK0ULBx
-gSWxph5/QhlzsBBhqZXE06kE61rihaIwQCL4+/l/ShJQO1MqTF4DM/Hq/d9Vmzq9
-AT1C1WaHQ3eqVvbatM/22Xhw4dmzOsmqvQIDAQAB
------END RSA PUBLIC KEY-----
-</code></pre>
+                <p>经过今天的努力，鼠标移动的外部程序终于完成了，功能正常，明天我将适配python代码。很快鼠标移动就要上线啦。╰(<em>°▽°</em>)╯</p>
+<!-- more -->
+<p><img src="https://charlieyu4994.github.io/post-images/1586875543981.png" alt="" loading="lazy">在今天的修改中删除了一些死代码，改进了代码逻辑。</p>
 
               </div>
               <div class="post-footer">
@@ -638,7 +396,7 @@ AT1C1WaHQ3eqVvbatM/22Xhw4dmzOsmqvQIDAQAB
     </li>
     <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://charlieyu4994.github.io/post/about/" title="关于">关于</a>
+      <a href="https://charlieyu4994.github.io/post/progress-of-move-method-repairation/" title="鼠标移动修复的进展">鼠标移动修复的进展</a>
     </li>
     <li class="post-copyright-license">
       <strong>版权声明： </strong>
@@ -647,12 +405,20 @@ AT1C1WaHQ3eqVvbatM/22Xhw4dmzOsmqvQIDAQAB
   </ul>
   <div class="tags">
     
+      <a href="https://charlieyu4994.github.io/tag/cD_Ttd7Gn/"># MC</a>
+    
+      <a href="https://charlieyu4994.github.io/tag/lO2WivmQt/"># AFK</a>
+    
   </div>
   <div class="nav">
     <div class="nav-prev">
       
     </div>
     <div class="nav-next">
+      
+        <a class="nav-pc-next" title="关于昨天的盗号网站" href="https://charlieyu4994.github.io/post/guan-yu-zuo-tian-de-dao-hao-wang-zhan/">关于昨天的盗号网站</a>
+        <a class="nav-mobile-next" title="关于昨天的盗号网站" href="https://charlieyu4994.github.io/post/guan-yu-zuo-tian-de-dao-hao-wang-zhan/">下一篇</a>
+        <i class="fa fa-chevron-right"></i>
       
     </div>
   </div>

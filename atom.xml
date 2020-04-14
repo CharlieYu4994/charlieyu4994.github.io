@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://charlieyu4994.github.io</id>
     <title>CharlieYu4994的个人博客</title>
-    <updated>2020-04-14T02:03:28.082Z</updated>
+    <updated>2020-04-14T14:54:20.047Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://charlieyu4994.github.io"/>
     <link rel="self" href="https://charlieyu4994.github.io/atom.xml"/>
@@ -10,6 +10,17 @@
     <logo>https://charlieyu4994.github.io/images/avatar.png</logo>
     <icon>https://charlieyu4994.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, CharlieYu4994的个人博客</rights>
+    <entry>
+        <title type="html"><![CDATA[鼠标移动修复的进展]]></title>
+        <id>https://charlieyu4994.github.io/post/progress-of-move-method-repairation/</id>
+        <link href="https://charlieyu4994.github.io/post/progress-of-move-method-repairation/">
+        </link>
+        <updated>2020-04-14T14:34:28.000Z</updated>
+        <summary type="html"><![CDATA[<p>经过今天的努力，鼠标移动的外部程序终于完成了，功能正常，明天我将适配python代码。很快鼠标移动就要上线啦。╰(<em>°▽°</em>)╯</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>经过今天的努力，鼠标移动的外部程序终于完成了，功能正常，明天我将适配python代码。很快鼠标移动就要上线啦。╰(<em>°▽°</em>)╯</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[关于昨天的盗号网站]]></title>
         <id>https://charlieyu4994.github.io/post/guan-yu-zuo-tian-de-dao-hao-wang-zhan/</id>
