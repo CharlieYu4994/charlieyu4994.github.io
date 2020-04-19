@@ -2104,7 +2104,7 @@ blockquote {
     .mist .site-title i {
       background: #FFFFFFe5;
     }.bg-img img {
-        filter: blur(5px)
+        filter: blur(2px)
       }.box-shadow-wrapper {
       padding: 10px;
     }.box-shadow-wrapper {
