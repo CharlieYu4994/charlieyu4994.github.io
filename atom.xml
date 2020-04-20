@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://charlieyu4994.github.io</id>
     <title>CharlieYu4994的个人博客</title>
-    <updated>2020-04-19T13:32:55.293Z</updated>
+    <updated>2020-04-20T12:33:40.637Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://charlieyu4994.github.io"/>
     <link rel="self" href="https://charlieyu4994.github.io/atom.xml"/>
@@ -10,6 +10,20 @@
     <logo>https://charlieyu4994.github.io/images/avatar.png</logo>
     <icon>https://charlieyu4994.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, CharlieYu4994的个人博客</rights>
+    <entry>
+        <title type="html"><![CDATA[Coffee Key Server计划]]></title>
+        <id>https://charlieyu4994.github.io/post/coffee-key-server/</id>
+        <link href="https://charlieyu4994.github.io/post/coffee-key-server/">
+        </link>
+        <updated>2020-04-20T12:29:44.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[关于鼠标移动的修复（2）]]></title>
+        <id>https://charlieyu4994.github.io/post/fix-the-move-methon-2/</id>
+        <link href="https://charlieyu4994.github.io/post/fix-the-move-methon-2/">
+        </link>
+        <updated>2020-04-20T12:26:41.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[劳动节礼物啦╰(*°▽°*)╯]]></title>
         <id>https://charlieyu4994.github.io/post/surprise/</id>
