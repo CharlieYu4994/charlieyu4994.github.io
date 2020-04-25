@@ -2194,7 +2194,7 @@ pre > span.copy-code:hover {
     }
     .mist .site-title i {
       background: #FFFFFFe5;
-    }.bg-img img {
+    }.custom:hover{color:pink}.bg-img img {
         filter: blur(2px)
       }.box-shadow-wrapper {
       box-shadow: none !important;
