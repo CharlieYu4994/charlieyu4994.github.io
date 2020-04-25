@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>http://localhost:4000</id>
+    <id>https://charlieyu4994.github.io</id>
     <title>CharlieYu4994的个人博客</title>
-    <updated>2020-04-25T05:52:23.114Z</updated>
+    <updated>2020-04-25T06:18:33.492Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="http://localhost:4000"/>
-    <link rel="self" href="http://localhost:4000/atom.xml"/>
+    <link rel="alternate" href="https://charlieyu4994.github.io"/>
+    <link rel="self" href="https://charlieyu4994.github.io/atom.xml"/>
     <subtitle>就只是博客而已</subtitle>
-    <logo>http://localhost:4000/images/avatar.png</logo>
-    <icon>http://localhost:4000/favicon.ico</icon>
+    <logo>https://charlieyu4994.github.io/images/avatar.png</logo>
+    <icon>https://charlieyu4994.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, CharlieYu4994的个人博客</rights>
     <entry>
         <title type="html"><![CDATA[关于py-Minecraft-AFK项目]]></title>
-        <id>http://localhost:4000/post/about-py-minecraft-afk/</id>
-        <link href="http://localhost:4000/post/about-py-minecraft-afk/">
+        <id>https://charlieyu4994.github.io/post/about-py-minecraft-afk/</id>
+        <link href="https://charlieyu4994.github.io/post/about-py-minecraft-afk/">
         </link>
         <updated>2020-04-24T07:41:46.000Z</updated>
         <summary type="html"><![CDATA[<p>经过长时间的发展，AFK项目已经实现了预想的大部分功能了，接下来就是加入多线程实现动作并发了。</p>
@@ -23,29 +23,29 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[Coffee Key Server计划]]></title>
-        <id>http://localhost:4000/post/coffee-key-server/</id>
-        <link href="http://localhost:4000/post/coffee-key-server/">
+        <id>https://charlieyu4994.github.io/post/coffee-key-server/</id>
+        <link href="https://charlieyu4994.github.io/post/coffee-key-server/">
         </link>
         <updated>2020-04-20T12:29:44.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[关于鼠标移动的修复（2）]]></title>
-        <id>http://localhost:4000/post/fix-the-move-methon-2/</id>
-        <link href="http://localhost:4000/post/fix-the-move-methon-2/">
+        <id>https://charlieyu4994.github.io/post/fix-the-move-methon-2/</id>
+        <link href="https://charlieyu4994.github.io/post/fix-the-move-methon-2/">
         </link>
         <updated>2020-04-20T12:26:41.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[劳动节礼物啦╰(*°▽°*)╯]]></title>
-        <id>http://localhost:4000/post/surprise/</id>
-        <link href="http://localhost:4000/post/surprise/">
+        <id>https://charlieyu4994.github.io/post/surprise/</id>
+        <link href="https://charlieyu4994.github.io/post/surprise/">
         </link>
         <updated>2020-04-14T14:57:40.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[鼠标移动修复的进展]]></title>
-        <id>http://localhost:4000/post/progress-of-move-method-repairation/</id>
-        <link href="http://localhost:4000/post/progress-of-move-method-repairation/">
+        <id>https://charlieyu4994.github.io/post/progress-of-move-method-repairation/</id>
+        <link href="https://charlieyu4994.github.io/post/progress-of-move-method-repairation/">
         </link>
         <updated>2020-04-14T14:34:28.000Z</updated>
         <summary type="html"><![CDATA[<p>经过今天的努力，鼠标移动的外部程序终于完成了，功能正常，明天我将适配python代码。很快鼠标移动就要上线啦。╰(<em>°▽°</em>)╯</p>
@@ -55,8 +55,8 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[关于昨天的盗号网站]]></title>
-        <id>http://localhost:4000/post/guan-yu-zuo-tian-de-dao-hao-wang-zhan/</id>
-        <link href="http://localhost:4000/post/guan-yu-zuo-tian-de-dao-hao-wang-zhan/">
+        <id>https://charlieyu4994.github.io/post/guan-yu-zuo-tian-de-dao-hao-wang-zhan/</id>
+        <link href="https://charlieyu4994.github.io/post/guan-yu-zuo-tian-de-dao-hao-wang-zhan/">
         </link>
         <updated>2020-04-13T04:20:35.000Z</updated>
         <summary type="html"><![CDATA[<p>显然他很顽强，直到现在还没死，有兴趣的小伙伴可以下载这个<a href="https://github.com/CharlieYu4994/CC-Tools/releases/download/0.1beta/CC.exe">小工具</a>恶心他。</p>
@@ -66,15 +66,15 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[关于盗号网站]]></title>
-        <id>http://localhost:4000/post/guan-yu-dao-hao-wang-zhan/</id>
-        <link href="http://localhost:4000/post/guan-yu-dao-hao-wang-zhan/">
+        <id>https://charlieyu4994.github.io/post/guan-yu-dao-hao-wang-zhan/</id>
+        <link href="https://charlieyu4994.github.io/post/guan-yu-dao-hao-wang-zhan/">
         </link>
         <updated>2020-04-12T13:08:52.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[关于GitPage的自定义域名]]></title>
-        <id>http://localhost:4000/post/gitpage-domain/</id>
-        <link href="http://localhost:4000/post/gitpage-domain/">
+        <id>https://charlieyu4994.github.io/post/gitpage-domain/</id>
+        <link href="https://charlieyu4994.github.io/post/gitpage-domain/">
         </link>
         <updated>2020-04-11T05:31:36.000Z</updated>
         <summary type="html"><![CDATA[<p>本站有自定义域名啦ヾ(<em>´▽‘</em>)ﾉ<br>
@@ -86,15 +86,15 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[前端QwQ]]></title>
-        <id>http://localhost:4000/post/qian-duan-qwq/</id>
-        <link href="http://localhost:4000/post/qian-duan-qwq/">
+        <id>https://charlieyu4994.github.io/post/qian-duan-qwq/</id>
+        <link href="https://charlieyu4994.github.io/post/qian-duan-qwq/">
         </link>
         <updated>2020-04-10T06:01:46.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[关于鼠标移动的修复]]></title>
-        <id>http://localhost:4000/post/fix-the-move-methon/</id>
-        <link href="http://localhost:4000/post/fix-the-move-methon/">
+        <id>https://charlieyu4994.github.io/post/fix-the-move-methon/</id>
+        <link href="https://charlieyu4994.github.io/post/fix-the-move-methon/">
         </link>
         <updated>2020-04-09T06:50:50.000Z</updated>
     </entry>
