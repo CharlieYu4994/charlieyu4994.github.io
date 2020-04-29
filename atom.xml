@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.charlieyu4994.cn</id>
-    <title>CharlieYu4994的个人博客</title>
-    <updated>2020-04-29T03:40:07.714Z</updated>
+    <title>CharlieYu4994的博客</title>
+    <updated>2020-04-29T09:02:21.043Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.charlieyu4994.cn"/>
     <link rel="self" href="https://blog.charlieyu4994.cn/atom.xml"/>
     <subtitle>就只是博客而已</subtitle>
     <logo>https://blog.charlieyu4994.cn/images/avatar.png</logo>
     <icon>https://blog.charlieyu4994.cn/favicon.ico</icon>
-    <rights>All rights reserved 2020, CharlieYu4994的个人博客</rights>
+    <rights>All rights reserved 2020, CharlieYu4994的博客</rights>
     <entry>
         <title type="html"><![CDATA[关于py-Minecraft-AFK项目]]></title>
         <id>https://blog.charlieyu4994.cn/post/about-py-minecraft-afk/</id>
