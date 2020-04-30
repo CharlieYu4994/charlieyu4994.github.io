@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.charlieyu4994.cn</id>
     <title>CharlieYu4994的博客</title>
-    <updated>2020-04-30T04:54:46.662Z</updated>
+    <updated>2020-04-30T15:16:59.769Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.charlieyu4994.cn"/>
     <link rel="self" href="https://blog.charlieyu4994.cn/atom.xml"/>
@@ -10,6 +10,17 @@
     <logo>https://blog.charlieyu4994.cn/images/avatar.png</logo>
     <icon>https://blog.charlieyu4994.cn/favicon.ico</icon>
     <rights>All rights reserved 2020, CharlieYu4994的博客</rights>
+    <entry>
+        <title type="html"><![CDATA[关于EncryptedCoffee#00]]></title>
+        <id>https://blog.charlieyu4994.cn/post/encryptedcoffee/</id>
+        <link href="https://blog.charlieyu4994.cn/post/encryptedcoffee/">
+        </link>
+        <updated>2020-04-30T14:24:48.000Z</updated>
+        <summary type="html"><![CDATA[<p>我们的<a href="https://github.com/super-coffee/encrypted-coffee">EncryptedCoffee</a>更新啦！</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>我们的<a href="https://github.com/super-coffee/encrypted-coffee">EncryptedCoffee</a>更新啦！</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[关于py-Minecraft-AFK项目]]></title>
         <id>https://blog.charlieyu4994.cn/post/about-py-minecraft-afk/</id>
@@ -90,12 +101,5 @@
         <link href="https://blog.charlieyu4994.cn/post/qian-duan-qwq/">
         </link>
         <updated>2020-04-10T06:01:46.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[关于鼠标移动的修复]]></title>
-        <id>https://blog.charlieyu4994.cn/post/fix-the-move-methon/</id>
-        <link href="https://blog.charlieyu4994.cn/post/fix-the-move-methon/">
-        </link>
-        <updated>2020-04-09T06:50:50.000Z</updated>
     </entry>
 </feed>
