@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.charlieyu4994.cn</id>
     <title>CharlieYu4994的博客</title>
-    <updated>2020-04-30T15:16:59.769Z</updated>
+    <updated>2020-05-01T07:48:21.994Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.charlieyu4994.cn"/>
     <link rel="self" href="https://blog.charlieyu4994.cn/atom.xml"/>
@@ -10,6 +10,17 @@
     <logo>https://blog.charlieyu4994.cn/images/avatar.png</logo>
     <icon>https://blog.charlieyu4994.cn/favicon.ico</icon>
     <rights>All rights reserved 2020, CharlieYu4994的博客</rights>
+    <entry>
+        <title type="html"><![CDATA[关于EncryptedCoffee#01]]></title>
+        <id>https://blog.charlieyu4994.cn/post/encryptedcoffee01/</id>
+        <link href="https://blog.charlieyu4994.cn/post/encryptedcoffee01/">
+        </link>
+        <updated>2020-05-01T07:42:10.000Z</updated>
+        <summary type="html"><![CDATA[<p>没想到这一天来得这么快，现在EcryptedCoffee已经有修改密码的功能了，开心ヾ(≧▽≦*)o</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>没想到这一天来得这么快，现在EcryptedCoffee已经有修改密码的功能了，开心ヾ(≧▽≦*)o</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[关于EncryptedCoffee#00]]></title>
         <id>https://blog.charlieyu4994.cn/post/encryptedcoffee/</id>
@@ -94,12 +105,5 @@
         <content type="html"><![CDATA[<p>本站有自定义域名啦ヾ(<em>´▽‘</em>)ﾉ<br>
 但是我在设置域名时踩了一些坑， <s>（其实是我太菜了）</s> 所有在此和大家分享一下自定义域名的过程</p>
 ]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[前端QwQ]]></title>
-        <id>https://blog.charlieyu4994.cn/post/qian-duan-qwq/</id>
-        <link href="https://blog.charlieyu4994.cn/post/qian-duan-qwq/">
-        </link>
-        <updated>2020-04-10T06:01:46.000Z</updated>
     </entry>
 </feed>
