@@ -8,7 +8,7 @@
 <meta name="keywords" content="CharlieYu的个人博客">
 <meta name="description" content="就只是博客而已">
 <meta name="theme-color" content="#343a40">
-<title>Coffee Key Server计划 | CharlieYu4994的博客</title>
+<title>关于 JWT | CharlieYu4994的博客</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1588680359681">
 <link rel="stylesheet" href="/styles/main.css">
 <link rel="stylesheet" href="/media/css/pisces.css">
@@ -39,8 +39,8 @@
 </script>
 
 
-  <meta name="description" content="Coffee Key Server计划" />
-  <meta name="keywords" content="CKS" />
+  <meta name="description" content="关于 JWT" />
+  <meta name="keywords" content="" />
 </head>
 
 <body>
@@ -192,7 +192,8 @@
       <div class="sidebar-body pisces" id="sidebar_body">
         
           
-            
+            <div class="post-side-meta" id="post_side_meta">
+              
 <div class="sidebar-wrapper box-shadow-wrapper bg-color">
   <div class="sidebar-item">
     <img class="site-author-image right-motion" src="/images/avatar.png"/>
@@ -263,6 +264,192 @@
 
 
 </div>
+            </div>
+            <div class="post-toc sidebar-body-active" id="post_toc" style="opacity: 1;">
+              <div class="toc-box right-motion">
+  <div class="toc-wrapper auto-number auto"
+    id="toc_wrapper">
+    <ul class="markdownIt-TOC">
+<li><a href="#%E7%BB%93%E6%9E%84%E5%92%8C%E5%AE%9E%E7%8E%B0">结构和实现</a></li>
+<li><a href="#%E5%85%B3%E4%BA%8E%E9%9A%90%E6%82%A3">关于隐患</a></li>
+</ul>
+
+  </div>
+</div>
+
+<script>
+
+  let lastTop = 0, lList = [], hList = [], postBody, lastIndex = -1;
+  let active = 'active-show', activeClass = 'active-current';
+  let tocWrapper = document.querySelector('#toc_wrapper');
+  let tocContent = tocWrapper.children[0];
+  let autoNumber = tocWrapper && tocWrapper.classList.contains('auto-number');
+
+  function addTocNumber(elem, deep) {
+    if (!elem) {
+      return;
+    }
+    let prop = elem.__proto__;
+
+    if (prop === HTMLUListElement.prototype) {
+      for (let i = 0; i < elem.children.length; i++) {
+        addTocNumber(elem.children[i], deep + (i + 1) + '.');
+      }
+    } else if (prop === HTMLLIElement.prototype) {
+      // 保存li元素
+      if (elem.children[0].__proto__ === HTMLAnchorElement.prototype) {
+        lList.push(elem);
+      }
+      for (let i = 0; i < elem.children.length; i++) {
+        let cur = elem.children[i];
+        if (cur.__proto__ === HTMLAnchorElement.prototype) {
+          if (autoNumber) {
+            cur.text = deep + ' ' + cur.text;
+          }
+        } else if (cur.__proto__ === HTMLUListElement.prototype) {
+          addTocNumber(cur, deep);
+        }
+      }
+    }
+  }
+
+  function removeParentActiveClass() {
+    let parents = tocContent.querySelectorAll('.' + active)
+    parents.forEach(function (elem) {
+      elem.classList.remove(active);
+    });
+  }
+
+  function addActiveClass(index) {
+    if (index >= 0 && index < hList.length) {
+      lList[index].classList.add(activeClass);
+    }
+  }
+
+  function removeActiveClass(index) {
+    if (index >= 0 && index < hList.length) {
+      lList[index].classList.remove(activeClass);
+    }
+  }
+
+  function addActiveLiElemment(elem, parent) {
+    if (!elem || elem === parent) {
+      return;
+    } else {
+      if (elem.__proto__ === HTMLLIElement.prototype) {
+        elem.classList.add(active);
+      }
+      addActiveLiElemment(elem.parentElement, parent);
+    }
+  }
+
+  function showToc() {
+    if (tocWrapper) {
+      postBody = document.querySelector('#post_body');
+      for (let i = 0; i < postBody.children.length; i++) {
+        if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
+          hList.push(postBody.children[i]);
+        }
+      }
+      if (tocWrapper.classList.contains('compress')) {
+        tocContent.classList.add('closed');
+      } else if (tocWrapper.classList.contains('no_compress')) {
+        tocContent.classList.add('expanded');
+      } else {
+        if (hList.length > 10) {
+          active = 'active-hidden'
+          tocContent.classList.add('closed');
+        } else {
+          tocContent.classList.add('expanded');
+        }
+      }
+    }
+  }
+
+  (function () {
+    // 处理不是从#一级标题开始目录
+    if (tocContent.children.length === 1 && tocContent.children[0].__proto__ === HTMLLIElement.prototype) {
+      let con = tocContent.children[0].children[0];
+      tocContent.innerHTML = con.innerHTML;
+    }
+    let markdownItTOC = document.querySelector('.markdownIt-TOC');
+    let innerHeight = window.innerHeight;
+    markdownItTOC.style = `max-height: ${innerHeight - 80 > 0 ? innerHeight - 80 : innerHeight}px`
+    addTocNumber(tocContent, '');
+  })();
+
+  document.addEventListener('scroll', function (e) {
+    if (lList.length <= 0) {
+      return;
+    }
+    let scrollTop = document.scrollingElement.scrollTop + 10;
+    let dir;
+
+    if (lastTop - scrollTop > 0) {
+      dir = 'up';
+    } else {
+      dir = 'down';
+    }
+
+    lastTop = scrollTop;
+    if (scrollTop <= 0) {
+      if (lastIndex >= 0 && lastIndex < hList.length) {
+        lList[lastIndex].classList.remove(activeClass);
+      }
+      return;
+    }
+
+    let current = 0, hasFind = false;
+    for (let i = 0; i < hList.length; i++) {
+      if (hList[i].offsetTop > scrollTop) {
+        current = i;
+        hasFind = true;
+        break;
+      }
+    }
+    if (!hasFind && scrollTop > lList[lList.length - 1].offsetTop) {
+      current = hList.length - 1;
+    } else {
+      current--;
+    }
+    if (dir === 'down') {
+      if (current > lastIndex) {
+        addActiveClass(current);
+        removeActiveClass(lastIndex)
+        lastIndex = current;
+        removeParentActiveClass();
+        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
+      }
+    } else {
+      if (current < lastIndex) {
+        addActiveClass(current);
+        removeActiveClass(lastIndex);
+        lastIndex = current;
+        removeParentActiveClass();
+        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
+      }
+    }
+  });
+
+
+  window.addEventListener('load', function () {
+    showToc();
+    document.querySelector('#sidebar').style = 'display: block;';
+    tocWrapper.classList.add('toc-active');
+    setTimeout(function () {
+      if ("createEvent" in document) {
+        let evt = document.createEvent("HTMLEvents");
+        evt.initEvent("scroll", false, true);
+        document.dispatchEvent(evt);
+      }
+      else {
+        document.fireEvent("scroll");
+      }
+    }, 500)
+  })
+
+</script>
+            </div>
           
         
       </div>
@@ -350,8 +537,8 @@
           <div class="section bg-color post post-page">
             <header class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://blog.charlieyu4994.cn/post/coffee-key-server/">
-      Coffee Key Server计划
+    <a class="post-title-link" href="https://blog.charlieyu4994.cn/post/jwt-00/">
+      关于 JWT
     </a>
   </h1>
   <div class="post-meta">
@@ -359,37 +546,61 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span>发布于</span>
-      <span>2020-04-20</span>
+      <span>2020-05-05</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
     <span class="meta-item">
-      <i class="fa fa-folder-o"></i>
-      <span class="pc-show">分类于</span>
-      
-      
-      <a href="https://blog.charlieyu4994.cn/tag/VjSoAqTIL/">
-        <span>CKS</span>
-      </a>
-      
-      
-    </span>
-    <span class="post-meta-divider">|</span>
-    
-    <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>1分钟</span>
+      <span>3分钟</span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>26<span class="pc-show">字数</span></span>
+      <span>704<span class="pc-show">字数</span></span>
     </span>
     
   </div>
 </header>
             <div class="post-body next-md-body" id="post_body">
-              <p>Coffee Key Server已经初具规模了，估计可以在开学前完成。Xiao_Jin姐姐好厉害！</p>
+              <p>关于 JWT 网上有很多介绍，这里就不多做介绍了，简而言之 JWT 就是一个身份证，证明你是你。</p>
+<!-- more -->
+<h1 id="结构和实现">结构和实现</h1>
+<pre><code>e2FsZyI6ICJIUzI1NiIsInR5cCI6ICJKV1QifQ.
+eyJzdWIiOiAidXNlciB0b2tlbiIsICJpc3MiOiAiIiwgImF1ZCI6ICIxMTExIiwgInV1aWQiOi
+AiMTExMSIsICJpYXQiOiAxNTg4Njc3NTA1Mjc3LCAiZXhwIjogMTU4ODY3NzUwNjI3N30.
+zZrdD_mVLIEHtUubrd25SvGiFd-nD2sutam7Apzq0ZA
+</code></pre>
+<p>以上就是一个简单的 JWT。<br>
+很容易就可以看出来，JWT 由三个部分组成，这三个部分由「 . 」分隔开。</p>
+<ul>
+<li>第一个部分：第一个部分是 JWT 的 head（头部），包含加密方式和类型（类型始终为 JWT）。头是一个 JSON，就像下面列举的这样。然后对这个 JSON 字符串进行 Base64 编码就得到了我们的头部，当然由于我们可能要在网页中使用它，所以我们不能单纯地使用 Base64 而是要使用 Base64 的变种 Base64URL。（由于加密方式是写在 head 中的，而它又基本上是明文，这就导致了一个问题，在下文会讲到）<pre><code class="language-JSON">{
+    &quot;alg&quot;: &quot;HS256&quot;,
+    &quot;typ&quot;: &quot;JWT&quot;
+}
+</code></pre>
+</li>
+<li>第二个部分：第二个部分是 JWT 的payload（载荷）也就承载你的数据的地方，它也是一个 JSON，就像下面列举的这样，不必理解我写了什么内容，我们只需要知道把这个 JSON 字符串做和头部一样的操作就可以得到 JWT 的 payload 了。至于细节部分网上有很多教程。（同理 payload 也基本上是明文，所以不能存放任何敏感信息）<pre><code class="language-JSON">{
+    &quot;sub&quot;: &quot;user token&quot;,
+    &quot;iss&quot;: server,
+    &quot;aud&quot;: u_username,
+    &quot;uuid&quot;: u_uuid,
+    &quot;iat&quot;: u_time,
+    &quot;exp&quot;: u_time + exp * 1000
+}
+</code></pre>
+</li>
+<li>第三个部分：第三个部分是 JWT 的灵魂所在，他是 JWT 的 sig（签名），说是签名，我更愿意称它为检验信息，它可以保证 JWT 的内容不被修改。sig 的生成很简单我这里只列举 HS256 的实现，也就是 HMACSHA256，第一步，把我们的 head 和 payload 用「 . 」连接起来然后使用 SHA256 算法对其摘要，然后用 HMAC 算法对其加密，最后用 Base64URL 对其编码，就得到了我们的 sig，当然你也可以用其他的算法进行摘要和加密。（注：key、msg 都是 bytes 类型）<pre><code class="language-Python">      msg = f'{head}.{payload}'.encode()
+      sig = base64.b64encode(hmac.new(key, msg, digestmod=sha256).digest())
+</code></pre>
+</li>
+</ul>
+<h1 id="关于隐患">关于隐患</h1>
+<ol>
+<li>JWT 不会对信息做任何加密，所有信息都是可以轻松查看的。</li>
+<li>如果你的项目中使用了非对称加密，那么 JWT 的头很有可能成为重大的漏洞，攻击者可能会在头中声明加密方式是 HS256，但你使用的是 RS256，你的程序会尝试使用你的 RSA 公钥去解密签名，而公钥是大家都知道的，由此攻击者就可以自己签发 JWT，以任何身份登录。</li>
+</ol>
+<p>我能想到的只有这些了，大家可以在评论区补充</p>
 
             </div>
             <div class="post-footer">
@@ -400,7 +611,7 @@
     </li>
     <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://blog.charlieyu4994.cn/post/coffee-key-server/" title="Coffee Key Server计划">https://blog.charlieyu4994.cn/post/coffee-key-server/</a>
+      <a href="https://blog.charlieyu4994.cn/post/jwt-00/" title="关于 JWT">https://blog.charlieyu4994.cn/post/jwt-00/</a>
     </li>
     <li class="post-copyright-license">
       <strong>版权声明： </strong>
@@ -409,21 +620,15 @@
   </ul>
   <div class="tags">
     
-      <a href="https://blog.charlieyu4994.cn/tag/VjSoAqTIL/"># CKS</a>
-    
   </div>
   <div class="nav">
     <div class="nav-prev">
       
-        <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="关于py-Minecraft-AFK项目" href="https://blog.charlieyu4994.cn/post/about-py-minecraft-afk/">关于py-Minecraft-AFK项目</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="关于py-Minecraft-AFK项目" href="https://blog.charlieyu4994.cn/post/about-py-minecraft-afk/">上一篇</a>
-      
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" title="关于鼠标移动的修复（2）" href="https://blog.charlieyu4994.cn/post/fix-the-move-methon-2/">关于鼠标移动的修复（2）</a>
-        <a class="nav-mobile-next" title="关于鼠标移动的修复（2）" href="https://blog.charlieyu4994.cn/post/fix-the-move-methon-2/">下一篇</a>
+        <a class="nav-pc-next" title="关于 EncryptedCoffee #01" href="https://blog.charlieyu4994.cn/post/encryptedcoffee01/">关于 EncryptedCoffee #01</a>
+        <a class="nav-mobile-next" title="关于 EncryptedCoffee #01" href="https://blog.charlieyu4994.cn/post/encryptedcoffee01/">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>
