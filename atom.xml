@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.charlieyu4994.cn</id>
     <title>CharlieYu4994的博客</title>
-    <updated>2020-06-06T14:31:16.732Z</updated>
+    <updated>2020-06-21T07:30:55.845Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.charlieyu4994.cn"/>
     <link rel="self" href="https://blog.charlieyu4994.cn/atom.xml"/>
@@ -10,6 +10,17 @@
     <logo>https://blog.charlieyu4994.cn/images/avatar.png</logo>
     <icon>https://blog.charlieyu4994.cn/favicon.ico</icon>
     <rights>All rights reserved 2020, CharlieYu4994的博客</rights>
+    <entry>
+        <title type="html"><![CDATA[关于机械键盘的瞎整活]]></title>
+        <id>https://blog.charlieyu4994.cn/post/KBD-00/</id>
+        <link href="https://blog.charlieyu4994.cn/post/KBD-00/">
+        </link>
+        <updated>2020-06-21T07:20:13.000Z</updated>
+        <summary type="html"><![CDATA[<p>出于不知名的原因，我想要完全客制化一块机械键盘，这就是这篇博客的来源了。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>出于不知名的原因，我想要完全客制化一块机械键盘，这就是这篇博客的来源了。</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[宣传第一弹]]></title>
         <id>https://blog.charlieyu4994.cn/post/spread00/</id>
@@ -88,16 +99,5 @@
         <link href="https://blog.charlieyu4994.cn/post/surprise/">
         </link>
         <updated>2020-04-14T14:57:40.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[鼠标移动修复的进展]]></title>
-        <id>https://blog.charlieyu4994.cn/post/progress-of-move-method-repairation/</id>
-        <link href="https://blog.charlieyu4994.cn/post/progress-of-move-method-repairation/">
-        </link>
-        <updated>2020-04-14T14:34:28.000Z</updated>
-        <summary type="html"><![CDATA[<p>经过今天的努力，鼠标移动的外部程序终于完成了，功能正常，明天我将适配python代码。很快鼠标移动就要上线啦。╰(<em>°▽°</em>)╯</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>经过今天的努力，鼠标移动的外部程序终于完成了，功能正常，明天我将适配python代码。很快鼠标移动就要上线啦。╰(<em>°▽°</em>)╯</p>
-]]></content>
     </entry>
 </feed>
