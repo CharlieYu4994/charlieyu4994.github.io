@@ -175,6 +175,9 @@ blockquote {
   width: 0;
   transition: width 1000ms ease-in-out 0s;
 }
+.post-body {
+  overflow: hidden;
+}
 .post-body img {
   cursor: zoom-in;
 }
@@ -193,6 +196,10 @@ pre > span.copy-code {
 }
 pre > span.copy-code:hover {
   color: #FFF;
+}
+.nav-item .fa {
+  width: 16px;
+  text-align: center;
 }
 .head-top-line {
   height: 3px;
@@ -361,7 +368,7 @@ pre > span.copy-code:hover {
 .footer a {
   color: #555;
   text-decoration: none;
-  /* border-bottom: 1px solid #999;*/
+  border-bottom: 1px solid #999;
   word-wrap: break-word;
 }
 .poweredby div {
@@ -1734,7 +1741,6 @@ pre > span.copy-code:hover {
   font-size: 85%;
   margin: 0;
   padding: 0.2em 0.4em;
-  color: #A10;
 }
 .next-md-body pre {
   word-wrap: normal;
@@ -2189,8 +2195,8 @@ pre > span.copy-code:hover {
     .brand {
       background: #343a40e5;
     }
-    .main-title {
-      color: #FFF;
+    .main-title, .brand {
+      color: #FFF !important;
     }
     .mist .site-title i {
       background: #FFFFFFe5;
