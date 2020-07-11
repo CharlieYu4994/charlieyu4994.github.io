@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.charlieyu4994.cn</id>
     <title>CharlieYu4994的博客</title>
-    <updated>2020-07-11T02:58:23.756Z</updated>
+    <updated>2020-07-11T13:07:17.071Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.charlieyu4994.cn"/>
     <link rel="self" href="https://blog.charlieyu4994.cn/atom.xml"/>
@@ -10,6 +10,13 @@
     <logo>https://blog.charlieyu4994.cn/images/avatar.png</logo>
     <icon>https://blog.charlieyu4994.cn/favicon.ico</icon>
     <rights>All rights reserved 2020, CharlieYu4994的博客</rights>
+    <entry>
+        <title type="html"><![CDATA[合格考全部拿下]]></title>
+        <id>https://blog.charlieyu4994.cn/post/pass/</id>
+        <link href="https://blog.charlieyu4994.cn/post/pass/">
+        </link>
+        <updated>2020-07-11T13:05:16.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[关于机械键盘的瞎整活]]></title>
         <id>https://blog.charlieyu4994.cn/post/KBD-00/</id>
@@ -92,12 +99,5 @@
         <link href="https://blog.charlieyu4994.cn/post/fix-the-move-methon-2/">
         </link>
         <updated>2020-04-20T12:26:41.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[劳动节礼物啦╰(*°▽°*)╯]]></title>
-        <id>https://blog.charlieyu4994.cn/post/surprise/</id>
-        <link href="https://blog.charlieyu4994.cn/post/surprise/">
-        </link>
-        <updated>2020-04-14T14:57:40.000Z</updated>
     </entry>
 </feed>
