@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.charlieyu4994.cn</id>
     <title>CharlieYu4994的博客</title>
-    <updated>2020-07-11T13:07:17.071Z</updated>
+    <updated>2020-07-21T02:52:26.598Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.charlieyu4994.cn"/>
     <link rel="self" href="https://blog.charlieyu4994.cn/atom.xml"/>
@@ -10,6 +10,17 @@
     <logo>https://blog.charlieyu4994.cn/images/avatar.png</logo>
     <icon>https://blog.charlieyu4994.cn/favicon.ico</icon>
     <rights>All rights reserved 2020, CharlieYu4994的博客</rights>
+    <entry>
+        <title type="html"><![CDATA[关于 EncryptedCoffee #02]]></title>
+        <id>https://blog.charlieyu4994.cn/post/encryptedcoffee02/</id>
+        <link href="https://blog.charlieyu4994.cn/post/encryptedcoffee02/">
+        </link>
+        <updated>2020-07-21T02:24:08.000Z</updated>
+        <summary type="html"><![CDATA[<p>关于封面这个程序，它是 EncryptedCoffee 项目的一个带 GUI 的升级版本，我将其命名为 RSA&amp;AES Encryption。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>关于封面这个程序，它是 EncryptedCoffee 项目的一个带 GUI 的升级版本，我将其命名为 RSA&amp;AES Encryption。</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[合格考全部拿下]]></title>
         <id>https://blog.charlieyu4994.cn/post/pass/</id>
@@ -92,12 +103,5 @@
         <link href="https://blog.charlieyu4994.cn/post/coffee-key-server/">
         </link>
         <updated>2020-04-20T12:29:44.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[关于鼠标移动的修复（2）]]></title>
-        <id>https://blog.charlieyu4994.cn/post/fix-the-move-methon-2/</id>
-        <link href="https://blog.charlieyu4994.cn/post/fix-the-move-methon-2/">
-        </link>
-        <updated>2020-04-20T12:26:41.000Z</updated>
     </entry>
 </feed>

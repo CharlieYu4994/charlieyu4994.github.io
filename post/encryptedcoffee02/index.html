@@ -8,7 +8,7 @@
 <meta name="keywords" content="CharlieYu的个人博客">
 <meta name="description" content="就只是博客而已">
 <meta name="theme-color" content="#343a40">
-<title>关于py-Minecraft-AFK项目 | CharlieYu4994的博客</title>
+<title>关于 EncryptedCoffee #02 | CharlieYu4994的博客</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1595299928555">
 <link rel="stylesheet" href="/styles/main.css">
 <link rel="stylesheet" href="/media/css/pisces.css">
@@ -39,8 +39,8 @@
 </script>
 
 
-  <meta name="description" content="关于py-Minecraft-AFK项目" />
-  <meta name="keywords" content="AFK" />
+  <meta name="description" content="关于 EncryptedCoffee #02" />
+  <meta name="keywords" content="Learn,CKS" />
 </head>
 
 <body>
@@ -272,10 +272,10 @@
     <ul class="markdownIt-TOC">
 <li>
 <ul>
-<li><a href="#%E7%A8%8B%E5%BA%8F%E7%9A%84%E9%83%A8%E5%88%86%E8%AF%B4%E6%98%8E"><strong>程序的部分说明</strong></a></li>
+<li><a href="#%E5%85%B3%E4%BA%8E%E8%BF%99%E4%B8%AA%E9%A1%B9%E7%9B%AE%E8%BE%83-encryptedcoffee-%E7%9A%84%E5%8F%98%E5%8C%96"><strong>关于这个项目较 EncryptedCoffee 的变化</strong></a></li>
+<li><a href="#%E6%9C%80%E5%90%8E"><strong>最后</strong></a></li>
 </ul>
 </li>
-<li><a href="#%E5%BF%AB%E8%A6%81%E5%BC%80%E5%AD%A6%E4%BA%86">快要开学了</a></li>
 </ul>
 
   </div>
@@ -541,8 +541,8 @@
           <div class="section bg-color post post-page">
             <header class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://blog.charlieyu4994.cn/post/about-py-minecraft-afk/">
-      关于py-Minecraft-AFK项目
+    <a class="post-title-link" href="https://blog.charlieyu4994.cn/post/encryptedcoffee02/">
+      关于 EncryptedCoffee #02
     </a>
   </h1>
   <div class="post-meta">
@@ -550,7 +550,7 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span>发布于</span>
-      <span>2020-04-24</span>
+      <span>2020-07-21</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
@@ -559,8 +559,14 @@
       <span class="pc-show">分类于</span>
       
       
-      <a href="https://blog.charlieyu4994.cn/tag/aZBt1Kh3e/">
-        <span>AFK</span>
+      <a href="https://blog.charlieyu4994.cn/tag/IBdm5nhh7/">
+        <span>Learn</span>
+      </a>、
+      
+      
+      
+      <a href="https://blog.charlieyu4994.cn/tag/VjSoAqTIL/">
+        <span>CKS</span>
       </a>
       
       
@@ -569,45 +575,41 @@
     
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>2分钟</span>
+      <span>1分钟</span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>406<span class="pc-show">字数</span></span>
+      <span>201<span class="pc-show">字数</span></span>
     </span>
     
   </div>
 </header>
             <div class="post-body next-md-body" id="post_body">
-              <p>经过长时间的发展，AFK项目已经实现了预想的大部分功能了，接下来就是加入多线程实现动作并发了。</p>
+              <p>关于封面这个程序，它是 EncryptedCoffee 项目的一个带 GUI 的升级版本，我将其命名为 RSA&amp;AES Encryption。</p>
 <!-- more -->
-<h2 id="程序的部分说明"><strong>程序的部分说明</strong></h2>
-<pre><code>[
-     {
-        &quot;class&quot;: [
-            {
-                &quot;op_type&quot;: &quot;keyboard.input&quot;,
-                &quot;loop_times&quot;: -1,
-                &quot;down_time&quot;: 1.0,
-                &quot;up_time&quot;: 1.0,
-                &quot;keys&quot;: &quot;a&quot;
-            }
-        ],
-        &quot;loop_times&quot;: 1
-    }
-]
-</code></pre>
+<h2 id="关于这个项目较-encryptedcoffee-的变化"><strong>关于这个项目较 EncryptedCoffee 的变化</strong></h2>
+<ol>
+<li>这个项目抛弃了原有的一些轮子
 <ul>
-<li>配置文件
-<ul>
-<li>虽然你可以再程序中自动生成配置文件，但现在还是要说一下配置文件的结构。从文件的拓展名很容易看出来配置文件本质上是个json <s>（废话）</s></li>
-<li>这个json的最外层是一个js数组，对于这样的结构你有什么大胆的猜测吗，相信你已经看出来了，一个配置文件可以有多个子配置，一个子配置中存储的是一组动作，这里只展示了一个动作<code>&quot;class&quot;</code>关键字是用来与 <code>&quot;multi&quot;</code>区分的，class代表顺序执行，若动作分步的循环次数为-1也就是无限循环的话，这一组动作就会卡在第一个无限循环动作，不会往下执行，也就是死循环。如果是multi则是动作并发，这一个子配置文件的所有动作分步都会同时进行，包括相反的动作。子配置文件的 <code>&quot;loop_times&quot;</code>是指子配置的循环次数，同时所有的子配置也是并发的。（当然所有的并发还没实现）</li>
+<li>抛弃了原有用于 RSA 实现的 RSA 轮子，改为使用 pycryptodome</li>
+<li>抛弃了用于剪切板操作的 pywin32， 改为使用 pyperclip</li>
 </ul>
 </li>
+<li>最重要的一点，这个项目现在拥有 GUI 了
+<ul>
+<li>采用 Tkinter 编写的 GUI <s>（Tkinter 写的想要特别好看就算了吧）</s></li>
 </ul>
-<h1 id="快要开学了">快要开学了</h1>
-<p>接下来Super-Coffee的<strong>所有项目</strong>都会接近于停滞。只能等暑假再继续。</p>
+</li>
+<li>读取大文件的优化
+<ul>
+<li>每次只读 1MiB 的数据到内存中 <s>（妈妈再也不用担心我爆内存了）</s></li>
+</ul>
+</li>
+</ol>
+<h2 id="最后"><strong>最后</strong></h2>
+<p>项目的<a href="https://github.com/CharlieYu4994/RSA-AES-Encryption">地址</a><br>
+这个项目已经脱离了原来的 EncryptedCoffee，我会经量更进 EncryptedCoffee 的更新 <s>（如果 Xiao_Jin 还更新的话）</s> 。</p>
 
             </div>
             <div class="post-footer">
@@ -618,7 +620,7 @@
     </li>
     <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://blog.charlieyu4994.cn/post/about-py-minecraft-afk/" title="关于py-Minecraft-AFK项目">https://blog.charlieyu4994.cn/post/about-py-minecraft-afk/</a>
+      <a href="https://blog.charlieyu4994.cn/post/encryptedcoffee02/" title="关于 EncryptedCoffee #02">https://blog.charlieyu4994.cn/post/encryptedcoffee02/</a>
     </li>
     <li class="post-copyright-license">
       <strong>版权声明： </strong>
@@ -627,21 +629,19 @@
   </ul>
   <div class="tags">
     
-      <a href="https://blog.charlieyu4994.cn/tag/aZBt1Kh3e/"># AFK</a>
+      <a href="https://blog.charlieyu4994.cn/tag/IBdm5nhh7/"># Learn</a>
+    
+      <a href="https://blog.charlieyu4994.cn/tag/VjSoAqTIL/"># CKS</a>
     
   </div>
   <div class="nav">
     <div class="nav-prev">
       
-        <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="关于 EncryptedCoffee #00" href="https://blog.charlieyu4994.cn/post/encryptedcoffee/">关于 EncryptedCoffee #00</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="关于 EncryptedCoffee #00" href="https://blog.charlieyu4994.cn/post/encryptedcoffee/">上一篇</a>
-      
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" title="Coffee Key Server计划" href="https://blog.charlieyu4994.cn/post/coffee-key-server/">Coffee Key Server计划</a>
-        <a class="nav-mobile-next" title="Coffee Key Server计划" href="https://blog.charlieyu4994.cn/post/coffee-key-server/">下一篇</a>
+        <a class="nav-pc-next" title="合格考全部拿下" href="https://blog.charlieyu4994.cn/post/pass/">合格考全部拿下</a>
+        <a class="nav-mobile-next" title="合格考全部拿下" href="https://blog.charlieyu4994.cn/post/pass/">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>
