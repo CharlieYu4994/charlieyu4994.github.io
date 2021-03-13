@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://blog.charlieyu4994.cn</id>
+    <id>https://blog.charlie.moe</id>
     <title>CharlieYu4994的博客</title>
-    <updated>2021-02-13T06:05:18.753Z</updated>
+    <updated>2021-03-13T05:57:42.588Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://blog.charlieyu4994.cn"/>
-    <link rel="self" href="https://blog.charlieyu4994.cn/atom.xml"/>
+    <link rel="alternate" href="https://blog.charlie.moe"/>
+    <link rel="self" href="https://blog.charlie.moe/atom.xml"/>
     <subtitle>就只是博客而已&lt;br/&gt;
 是一个正太</subtitle>
-    <logo>https://blog.charlieyu4994.cn/images/avatar.png</logo>
-    <icon>https://blog.charlieyu4994.cn/favicon.ico</icon>
+    <logo>https://blog.charlie.moe/images/avatar.png</logo>
+    <icon>https://blog.charlie.moe/favicon.ico</icon>
     <rights>All rights reserved 2021, CharlieYu4994的博客</rights>
     <entry>
         <title type="html"><![CDATA[关于 RSA&AES Encryption #00]]></title>
-        <id>https://blog.charlieyu4994.cn/post/RSA-AES-Encryption-00/</id>
-        <link href="https://blog.charlieyu4994.cn/post/RSA-AES-Encryption-00/">
+        <id>https://blog.charlie.moe/post/RSA-AES-Encryption-00/</id>
+        <link href="https://blog.charlie.moe/post/RSA-AES-Encryption-00/">
         </link>
         <updated>2020-10-17T05:52:47.000Z</updated>
         <content type="html"><![CDATA[<p>正在 dev 分支更新，预计今年完不成（学业繁忙）</p>
@@ -22,8 +22,8 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[关于 RSA&AES Encryption 的使用教程]]></title>
-        <id>https://blog.charlieyu4994.cn/post/RSA-AES-Encryption-guide/</id>
-        <link href="https://blog.charlieyu4994.cn/post/RSA-AES-Encryption-guide/">
+        <id>https://blog.charlie.moe/post/RSA-AES-Encryption-guide/</id>
+        <link href="https://blog.charlie.moe/post/RSA-AES-Encryption-guide/">
         </link>
         <updated>2020-08-07T04:37:35.000Z</updated>
         <summary type="html"><![CDATA[<p>本文会详细地讲解 RSA&amp;AES Encryption 的使用</p>
@@ -40,28 +40,28 @@
 </li>
 <li>密钥生成
 <ul>
-<li>运行后你会看到一个窗口。<img src="https://blog.charlieyu4994.cn/post-images/1596776021766.png" alt="" loading="lazy"></li>
-<li>点击上方选项卡中的「杂项」，点击「生成私钥」。<img src="https://blog.charlieyu4994.cn/post-images/1596776111097.png" alt="" loading="lazy"></li>
-<li>接着会弹出一个窗口，输入你要的密码，如果你不想要密码，可以留空，输入完成后点击确定或者直接回车，按取消等同于留空。（Tips: 请确保你的密码输入正确，否则你无法使用此密钥）<img src="https://blog.charlieyu4994.cn/post-images/1596776817061.png" alt="" loading="lazy"></li>
-<li>稍等一会儿，会弹出另一个窗口，输入你的描述。（别太长，限制为 50Byte，也就是50个英文字符，或者25个中文字符）<img src="https://blog.charlieyu4994.cn/post-images/1596776836940.png" alt="" loading="lazy"></li>
-<li>生成完成后你就可以在「选择密钥」的下拉栏里找到你的密钥，选择它，会弹出一个窗口要求你输入密码，若你没有设置密码，留空或者取消，若你设置了密码输入你的密码，回车或者确定。<img src="https://blog.charlieyu4994.cn/post-images/1596776965744.png" alt="" loading="lazy"></li>
+<li>运行后你会看到一个窗口。<img src="https://blog.charlie.moe/post-images/1596776021766.png" alt="" loading="lazy"></li>
+<li>点击上方选项卡中的「杂项」，点击「生成私钥」。<img src="https://blog.charlie.moe/post-images/1596776111097.png" alt="" loading="lazy"></li>
+<li>接着会弹出一个窗口，输入你要的密码，如果你不想要密码，可以留空，输入完成后点击确定或者直接回车，按取消等同于留空。（Tips: 请确保你的密码输入正确，否则你无法使用此密钥）<img src="https://blog.charlie.moe/post-images/1596776817061.png" alt="" loading="lazy"></li>
+<li>稍等一会儿，会弹出另一个窗口，输入你的描述。（别太长，限制为 50Byte，也就是50个英文字符，或者25个中文字符）<img src="https://blog.charlie.moe/post-images/1596776836940.png" alt="" loading="lazy"></li>
+<li>生成完成后你就可以在「选择密钥」的下拉栏里找到你的密钥，选择它，会弹出一个窗口要求你输入密码，若你没有设置密码，留空或者取消，若你设置了密码输入你的密码，回车或者确定。<img src="https://blog.charlie.moe/post-images/1596776965744.png" alt="" loading="lazy"></li>
 </ul>
 </li>
 <li>管理密钥
 <ul>
-<li>点击「管理密钥」。<img src="https://blog.charlieyu4994.cn/post-images/1596777171645.png" alt="" loading="lazy"></li>
-<li>接着会弹出一个窗口。<img src="https://blog.charlieyu4994.cn/post-images/1596777350489.png" alt="" loading="lazy"></li>
+<li>点击「管理密钥」。<img src="https://blog.charlie.moe/post-images/1596777171645.png" alt="" loading="lazy"></li>
+<li>接着会弹出一个窗口。<img src="https://blog.charlie.moe/post-images/1596777350489.png" alt="" loading="lazy"></li>
 <li>在「私钥」栏，点击选择密钥，双击可以更改描述，回车可以修改密码，shift + 回车可以导出你的私钥，点击下方的「删除」可以删除密钥，「导出」可以导出你的公钥，「导入」可以从文件导入密钥（密钥的类型程序会自行判断）。</li>
 <li>在「公钥」栏，点击选择密钥，双击可以更改描述，三个按钮同上。</li>
-<li>「导入」按钮：点击「导入」按钮会弹出一个窗口用于选择文件，你只要选择密钥文件即可。<img src="https://blog.charlieyu4994.cn/post-images/1596777739807.png" alt="" loading="lazy">然后程序会弹出一个窗口要求你输入描述。</li>
+<li>「导入」按钮：点击「导入」按钮会弹出一个窗口用于选择文件，你只要选择密钥文件即可。<img src="https://blog.charlie.moe/post-images/1596777739807.png" alt="" loading="lazy">然后程序会弹出一个窗口要求你输入描述。</li>
 <li>「导出」按钮：点击「导出」按钮会弹出一个类似的窗口用于保存密钥文件，请务必记得输入文件名。</li>
 </ul>
 </li>
 <li>加密文本
 <ul>
 <li>选择标签栏的「文本加/解密」。</li>
-<li>先确保，你已经得到了你好友的公钥，然后在「收/发件人」下拉栏里选择收件人。（当然你也可以导出自己的公钥，再导入，你就可以在「收/发件人」下拉栏里找到你自己的公钥了）<img src="https://blog.charlieyu4994.cn/post-images/1596778594948.png" alt="" loading="lazy"></li>
-<li>在输入框里输入你要发送的文本，然后点击「加密」按钮，就会弹出一个窗口，里面有加密的结果，你可以点击「复制」按钮复制密文并发送给你的好友，完成后你可以点击确定或者直接关掉这个窗口。（你可以通过「签名」复选框选择是否签名签名可以保证信息的可信度，但会增加密文的长度）<img src="https://blog.charlieyu4994.cn/post-images/1596778838876.png" alt="" loading="lazy"></li>
+<li>先确保，你已经得到了你好友的公钥，然后在「收/发件人」下拉栏里选择收件人。（当然你也可以导出自己的公钥，再导入，你就可以在「收/发件人」下拉栏里找到你自己的公钥了）<img src="https://blog.charlie.moe/post-images/1596778594948.png" alt="" loading="lazy"></li>
+<li>在输入框里输入你要发送的文本，然后点击「加密」按钮，就会弹出一个窗口，里面有加密的结果，你可以点击「复制」按钮复制密文并发送给你的好友，完成后你可以点击确定或者直接关掉这个窗口。（你可以通过「签名」复选框选择是否签名签名可以保证信息的可信度，但会增加密文的长度）<img src="https://blog.charlie.moe/post-images/1596778838876.png" alt="" loading="lazy"></li>
 </ul>
 </li>
 <li>解密文本
@@ -69,20 +69,20 @@
 <li>选择标签栏的「文本加/解密」。</li>
 <li>和加密文本一样，选择发件人的公钥，然后把收到的密文完完全全地复制到输入框内。（请确保输入框原本是空的）。</li>
 <li>点击「解密」按钮，这会弹出一个窗口，你就可以得到密文的内容了。</li>
-<li>如果显示签名无效，有可能是你选错了发件人，也可能是对方没有签名。<img src="https://blog.charlieyu4994.cn/post-images/1596779370064.png" alt="" loading="lazy"></li>
+<li>如果显示签名无效，有可能是你选错了发件人，也可能是对方没有签名。<img src="https://blog.charlie.moe/post-images/1596779370064.png" alt="" loading="lazy"></li>
 </ul>
 </li>
 <li>加密文件
 <ul>
-<li>选择标签栏的「文件加/解密」。<img src="https://blog.charlieyu4994.cn/post-images/1596779809154.png" alt="" loading="lazy"></li>
+<li>选择标签栏的「文件加/解密」。<img src="https://blog.charlie.moe/post-images/1596779809154.png" alt="" loading="lazy"></li>
 <li>密钥选择与之前类似。</li>
-<li>点击「选择文件」按钮，选择你的文件，再点击「选择目录」选择保存路径，最后点击「加密」按钮，这会弹出一个窗口要求你输入文件名，输入完成后点击确定，就可以开始加密了，加密完成后会弹出一个窗口，点击「打开」按钮就可以打开保存路径，生成的文件的后缀是 ref。 <img src="https://blog.charlieyu4994.cn/post-images/1596780346977.png" alt="" loading="lazy"></li>
+<li>点击「选择文件」按钮，选择你的文件，再点击「选择目录」选择保存路径，最后点击「加密」按钮，这会弹出一个窗口要求你输入文件名，输入完成后点击确定，就可以开始加密了，加密完成后会弹出一个窗口，点击「打开」按钮就可以打开保存路径，生成的文件的后缀是 ref。 <img src="https://blog.charlie.moe/post-images/1596780346977.png" alt="" loading="lazy"></li>
 </ul>
 </li>
 <li>解密文件
 <ul>
 <li>选择标签栏的「文件加/解密」。</li>
-<li>操作同上，选择加密过的文件，点击「解密」按钮，然后就会弹出一个窗口。<img src="https://blog.charlieyu4994.cn/post-images/1596780725126.png" alt="" loading="lazy"></li>
+<li>操作同上，选择加密过的文件，点击「解密」按钮，然后就会弹出一个窗口。<img src="https://blog.charlie.moe/post-images/1596780725126.png" alt="" loading="lazy"></li>
 </ul>
 </li>
 <li>简单配置
@@ -98,8 +98,8 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[关于 EncryptedCoffee #02]]></title>
-        <id>https://blog.charlieyu4994.cn/post/encryptedcoffee02/</id>
-        <link href="https://blog.charlieyu4994.cn/post/encryptedcoffee02/">
+        <id>https://blog.charlie.moe/post/encryptedcoffee02/</id>
+        <link href="https://blog.charlie.moe/post/encryptedcoffee02/">
         </link>
         <updated>2020-07-21T02:24:08.000Z</updated>
         <summary type="html"><![CDATA[<p>关于封面这个程序，它是 EncryptedCoffee 项目的一个带 GUI 的升级版本，我将其命名为 RSA&amp;AES Encryption。</p>
@@ -132,18 +132,18 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[合格考全部拿下]]></title>
-        <id>https://blog.charlieyu4994.cn/post/pass/</id>
-        <link href="https://blog.charlieyu4994.cn/post/pass/">
+        <id>https://blog.charlie.moe/post/pass/</id>
+        <link href="https://blog.charlie.moe/post/pass/">
         </link>
         <updated>2020-07-11T13:05:16.000Z</updated>
         <content type="html"><![CDATA[<!-- more -->
-<figure data-type="image" tabindex="1"><img src="https://blog.charlieyu4994.cn/post-images/1594472796571.jfif" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="1"><img src="https://blog.charlie.moe/post-images/1594472796571.jfif" alt="" loading="lazy"></figure>
 ]]></content>
     </entry>
     <entry>
         <title type="html"><![CDATA[关于机械键盘的瞎整活]]></title>
-        <id>https://blog.charlieyu4994.cn/post/KBD-00/</id>
-        <link href="https://blog.charlieyu4994.cn/post/KBD-00/">
+        <id>https://blog.charlie.moe/post/KBD-00/</id>
+        <link href="https://blog.charlie.moe/post/KBD-00/">
         </link>
         <updated>2020-06-21T07:20:13.000Z</updated>
         <summary type="html"><![CDATA[<p>出于不知名的原因，我想要完全客制化一块机械键盘，这就是这篇博客的来源了。</p>
@@ -151,14 +151,14 @@
         <content type="html"><![CDATA[<p>出于不知名的原因，我想要完全客制化一块机械键盘，这就是这篇博客的来源了。</p>
 <h2 id="-more-进展"><!-- more --><br>
 ** 进展 **</h2>
-<p><img src="https://blog.charlieyu4994.cn/post-images/1592724271809.png" alt="" loading="lazy"><br>
+<p><img src="https://blog.charlie.moe/post-images/1592724271809.png" alt="" loading="lazy"><br>
 显然，现在我在全力绘制 PCB ，预计采用 nRF52840 作为主控，拥有一个显示器、四个可编程按键，采用阿米洛68键配列，大概就是这么多了，  <s>关键的固件问题，再说吧</s> 。</p>
 ]]></content>
     </entry>
     <entry>
         <title type="html"><![CDATA[宣传第一弹]]></title>
-        <id>https://blog.charlieyu4994.cn/post/spread00/</id>
-        <link href="https://blog.charlieyu4994.cn/post/spread00/">
+        <id>https://blog.charlie.moe/post/spread00/</id>
+        <link href="https://blog.charlie.moe/post/spread00/">
         </link>
         <updated>2020-05-23T12:01:24.000Z</updated>
         <content type="html"><![CDATA[<p>绘里姐姐的 TG 群：http://t.me/kagurazakaeri_new</p>
@@ -166,8 +166,8 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[关于 Coffee-keys]]></title>
-        <id>https://blog.charlieyu4994.cn/post/leave-coffee-keys/</id>
-        <link href="https://blog.charlieyu4994.cn/post/leave-coffee-keys/">
+        <id>https://blog.charlie.moe/post/leave-coffee-keys/</id>
+        <link href="https://blog.charlie.moe/post/leave-coffee-keys/">
         </link>
         <updated>2020-05-08T12:59:32.000Z</updated>
         <content type="html"><![CDATA[<p>最近很烦，很难受，不想管代码了。我太烂了，烂到不行。在此正式退出 coffee-keys 团队。</p>
@@ -175,8 +175,8 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[关于 JWT]]></title>
-        <id>https://blog.charlieyu4994.cn/post/jwt-00/</id>
-        <link href="https://blog.charlieyu4994.cn/post/jwt-00/">
+        <id>https://blog.charlie.moe/post/jwt-00/</id>
+        <link href="https://blog.charlie.moe/post/jwt-00/">
         </link>
         <updated>2020-05-05T11:10:15.000Z</updated>
         <summary type="html"><![CDATA[<p>关于 JWT 网上有很多介绍，这里就不多做介绍了，简而言之 JWT 就是一个身份证，证明你是你。</p>
@@ -223,8 +223,8 @@ zZrdD_mVLIEHtUubrd25SvGiFd-nD2sutam7Apzq0ZA
     </entry>
     <entry>
         <title type="html"><![CDATA[关于 EncryptedCoffee #01]]></title>
-        <id>https://blog.charlieyu4994.cn/post/encryptedcoffee01/</id>
-        <link href="https://blog.charlieyu4994.cn/post/encryptedcoffee01/">
+        <id>https://blog.charlie.moe/post/encryptedcoffee01/</id>
+        <link href="https://blog.charlie.moe/post/encryptedcoffee01/">
         </link>
         <updated>2020-05-01T07:42:10.000Z</updated>
         <summary type="html"><![CDATA[<p>没想到这一天来得这么快，现在 EcryptedCoffee 已经有修改密码的功能了，开心ヾ(≧▽≦*)o</p>
@@ -236,8 +236,8 @@ zZrdD_mVLIEHtUubrd25SvGiFd-nD2sutam7Apzq0ZA
     </entry>
     <entry>
         <title type="html"><![CDATA[关于 EncryptedCoffee #00]]></title>
-        <id>https://blog.charlieyu4994.cn/post/encryptedcoffee/</id>
-        <link href="https://blog.charlieyu4994.cn/post/encryptedcoffee/">
+        <id>https://blog.charlie.moe/post/encryptedcoffee/</id>
+        <link href="https://blog.charlie.moe/post/encryptedcoffee/">
         </link>
         <updated>2020-04-30T14:24:48.000Z</updated>
         <summary type="html"><![CDATA[<p>我们的 <a href="https://github.com/super-coffee/encrypted-coffee">EncryptedCoffee</a> 更新啦！</p>
@@ -257,7 +257,7 @@ zZrdD_mVLIEHtUubrd25SvGiFd-nD2sutam7Apzq0ZA
 <h2 id="关于公钥的分享"><strong>关于公钥的分享</strong></h2>
 <ol>
 <li>发送公钥：你可以复制一份你的 <code>public.pem</code> 发送给你的好友，对于发送给别人的公钥可以随意命名，但请<strong>不要重命名源文件</strong>。你也可以用记事本打开公钥的文件复制里面的内容发送给你的朋友。</li>
-<li>接收公钥：你可以把你接受到的pem文件放到 <code>PublicKey</code> 文件夹下，你可以随意地重命名这个文件，对于接收到的文本公钥内容，你可以在 <code>PublicKey</code> 文件夹下新建一个文本文档将它的拓展名改为   pem（同样你可以随意命名他），并把你收到的内容复制进去<img src="https://blog.charlieyu4994.cn/post-images/1588258985107.png" alt="" loading="lazy">就像这样。</li>
+<li>接收公钥：你可以把你接受到的pem文件放到 <code>PublicKey</code> 文件夹下，你可以随意地重命名这个文件，对于接收到的文本公钥内容，你可以在 <code>PublicKey</code> 文件夹下新建一个文本文档将它的拓展名改为   pem（同样你可以随意命名他），并把你收到的内容复制进去<img src="https://blog.charlie.moe/post-images/1588258985107.png" alt="" loading="lazy">就像这样。</li>
 </ol>
 <p>当一切都操作都完成后重启软件，你应该就可以在列表里看到你朋友的公钥了。</p>
 <p><strong>关于未来的版本更新</strong></p>
