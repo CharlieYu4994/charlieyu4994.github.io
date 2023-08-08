@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="keywords" content="CharlieYu的个人博客">
+<meta name="description" content="就只是博客而已&lt;br/&gt;
+是一个正太">
+<meta name="theme-color" content="#343a40">
+<title>关于 RSA&amp;AES Encryption 的使用教程 | CharlieYu4994的博客</title>
+<link rel="shortcut icon" href="/favicon.ico?v=1691485295330">
+<link rel="stylesheet" href="/styles/main.css">
+<link rel="stylesheet" href="/media/css/pisces.css">
+
+<link rel="stylesheet" href="/media/fonts/font-awesome.css">
+<link
+  href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Rosario:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext"
+  rel="stylesheet" type="text/css">
+
+<link href="/media/hljs/styles/arduino-light.css"
+  rel="stylesheet">
+
+<script src="/media/hljs/highlight.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.0/velocity.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.0/velocity.ui.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="/media/js/mouse.js"></script>
+
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-165451810-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-165451810-1');
+</script>
+
+
+  <meta name="description" content="关于 RSA&AES Encryption 的使用教程" />
+  <meta name="keywords" content="" />
+</head>
+
+<body>
+  <div class="head-top-line"></div>
+  <div class="header-box">
+    
+<div class="pisces">
+  <header class="header  ">
+    <div class="blog-header box-shadow-wrapper bg-color " id="header">
+      <div class="nav-toggle" id="nav_toggle">
+        <div class="toggle-box">
+          <div class="line line-top"></div>
+          <div class="line line-center"></div>
+          <div class="line line-bottom"></div>
+        </div>
+      </div>
+      <div class="site-meta">       
+        <div class="site-title">
+          
+            <a href="/" class="brand">
+              <span>CharlieYu4994的博客</span>
+            </a>  
+          
+        </div>
+        
+          <p class="subtitle">一只猫猫的博客</p>
+        
+      </div>
+      <nav class="site-nav" id="site_nav">
+        <ul id="nav_ul">
+          
+            
+            
+              
+            
+            <li class="nav-item ">
+              
+              
+                
+                  <a href="/" target="_self">
+                    <i class="fa fa-home"></i> 首页
+                  </a>
+                
+              
+            </li>
+          
+            
+            
+              
+            
+            <li class="nav-item ">
+              
+              
+                
+                  <a href="/archives/" target="_self">
+                    <i class="fa fa-archive"></i> 归档
+                  </a>
+                
+              
+            </li>
+          
+            
+            
+              
+            
+            <li class="nav-item ">
+              
+              
+                
+                  <a href="/tags/" target="_self">
+                    <i class="fa fa-tags"></i> 标签
+                  </a>
+                
+              
+            </li>
+          
+            
+            
+              
+            
+            <li class="nav-item ">
+              
+              
+                
+                  <a href="/post/about/" target="_self">
+                    <i class="fa fa-user"></i> 关于
+                  </a>
+                
+              
+            </li>
+          
+          
+            
+              <li class="nav-item ">
+                <a href="/friends/" target="_self">
+                  
+                    <i class="fa fa-address-book"></i> 友链
+                  
+                </a>
+              </li>
+            
+          
+        </ul>
+      </nav>
+    </div>
+  </header>
+</div>
+
+<script type="text/javascript"> 
+ 
+  let showNav = true;
+
+  let navToggle = document.querySelector('#nav_toggle'),
+  siteNav = document.querySelector('#site_nav');
+  
+  function navClick() {
+    let sideBar = document.querySelector('.sidebar');
+    let navUl = document.querySelector('#nav_ul');
+    navToggle.classList.toggle('nav-toggle-active');
+    siteNav.classList.toggle('nav-menu-active');
+    if (siteNav.classList.contains('nav-menu-active')) {
+      siteNav.style = "height: " + (navUl.children.length * 42) +"px !important";
+    } else {
+      siteNav.style = "";
+    }
+  }
+
+  navToggle.addEventListener('click',navClick);  
+</script>
+  </div>
+  <div class="main-continer">
+    
+    <div
+      class="section-layout pisces ">
+      <div class="section-layout-wrapper">
+        
+
+<div class="sidebar">
+  
+    <div class="sidebar-box box-shadow-wrapper bg-color right-motion" id="sidebar">
+      
+        <div class="post-list-sidebar">
+          <div class="sidebar-title">
+            <span id="tocSideBar" class="sidebar-title-item sidebar-title-active">文章目录</span>
+            <span id="metaSideBar" class="sidebar-title-item">站点概览</span>
+          </div>
+        </div>
+      
+      <div class="sidebar-body pisces" id="sidebar_body">
+        
+          
+            <div class="post-side-meta" id="post_side_meta">
+              
+<div class="sidebar-wrapper box-shadow-wrapper bg-color">
+  <div class="sidebar-item">
+    <img class="site-author-image right-motion" src="/images/avatar.png"/>
+    <p class="site-author-name">CharlieYu4994</p>
+    
+  </div>
+  <div class="sidebar-item side-item-stat right-motion">
+    <div class="sidebar-item-box">
+      <a href="/archives/">
+        
+        <span class="site-item-stat-count">10</span>
+        <span class="site-item-stat-name">文章</span>
+      </a>
+    </div>
+    <div class="sidebar-item-box">
+      <a href="">
+        <span class="site-item-stat-count">4</span>
+        <span class="site-item-stat-name">分类</span>
+      </a>
+    </div>
+    <div class="sidebar-item-box">
+      <a href="/tags/">
+        <span class="site-item-stat-count">4</span>
+        <span class="site-item-stat-name">标签</span>
+      </a>
+    </div>
+  </div>
+  
+    
+      <div class="sidebar-item">
+        <span class="site-item-rss">
+            <i class="fa fa-rss"></i>
+            <a href="https://blog.charlie.moe/atom.xml" target="_blank">RSS</a>
+        </span>
+      </div>
+    
+  
+  
+    <div class="sidebar-item sidebar-item-social">
+      <div class="social-item">
+        
+          
+            <a href="https://github.com/CharlieYu4994">
+              <i class="fa fa-github-alt" title="GitHub"></i>
+            </a>
+          
+            <a href="https://space.bilibili.com/26656312">
+              <i class="fa fa-play-circle" title="Bilibili"></i>
+            </a>
+          
+            <a href="https://t.me/CharlieYu4994">
+              <i class="fa fa-telegram" title="Telegram"></i>
+            </a>
+          
+            <a href="mailto:charlieyu4994@lassi-cat.cn">
+              <i class="fa fa-envelope-o" title="邮箱"></i>
+            </a>
+          
+        
+        
+      </div>
+    </div>
+  
+
+
+</div>
+            </div>
+            <div class="post-toc sidebar-body-active" id="post_toc" style="opacity: 1;">
+              <div class="toc-box right-motion">
+  <div class="toc-wrapper auto-number auto"
+    id="toc_wrapper">
+    <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8"><strong>基础使用</strong></a></li>
+<li><a href="#%E8%BF%9B%E9%98%B6%E4%BD%BF%E7%94%A8"><strong>进阶使用</strong></a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+</div>
+
+<script>
+
+  let lastTop = 0, lList = [], hList = [], postBody, lastIndex = -1;
+  let active = 'active-show', activeClass = 'active-current';
+  let tocWrapper = document.querySelector('#toc_wrapper');
+  let tocContent = tocWrapper.children[0];
+  let autoNumber = tocWrapper && tocWrapper.classList.contains('auto-number');
+
+  function addTocNumber(elem, deep) {
+    if (!elem) {
+      return;
+    }
+    let prop = elem.__proto__;
+
+    if (prop === HTMLUListElement.prototype) {
+      for (let i = 0; i < elem.children.length; i++) {
+        addTocNumber(elem.children[i], deep + (i + 1) + '.');
+      }
+    } else if (prop === HTMLLIElement.prototype) {
+      // 保存li元素
+      if (elem.children[0].__proto__ === HTMLAnchorElement.prototype) {
+        lList.push(elem);
+      }
+      for (let i = 0; i < elem.children.length; i++) {
+        let cur = elem.children[i];
+        if (cur.__proto__ === HTMLAnchorElement.prototype) {
+          if (autoNumber) {
+            cur.text = deep + ' ' + cur.text;
+          }
+        } else if (cur.__proto__ === HTMLUListElement.prototype) {
+          addTocNumber(cur, deep);
+        }
+      }
+    }
+  }
+
+  function removeParentActiveClass() {
+    let parents = tocContent.querySelectorAll('.' + active)
+    parents.forEach(function (elem) {
+      elem.classList.remove(active);
+    });
+  }
+
+  function addActiveClass(index) {
+    if (index >= 0 && index < hList.length) {
+      lList[index].classList.add(activeClass);
+    }
+  }
+
+  function removeActiveClass(index) {
+    if (index >= 0 && index < hList.length) {
+      lList[index].classList.remove(activeClass);
+    }
+  }
+
+  function addActiveLiElemment(elem, parent) {
+    if (!elem || elem === parent) {
+      return;
+    } else {
+      if (elem.__proto__ === HTMLLIElement.prototype) {
+        elem.classList.add(active);
+      }
+      addActiveLiElemment(elem.parentElement, parent);
+    }
+  }
+
+  function showToc() {
+    if (tocWrapper) {
+      postBody = document.querySelector('#post_body');
+      for (let i = 0; i < postBody.children.length; i++) {
+        if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
+          hList.push(postBody.children[i]);
+        }
+      }
+      if (tocWrapper.classList.contains('compress')) {
+        tocContent.classList.add('closed');
+      } else if (tocWrapper.classList.contains('no_compress')) {
+        tocContent.classList.add('expanded');
+      } else {
+        if (hList.length > 10) {
+          active = 'active-hidden'
+          tocContent.classList.add('closed');
+        } else {
+          tocContent.classList.add('expanded');
+        }
+      }
+    }
+  }
+
+  (function () {
+    // 处理不是从#一级标题开始目录
+    if (tocContent.children.length === 1 && tocContent.children[0].__proto__ === HTMLLIElement.prototype) {
+      let con = tocContent.children[0].children[0];
+      tocContent.innerHTML = con.innerHTML;
+    }
+    let markdownItTOC = document.querySelector('.markdownIt-TOC');
+    let innerHeight = window.innerHeight;
+    markdownItTOC.style = `max-height: ${innerHeight - 80 > 0 ? innerHeight - 80 : innerHeight}px`
+    addTocNumber(tocContent, '');
+  })();
+
+  document.addEventListener('scroll', function (e) {
+    if (lList.length <= 0) {
+      return;
+    }
+    let scrollTop = document.scrollingElement.scrollTop + 10;
+    let dir;
+
+    if (lastTop - scrollTop > 0) {
+      dir = 'up';
+    } else {
+      dir = 'down';
+    }
+
+    lastTop = scrollTop;
+    if (scrollTop <= 0) {
+      if (lastIndex >= 0 && lastIndex < hList.length) {
+        lList[lastIndex].classList.remove(activeClass);
+      }
+      return;
+    }
+
+    let current = 0, hasFind = false;
+    for (let i = 0; i < hList.length; i++) {
+      if (hList[i].offsetTop > scrollTop) {
+        current = i;
+        hasFind = true;
+        break;
+      }
+    }
+    if (!hasFind && scrollTop > lList[lList.length - 1].offsetTop) {
+      current = hList.length - 1;
+    } else {
+      current--;
+    }
+    if (dir === 'down') {
+      if (current > lastIndex) {
+        addActiveClass(current);
+        removeActiveClass(lastIndex)
+        lastIndex = current;
+        removeParentActiveClass();
+        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
+      }
+    } else {
+      if (current < lastIndex) {
+        addActiveClass(current);
+        removeActiveClass(lastIndex);
+        lastIndex = current;
+        removeParentActiveClass();
+        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
+      }
+    }
+  });
+
+
+  window.addEventListener('load', function () {
+    showToc();
+    document.querySelector('#sidebar').style = 'display: block;';
+    tocWrapper.classList.add('toc-active');
+    setTimeout(function () {
+      if ("createEvent" in document) {
+        let evt = document.createEvent("HTMLEvents");
+        evt.initEvent("scroll", false, true);
+        document.dispatchEvent(evt);
+      }
+      else {
+        document.fireEvent("scroll");
+      }
+    }, 500)
+  })
+
+</script>
+            </div>
+          
+        
+      </div>
+    </div>
+  
+</div>
+<script>
+  const SIDEBAR_TITLE_ACTIVE = 'sidebar-title-active';
+  const SIDEBAR_BODY_ACTIVE = 'sidebar-body-active';
+  const SLIDE_UP_IN = 'slide-up-in';
+
+  let sidebar = document.querySelector('#sidebar'),
+  tocSideBar = document.querySelector('#tocSideBar'),
+  metaSideBar = document.querySelector('#metaSideBar'),
+  postToc = document.querySelector('#post_toc'),
+  postSiteMeta = document.querySelector('#post_side_meta'),
+  sidebarTitle = document.querySelector('.sidebar-title'),
+  sidebarBody = document.querySelector('#sidebar_body');
+
+  tocSideBar && tocSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  metaSideBar && metaSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  function toggleSidebar(e) {
+    let currentTitle = document.querySelector("."+SIDEBAR_TITLE_ACTIVE);
+    if (currentTitle == e.srcElement) {
+      return ;
+    }
+    let current, showElement, hideElement;
+    if (e.srcElement == metaSideBar) {
+      showElement = postSiteMeta;
+      hideElement = postToc;
+    } else if (e.srcElement == tocSideBar){
+      showElement = postToc;
+      hideElement = postSiteMeta;
+    }
+    currentTitle.classList.remove(SIDEBAR_TITLE_ACTIVE);
+    e.srcElement.classList.add(SIDEBAR_TITLE_ACTIVE);
+
+    window.Velocity(hideElement, 'stop');
+    window.Velocity(hideElement, 'transition.slideUpOut', {
+      display: 'none',
+      duration: 200,
+      complete: function () {
+        window.Velocity(showElement, 'transition.slideDownIn', {
+          duration: 200
+        });
+      }
+    })
+    hideElement.classList.remove(SIDEBAR_BODY_ACTIVE);
+    showElement.classList.add(SIDEBAR_BODY_ACTIVE);
+  }
+
+  postToc && postToc.addEventListener('transitionend', function() {
+    this.classList.remove(SLIDE_UP_IN);
+  });
+
+  if (sidebarBody) {
+    if (sidebarBody.classList.contains('pisces') || sidebarBody.classList.contains('gemini')) {
+      let hasFix = false;
+      let scrollEl = document.querySelector('.main-continer');
+      let limitTop = document.querySelector('#nav_ul').children.length * 42 + 162;
+      window.addEventListener('scroll', function(e) {
+        if (document.scrollingElement.scrollTop >= limitTop) {
+          if (!hasFix) {
+            sidebar.classList.add('sidebar-fixed');
+            hasFix = true;
+          }
+        } else {
+          if (hasFix) {
+            sidebar.classList.remove('sidebar-fixed');
+            hasFix = false;
+          }
+        }
+      });
+    }
+  }
+  
+</script>
+        <div class="section-box box-shadow-wrapper">
+          <div class="section bg-color post post-page">
+            <header class="post-header">
+  <h1 class="post-title">
+    <a class="post-title-link" href="https://blog.charlie.moe/post/RSA-AES-Encryption-guide/">
+      关于 RSA&amp;AES Encryption 的使用教程
+    </a>
+  </h1>
+  <div class="post-meta">
+    
+    <span class="meta-item pc-show">
+      <i class="fa fa-calendar-o"></i>
+      <span>发布于</span>
+      <span>2020-08-07</span>
+      <span class="post-meta-divider pc-show">|</span>
+    </span>
+    
+    <span class="meta-item">
+      <i class="fa fa-clock-o"></i>
+      <span>4分钟</span>
+    </span>
+    <span class="meta-item">
+      <span class="post-meta-divider">|</span>
+      <i class="fa fa-file-word-o"></i>
+      <span>1131<span class="pc-show">字数</span></span>
+    </span>
+    
+  </div>
+</header>
+            <div class="post-body next-md-body" id="post_body">
+              <p>本文会详细地讲解 RSA&amp;AES Encryption 的使用</p>
+<!-- more -->
+<h2 id="基础使用"><strong>基础使用</strong></h2>
+<ol>
+<li>下载程序
+<ul>
+<li>首先，不用多说，先在 GitHub 的 <a href="https://github.com/LassiCat/RSA-AES-Encryption/releases">Release 页面</a>下载本程序，并双击运行。</li>
+<li>文件就一个，但运行会生成「keyring.db」，这个文件储存着你的密钥，你好友的公钥，设置。请不要删除这个文件，也不要泄露这个文件。（建议将程序放在一个特定的目录中）</li>
+</ul>
+</li>
+<li>密钥生成
+<ul>
+<li>运行后你会看到一个窗口。<img src="https://blog.charlie.moe/post-images/1596776021766.png" alt="" loading="lazy"></li>
+<li>点击上方选项卡中的「杂项」，点击「生成私钥」。<img src="https://blog.charlie.moe/post-images/1596776111097.png" alt="" loading="lazy"></li>
+<li>接着会弹出一个窗口，输入你要的密码，如果你不想要密码，可以留空，输入完成后点击确定或者直接回车，按取消等同于留空。（Tips: 请确保你的密码输入正确，否则你无法使用此密钥）<img src="https://blog.charlie.moe/post-images/1596776817061.png" alt="" loading="lazy"></li>
+<li>稍等一会儿，会弹出另一个窗口，输入你的描述。（别太长，限制为 50Byte，也就是50个英文字符，或者25个中文字符）<img src="https://blog.charlie.moe/post-images/1596776836940.png" alt="" loading="lazy"></li>
+<li>生成完成后你就可以在「选择密钥」的下拉栏里找到你的密钥，选择它，会弹出一个窗口要求你输入密码，若你没有设置密码，留空或者取消，若你设置了密码输入你的密码，回车或者确定。<img src="https://blog.charlie.moe/post-images/1596776965744.png" alt="" loading="lazy"></li>
+</ul>
+</li>
+<li>管理密钥
+<ul>
+<li>点击「管理密钥」。<img src="https://blog.charlie.moe/post-images/1596777171645.png" alt="" loading="lazy"></li>
+<li>接着会弹出一个窗口。<img src="https://blog.charlie.moe/post-images/1596777350489.png" alt="" loading="lazy"></li>
+<li>在「私钥」栏，点击选择密钥，双击可以更改描述，回车可以修改密码，shift + 回车可以导出你的私钥，点击下方的「删除」可以删除密钥，「导出」可以导出你的公钥，「导入」可以从文件导入密钥（密钥的类型程序会自行判断）。</li>
+<li>在「公钥」栏，点击选择密钥，双击可以更改描述，三个按钮同上。</li>
+<li>「导入」按钮：点击「导入」按钮会弹出一个窗口用于选择文件，你只要选择密钥文件即可。<img src="https://blog.charlie.moe/post-images/1596777739807.png" alt="" loading="lazy">然后程序会弹出一个窗口要求你输入描述。</li>
+<li>「导出」按钮：点击「导出」按钮会弹出一个类似的窗口用于保存密钥文件，请务必记得输入文件名。</li>
+</ul>
+</li>
+<li>加密文本
+<ul>
+<li>选择标签栏的「文本加/解密」。</li>
+<li>先确保，你已经得到了你好友的公钥，然后在「收/发件人」下拉栏里选择收件人。（当然你也可以导出自己的公钥，再导入，你就可以在「收/发件人」下拉栏里找到你自己的公钥了）<img src="https://blog.charlie.moe/post-images/1596778594948.png" alt="" loading="lazy"></li>
+<li>在输入框里输入你要发送的文本，然后点击「加密」按钮，就会弹出一个窗口，里面有加密的结果，你可以点击「复制」按钮复制密文并发送给你的好友，完成后你可以点击确定或者直接关掉这个窗口。（你可以通过「签名」复选框选择是否签名签名可以保证信息的可信度，但会增加密文的长度）<img src="https://blog.charlie.moe/post-images/1596778838876.png" alt="" loading="lazy"></li>
+</ul>
+</li>
+<li>解密文本
+<ul>
+<li>选择标签栏的「文本加/解密」。</li>
+<li>和加密文本一样，选择发件人的公钥，然后把收到的密文完完全全地复制到输入框内。（请确保输入框原本是空的）。</li>
+<li>点击「解密」按钮，这会弹出一个窗口，你就可以得到密文的内容了。</li>
+<li>如果显示签名无效，有可能是你选错了发件人，也可能是对方没有签名。<img src="https://blog.charlie.moe/post-images/1596779370064.png" alt="" loading="lazy"></li>
+</ul>
+</li>
+<li>加密文件
+<ul>
+<li>选择标签栏的「文件加/解密」。<img src="https://blog.charlie.moe/post-images/1596779809154.png" alt="" loading="lazy"></li>
+<li>密钥选择与之前类似。</li>
+<li>点击「选择文件」按钮，选择你的文件，再点击「选择目录」选择保存路径，最后点击「加密」按钮，这会弹出一个窗口要求你输入文件名，输入完成后点击确定，就可以开始加密了，加密完成后会弹出一个窗口，点击「打开」按钮就可以打开保存路径，生成的文件的后缀是 ref。 <img src="https://blog.charlie.moe/post-images/1596780346977.png" alt="" loading="lazy"></li>
+</ul>
+</li>
+<li>解密文件
+<ul>
+<li>选择标签栏的「文件加/解密」。</li>
+<li>操作同上，选择加密过的文件，点击「解密」按钮，然后就会弹出一个窗口。<img src="https://blog.charlie.moe/post-images/1596780725126.png" alt="" loading="lazy"></li>
+</ul>
+</li>
+<li>简单配置
+<ul>
+<li>参照第一张生成密钥的图片，你可以设置 coffee-keys 的网址，默认保存路径和默认使用的私钥</li>
+<li>点击「保存」，就可以保存设置</li>
+</ul>
+</li>
+</ol>
+<h2 id="进阶使用"><strong>进阶使用</strong></h2>
+<p>你可以发现，程序是使用一个数据库储存所有信息的，你可以使用一些工具打开这个数据库</p>
+
+            </div>
+            <div class="post-footer">
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      CharlieYu4994
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://blog.charlie.moe/post/RSA-AES-Encryption-guide/" title="关于 RSA&amp;AES Encryption 的使用教程">https://blog.charlie.moe/post/RSA-AES-Encryption-guide/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i> BY-NC-SA</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+  <div class="tags">
+    
+  </div>
+  <div class="nav">
+    <div class="nav-prev">
+      
+        <i class="fa fa-chevron-left"></i>
+        <a class="nav-pc-next" title="对 Bing 美图 API 的研究 #00" href="https://blog.charlie.moe/post/BingAPI-00/">对 Bing 美图 API 的研究 #00</a class="nav-pc-next">
+        <a class="nav-mobile-prev" title="对 Bing 美图 API 的研究 #00" href="https://blog.charlie.moe/post/BingAPI-00/">上一篇</a>
+      
+    </div>
+    <div class="nav-next">
+      
+        <a class="nav-pc-next" title="关于 EncryptedCoffee #02" href="https://blog.charlie.moe/post/encryptedcoffee02/">关于 EncryptedCoffee #02</a>
+        <a class="nav-mobile-next" title="关于 EncryptedCoffee #02" href="https://blog.charlie.moe/post/encryptedcoffee02/">下一篇</a>
+        <i class="fa fa-chevron-right"></i>
+      
+    </div>
+  </div>
+</div>
+            
+  
+    
+      <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: 'ea24caa1936ece6593d8',
+    clientSecret: 'b1d83ae26551283f829f0086cc062d3dae3addd0',
+    repo: 'charlieyu4994.github.io',
+    owner: 'CharlieYu4994',
+    admin: ['CharlieYu4994'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+  gitalk.render('gitalk-container')
+</script>
+    
+    
+  
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-box">
+  <footer class="footer">
+    <div class="poweredby">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | © 2019-2021 Theme By <a href="https://github.com/hsxyhao/gridea-theme-next" target="_blank">HsxyHao-Next</a> <br>
+<img/ style="vertical-align: middle" src="https://icp.gov.moe/images/ico64.png" width="17">
+<a href="https://icp.gov.moe" target="_blank" class="custom">
+萌ICP备 </a>
+<a href="https://icp.gov.moe/?keyword=20204994" target="_blank" class="custom"> 20204994号</a>
+    </div>
+  </footer>
+  
+  
+  <div class="pisces back-to-top" id="back_to_top">
+    <i class="fa fa-arrow-up"></i>
+    
+    <span class="scrollpercent">
+      <span id="back_to_top_text">0</span>%
+    </span>
+    
+  </div>
+  
+    <div class="bg-img">
+      <img src="/media/images/custom-bgImg.jpg" />
+    </div>
+  
+  
+  
+</div>
+<script>
+
+  let sideBarOpen = 'sidebar-open';
+  let body = document.body;
+  let back2Top = document.querySelector('#back_to_top'),
+  back2TopText = document.querySelector('#back_to_top_text'),
+  drawerBox = document.querySelector('#drawer_box'),
+  rightSideBar = document.querySelector('.sidebar'),
+  viewport = document.querySelector('body');
+
+  function scrollAnimation(currentY, targetY) {
+   
+    let needScrollTop = targetY - currentY
+    let _currentY = currentY
+    setTimeout(() => {
+      const dist = Math.ceil(needScrollTop / 10)
+      _currentY += dist
+      window.scrollTo(_currentY, currentY)
+      if (needScrollTop > 10 || needScrollTop < -10) {
+        scrollAnimation(_currentY, targetY)
+      } else {
+        window.scrollTo(_currentY, targetY)
+      }
+    }, 1)
+  }
+
+  back2Top.addEventListener("click", function(e) {
+    scrollAnimation(document.scrollingElement.scrollTop, 0);
+    e.stopPropagation();
+    return false;
+  });
+  
+  window.addEventListener('scroll', function(e) {
+    let percent = document.scrollingElement.scrollTop / (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight) * 100;
+    if (percent > 1 && !back2Top.classList.contains('back-top-active')) {
+      back2Top.classList.add('back-top-active');
+    }
+    if (percent == 0) {
+      back2Top.classList.remove('back-top-active');
+    }
+    if (back2TopText) {
+      back2TopText.textContent = Math.floor(percent);
+    }
+  });
+
+  
+  let hasCacu = false;
+  window.onresize = function() {
+    if (window.width > 991) {
+      calcuHeight();
+    } else {
+      hasCacu = false;
+    }
+  }
+
+  function calcuHeight() {
+    // 动态调整站点概览高度
+    if (!hasCacu && back2Top.classList.contains('pisces') || back2Top.classList.contains('gemini')) {
+      let sideBar = document.querySelector('.sidebar');
+      let navUl = document.querySelector('#site_nav');
+      sideBar.style = 'margin-top:' + (navUl.offsetHeight + navUl.offsetTop + 15) + 'px;';
+      hasCacu = true;
+    }
+  }
+  calcuHeight();
+  
+  let open = false, MOTION_TIME = 300, RIGHT_MOVE_DIS = '320px';
+
+  if (drawerBox) {
+    let rightMotions = document.querySelectorAll('.right-motion');
+    let right = drawerBox.classList.contains('right');
+
+    let transitionDir = right ? "transition.slideRightIn" : "transition.slideLeftIn";
+
+    let openProp, closeProp;
+    if (right) {
+      openProp = {
+        paddingRight: RIGHT_MOVE_DIS 
+      };
+      closeProp = {
+        paddingRight: '0px'
+      };
+    } else {
+      openProp = {
+        paddingLeft: RIGHT_MOVE_DIS 
+      };
+      closeProp = {
+        paddingLeft: '0px'
+      };
+    }
+
+    drawerBox.onclick = function() {
+      open = !open;
+      window.Velocity(rightSideBar, 'stop');
+      window.Velocity(viewport, 'stop');
+      window.Velocity(rightMotions, 'stop');
+      if (open) {
+        window.Velocity(rightSideBar, {
+          width: RIGHT_MOVE_DIS
+        }, {
+          duration: MOTION_TIME,
+          begin: function() {
+            window.Velocity(rightMotions, transitionDir,{ });
+          }
+        })
+        window.Velocity(viewport, openProp,{
+          duration: MOTION_TIME
+        });
+      } else {
+        window.Velocity(rightSideBar, {
+          width: '0px'
+        }, {
+          duration: MOTION_TIME,
+          begin: function() {
+            window.Velocity(rightMotions, {
+              opacity: 0
+            });
+          }
+        })
+        window.Velocity(viewport, closeProp ,{
+          duration: MOTION_TIME
+        });
+      }
+      for (let i = 0; i < drawerBox.children.length; i++) {
+        drawerBox.children[i].classList.toggle('muse-line');
+      }
+      drawerBox.classList.toggle(sideBarOpen);
+    }
+  }
+
+  // 链接跳转
+  let newWindow = 'false'
+  if (newWindow === 'true') {
+    let links = document.querySelectorAll('.post-body a')
+    links.forEach(item => {
+      if (!item.classList.contains('btn')) {
+        item.setAttribute("target","_blank");
+      }
+    })
+  }
+  // 代码高亮
+  hljs.initHighlightingOnLoad();
+
+</script>
+<script>
+  $.shuicheMouse();
+</script>
+    <div class="light-box" id="light_box"></div>
+<script>
+  let imgs = document.querySelectorAll('.post-body img');
+  let lightBox = document.querySelector('#light_box');
+  lightBox.addEventListener('mousedown', (e) => {
+    e.preventDefault()
+  })
+  lightBox.addEventListener('mousewheel', (e) => {
+    e.preventDefault()
+  })
+  let width = window.innerWidth * 0.8;
+  lightBox.onclick = () => {
+    let img = lightBox.querySelector('img');
+    lightBox.style = '';
+    img && img.remove();
+  }
+  imgs.forEach(item => {
+    item.onclick = function (e) {
+      let lightImg = document.createElement('img');
+      lightImg.src = this.src;
+      lightBox.style = `height: 100%; opacity: 1; background-color: rgba(0, 0, 0, 0.5);cursor: zoom-out;`;
+      lightImg.style = `width: ${width}px; border: 1px solid #fff; border-radius: 2px;`;
+      lightImg.onclick = function () {
+        lightBox.style = '';
+        this.remove();
+      }
+      lightBox.append(lightImg);
+    }
+  })
+</script>
+  </div>
+</body>
+<input hidden id="copy" />
+<script>
+  //拿来主义(真香)^_^，Clipboard 实现摘自掘金 https://juejin.im/post/5aefeb6e6fb9a07aa43c20af
+  window.Clipboard = (function (window, document, navigator) {
+    var textArea,
+      copy;
+
+    // 判断是不是ios端
+    function isOS() {
+      return navigator.userAgent.match(/ipad|iphone/i);
+    }
+    //创建文本元素
+    function createTextArea(text) {
+      textArea = document.createElement('textArea');
+      textArea.value = text;
+      textArea.style.width = 0;
+      textArea.style.height = 0;
+      textArea.clientHeight = 0;
+      textArea.clientWidth = 0;
+      document.body.appendChild(textArea);
+    }
+    //选择内容
+    function selectText() {
+      var range,
+        selection;
+
+      if (isOS()) {
+        range = document.createRange();
+        range.selectNodeContents(textArea);
+        selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+        textArea.setSelectionRange(0, 999999);
+      } else {
+        textArea.select();
+      }
+    }
+
+    //复制到剪贴板
+    function copyToClipboard() {
+      try {
+        document.execCommand("Copy")
+      } catch (err) {
+        alert("复制错误！请手动复制！")
+      }
+      document.body.removeChild(textArea);
+    }
+
+    copy = function (text) {
+      createTextArea(text);
+      selectText();
+      copyToClipboard();
+    };
+
+    return {
+      copy: copy
+    };
+  })(window, document, navigator);
+
+  function copyCode(e) {
+    if (e.srcElement.tagName === 'SPAN' && e.srcElement.classList.contains('copy-code')) {
+      let code = e.currentTarget.querySelector('code');
+      var text = code.innerText;
+      if (e.srcElement.textContent === '复制成功') {
+        console.log('复制操作频率过高');
+        return;
+      }
+      e.srcElement.textContent = '复制成功';
+      (function (elem) {
+        setTimeout(() => {
+          if (elem.textContent === '复制成功') {
+            elem.textContent = '复制代码'
+          }
+        }, 1000);
+      })(e.srcElement)
+      Clipboard.copy(text);
+    }
+  }
+
+  let pres = document.querySelectorAll('pre');
+  pres.forEach(pre => {
+    let code = pre.querySelector('code');
+    let copyElem = document.createElement('span');
+    copyElem.classList.add('copy-code');
+    copyElem.textContent = '复制代码';
+    pre.appendChild(copyElem);
+    pre.onclick = copyCode
+  })
+</script>
+<script src="/media/js/motion.js"></script>
+
+<script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+<script>
+  var scroll = new SmoothScroll('a[href*="#"]', {
+    speed: 500
+  });
+</script>
+
+<!-- <div class="search-mask" id="search_mask">
+  <div class="search-box">
+    <div class="search-title">
+      <i class="fa fa-search"></i>
+      <div class="input-box">
+        <input type="text" placeholder="搜索">
+      </div>
+      <i class="fa fa-times-circle"></i>
+    </div>
+    <div class="result">
+      
+      <div class="item">
+        <a class="result-title" href="https://blog.charlie.moe/post/miwifi-sshpass-calculator/"" data-c="
+          &lt;script src=&#34;https://cdn.bootcdn.net/ajax/libs/blueimp-md5/2.19.0/js/md5.min.js&#34;&gt;&lt;/script&gt;
+&lt;style type=&#34;text/css&#34;&gt;
+input {
+    outline:0;
+    border:0;
+    border-radius: 10px;
+    padding: 5px;
+    font-size:30px;
+}
+.buttom {
+	position: relative;
+	border: 0;
+    border-radius: 10px;
+	padding: 15px 25px;
+	display: inline-block;
+	text-align: center;
+	color: white;
+    background-color: #fd7e14;
+    box-shadow:0px 4px 0px #f07813;
+}
+.buttom:active {
+	top: 4px;
+    background-color: #e47112;
+    box-shadow: 0 0 #e47112;
+}
+&lt;/style&gt;
+&lt;script&gt;
+    function clacPass() {
+        var sn = document.getElementById(&#34;sn&#34;).value;
+        var salt = &#34;6d2df50a-250f-4a30-a5e6-d44fb0960aa0&#34;;
+        var res = md5(sn + salt).substr(0, 8);
+        document.getElementById(&#34;res&#34;).innerHTML = res;
+        }
+&lt;/script&gt;
+&lt;div&gt;
+&lt;input id=&#34;sn&#34;&gt;&lt;/input&gt;
+&lt;button class=&#34;buttom&#34; type=&#34;button&#34; onclick=&#34;clacPass()&#34;&gt;计算&lt;/button&gt;
+&lt;/div&gt;
+&lt;p id=&#34;res&#34;&gt;&lt;/p&gt;">小米路由器 SSH 密码计算工具</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" href="https://blog.charlie.moe/post/diary00/"" data-c="
+          &lt;p&gt;近来，在咱身上发生了很多事情，以至一直都没有更新博客。&lt;/p&gt;
+&lt;p&gt;咱患上了中度焦虑以及重度抑郁，说实话这对咱来说还是蛮讽刺的，不久前咱还劝过 Restent要去及时就医，而咱自己的情况却是一拖再拖。在去医院之前发生了很多不好的事情，就不一一列举了。咱在这里说这个并不是要得到他人的同情什么的，仅仅只是想要在这个世界上多留不一些咱的痕迹罢了。&lt;/p&gt;
+&lt;p&gt;除此之外咱高三了，留给咱的业余时间真的不多了。咱现有的所有服务均有可能随时宕机，并且不会进行维护。就目前看来，Bing API 和 Pastebin API 已经罢工很久了。&lt;/p&gt;
+&lt;p&gt;最后，咱的学业压力正在变得越来越通，咱并不清楚咱是否还能坚持不去。近期咱正在写一个 ESP32 的显示器驱动，目前正在实现 1bit，8bit，16bit，24bit 的帧缓冲区。咱以前说过咱写程序是为了逃避生活，希望这一次它也能带咱走出困境吧。&lt;/p&gt;
+&lt;p&gt;最后的最后，咱要感谢一个人，那就是 XiaoJin ，是他最终成功地把咱劝进了医院，他的关心咱真的不知道该怎么回报，没有他，咱可能已经离开这个世界了吧．再改感谢你让咱重新获得了勇气，谢谢！&lt;/p&gt;
+">大概是日记吧……</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" href="https://blog.charlie.moe/post/BingAPI-00/"" data-c="
+          &lt;h2 id=&#34;api-地址&#34;&gt;API 地址&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;https://cn.bing.com/HPImageArchive.aspx?format=&amp;lt;format&amp;gt;&amp;amp;idx=&amp;lt;idx&amp;gt;&amp;amp;n=&amp;lt;n&amp;gt;&amp;amp;mkt=&amp;lt;mkt&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;参数&#34;&gt;参数&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;format (required)
+&lt;ul&gt;
+&lt;li&gt;js：返回 json 响应&lt;/li&gt;
+&lt;li&gt;xml：返回 xml 响应&lt;/li&gt;
+&lt;li&gt;rss：返回 rss 订阅&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;idx (required)
+&lt;ul&gt;
+&lt;li&gt;1：一天前的，同理 2 为两天前的，最大为 8 返回八天的数据&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;n (required)
+&lt;ul&gt;
+&lt;li&gt;获取图片数量，最大为 8 返回包括当天的 8张图片信息&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;mkt (optional)
+&lt;ul&gt;
+&lt;li&gt;zh_CN：中国刷新的图片（过年和一些传统节日会有不同）&lt;/li&gt;
+&lt;li&gt;en_US：美国刷新的图片（貌似都差不多）&lt;/li&gt;
+&lt;li&gt;...&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;返回以-json-为例&#34;&gt;返回（以 JSON 为例）&lt;/h2&gt;
+&lt;p&gt;咱们只关心 &lt;code&gt;images&lt;/code&gt; Key 的内容&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;startdate&lt;/code&gt;：生效时间&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;fullstartdate&lt;/code&gt;：生效时间（精确到分钟）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;enddate&lt;/code&gt;：结束时间（到这天 24:00 过期)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;url&lt;/code&gt;：标准的 1080p 分辨率的图片 url&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;urlbase&lt;/code&gt;：基准 url（加后缀可以得到不同分辨率的图片）
+&lt;ul&gt;
+&lt;li&gt;大多小于 1920x1200 分辨率的主流分辨率都可以，格式为 &lt;code&gt;_widthxheight.jpg&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;_UHD.jpg&lt;/code&gt; 为图片原始分辨率（最清晰，每天不定）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;copyright&lt;/code&gt;：版权信息&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;copyrightlink&lt;/code&gt;：Bing 搜索版权信息的地址&lt;/li&gt;
+&lt;li&gt;...&lt;/li&gt;
+&lt;/ol&gt;
+">对 Bing 美图 API 的研究 #00</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" href="https://blog.charlie.moe/post/RSA-AES-Encryption-guide/"" data-c="
+          &lt;p&gt;本文会详细地讲解 RSA&amp;amp;AES Encryption 的使用&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h2 id=&#34;基础使用&#34;&gt;&lt;strong&gt;基础使用&lt;/strong&gt;&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;下载程序
+&lt;ul&gt;
+&lt;li&gt;首先，不用多说，先在 GitHub 的 &lt;a href=&#34;https://github.com/LassiCat/RSA-AES-Encryption/releases&#34;&gt;Release 页面&lt;/a&gt;下载本程序，并双击运行。&lt;/li&gt;
+&lt;li&gt;文件就一个，但运行会生成「keyring.db」，这个文件储存着你的密钥，你好友的公钥，设置。请不要删除这个文件，也不要泄露这个文件。（建议将程序放在一个特定的目录中）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;密钥生成
+&lt;ul&gt;
+&lt;li&gt;运行后你会看到一个窗口。&lt;img src=&#34;https://blog.charlie.moe/post-images/1596776021766.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/li&gt;
+&lt;li&gt;点击上方选项卡中的「杂项」，点击「生成私钥」。&lt;img src=&#34;https://blog.charlie.moe/post-images/1596776111097.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/li&gt;
+&lt;li&gt;接着会弹出一个窗口，输入你要的密码，如果你不想要密码，可以留空，输入完成后点击确定或者直接回车，按取消等同于留空。（Tips: 请确保你的密码输入正确，否则你无法使用此密钥）&lt;img src=&#34;https://blog.charlie.moe/post-images/1596776817061.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/li&gt;
+&lt;li&gt;稍等一会儿，会弹出另一个窗口，输入你的描述。（别太长，限制为 50Byte，也就是50个英文字符，或者25个中文字符）&lt;img src=&#34;https://blog.charlie.moe/post-images/1596776836940.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/li&gt;
+&lt;li&gt;生成完成后你就可以在「选择密钥」的下拉栏里找到你的密钥，选择它，会弹出一个窗口要求你输入密码，若你没有设置密码，留空或者取消，若你设置了密码输入你的密码，回车或者确定。&lt;img src=&#34;https://blog.charlie.moe/post-images/1596776965744.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;管理密钥
+&lt;ul&gt;
+&lt;li&gt;点击「管理密钥」。&lt;img src=&#34;https://blog.charlie.moe/post-images/1596777171645.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/li&gt;
+&lt;li&gt;接着会弹出一个窗口。&lt;img src=&#34;https://blog.charlie.moe/post-images/1596777350489.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/li&gt;
+&lt;li&gt;在「私钥」栏，点击选择密钥，双击可以更改描述，回车可以修改密码，shift + 回车可以导出你的私钥，点击下方的「删除」可以删除密钥，「导出」可以导出你的公钥，「导入」可以从文件导入密钥（密钥的类型程序会自行判断）。&lt;/li&gt;
+&lt;li&gt;在「公钥」栏，点击选择密钥，双击可以更改描述，三个按钮同上。&lt;/li&gt;
+&lt;li&gt;「导入」按钮：点击「导入」按钮会弹出一个窗口用于选择文件，你只要选择密钥文件即可。&lt;img src=&#34;https://blog.charlie.moe/post-images/1596777739807.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;然后程序会弹出一个窗口要求你输入描述。&lt;/li&gt;
+&lt;li&gt;「导出」按钮：点击「导出」按钮会弹出一个类似的窗口用于保存密钥文件，请务必记得输入文件名。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;加密文本
+&lt;ul&gt;
+&lt;li&gt;选择标签栏的「文本加/解密」。&lt;/li&gt;
+&lt;li&gt;先确保，你已经得到了你好友的公钥，然后在「收/发件人」下拉栏里选择收件人。（当然你也可以导出自己的公钥，再导入，你就可以在「收/发件人」下拉栏里找到你自己的公钥了）&lt;img src=&#34;https://blog.charlie.moe/post-images/1596778594948.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/li&gt;
+&lt;li&gt;在输入框里输入你要发送的文本，然后点击「加密」按钮，就会弹出一个窗口，里面有加密的结果，你可以点击「复制」按钮复制密文并发送给你的好友，完成后你可以点击确定或者直接关掉这个窗口。（你可以通过「签名」复选框选择是否签名签名可以保证信息的可信度，但会增加密文的长度）&lt;img src=&#34;https://blog.charlie.moe/post-images/1596778838876.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;解密文本
+&lt;ul&gt;
+&lt;li&gt;选择标签栏的「文本加/解密」。&lt;/li&gt;
+&lt;li&gt;和加密文本一样，选择发件人的公钥，然后把收到的密文完完全全地复制到输入框内。（请确保输入框原本是空的）。&lt;/li&gt;
+&lt;li&gt;点击「解密」按钮，这会弹出一个窗口，你就可以得到密文的内容了。&lt;/li&gt;
+&lt;li&gt;如果显示签名无效，有可能是你选错了发件人，也可能是对方没有签名。&lt;img src=&#34;https://blog.charlie.moe/post-images/1596779370064.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;加密文件
+&lt;ul&gt;
+&lt;li&gt;选择标签栏的「文件加/解密」。&lt;img src=&#34;https://blog.charlie.moe/post-images/1596779809154.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/li&gt;
+&lt;li&gt;密钥选择与之前类似。&lt;/li&gt;
+&lt;li&gt;点击「选择文件」按钮，选择你的文件，再点击「选择目录」选择保存路径，最后点击「加密」按钮，这会弹出一个窗口要求你输入文件名，输入完成后点击确定，就可以开始加密了，加密完成后会弹出一个窗口，点击「打开」按钮就可以打开保存路径，生成的文件的后缀是 ref。 &lt;img src=&#34;https://blog.charlie.moe/post-images/1596780346977.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;解密文件
+&lt;ul&gt;
+&lt;li&gt;选择标签栏的「文件加/解密」。&lt;/li&gt;
+&lt;li&gt;操作同上，选择加密过的文件，点击「解密」按钮，然后就会弹出一个窗口。&lt;img src=&#34;https://blog.charlie.moe/post-images/1596780725126.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;简单配置
+&lt;ul&gt;
+&lt;li&gt;参照第一张生成密钥的图片，你可以设置 coffee-keys 的网址，默认保存路径和默认使用的私钥&lt;/li&gt;
+&lt;li&gt;点击「保存」，就可以保存设置&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;进阶使用&#34;&gt;&lt;strong&gt;进阶使用&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;你可以发现，程序是使用一个数据库储存所有信息的，你可以使用一些工具打开这个数据库&lt;/p&gt;
+">关于 RSA&AES Encryption 的使用教程</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" href="https://blog.charlie.moe/post/encryptedcoffee02/"" data-c="
+          &lt;p&gt;关于封面这个程序，它是 EncryptedCoffee 项目的一个带 GUI 的升级版本，咱将其命名为 RSA&amp;amp;AES Encryption。&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h2 id=&#34;关于这个项目较-encryptedcoffee-的变化&#34;&gt;&lt;strong&gt;关于这个项目较 EncryptedCoffee 的变化&lt;/strong&gt;&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;这个项目抛弃了原有的一些轮子
+&lt;ul&gt;
+&lt;li&gt;抛弃了原有用于 RSA 实现的 RSA 轮子，改为使用 pycryptodome&lt;/li&gt;
+&lt;li&gt;抛弃了用于剪切板操作的 pywin32， 改为使用 pyperclip&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;最重要的一点，这个项目现在拥有 GUI 了
+&lt;ul&gt;
+&lt;li&gt;采用 Tkinter 编写的 GUI &lt;s&gt;（Tkinter 写的想要特别好看就算了吧）&lt;/s&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;读取大文件的优化
+&lt;ul&gt;
+&lt;li&gt;每次只读 1MiB 的数据到内存中 &lt;s&gt;（妈妈再也不用担心咱爆内存了）&lt;/s&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;最后&#34;&gt;&lt;strong&gt;最后&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;项目的 &lt;a href=&#34;https://github.com/CharlieYu4994/RSA-AES-Encryption&#34;&gt;地址&lt;/a&gt;&lt;br&gt;
+这个项目已经脱离了原来的 EncryptedCoffee，咱会经量更进 EncryptedCoffee 的更新 &lt;s&gt;（如果 Xiao_Jin 还更新的话）&lt;/s&gt; 。&lt;/p&gt;
+">关于 EncryptedCoffee #02</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" href="https://blog.charlie.moe/post/pass/"" data-c="
+          &lt;!-- more --&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://blog.charlie.moe/post-images/1594472796571.jfif&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+">合格考全部拿下</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" href="https://blog.charlie.moe/post/jwt-00/"" data-c="
+          &lt;p&gt;关于 JWT 网上有很多介绍，这里就不多做介绍了，简而言之 JWT 就是一个身份证，证明你是你。&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h1 id=&#34;结构和实现&#34;&gt;结构和实现&lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt;e2FsZyI6ICJIUzI1NiIsInR5cCI6ICJKV1QifQ.
+eyJzdWIiOiAidXNlciB0b2tlbiIsICJpc3MiOiAiIiwgImF1ZCI6ICIxMTExIiwgInV1aWQiOi
+AiMTExMSIsICJpYXQiOiAxNTg4Njc3NTA1Mjc3LCAiZXhwIjogMTU4ODY3NzUwNjI3N30.
+zZrdD_mVLIEHtUubrd25SvGiFd-nD2sutam7Apzq0ZA
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;以上就是一个简单的 JWT。&lt;br&gt;
+很容易就可以看出来，JWT 由三个部分组成，这三个部分由「 . 」分隔开。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;第一个部分：第一个部分是 JWT 的 head（头部），包含加密方式和类型（类型始终为 JWT）。头是一个 JSON，就像下面列举的这样。然后对这个 JSON 字符串进行 Base64 编码就得到了咱们的头部，当然由于咱们可能要在网页中使用它，所以咱们不能单纯地使用 Base64 而是要使用 Base64 的变种 Base64URL。（由于加密方式是写在 head 中的，而它又基本上是明文，这就导致了一个问题，在下文会讲到）&lt;pre&gt;&lt;code class=&#34;language-JSON&#34;&gt;{
+    &amp;quot;alg&amp;quot;: &amp;quot;HS256&amp;quot;,
+    &amp;quot;typ&amp;quot;: &amp;quot;JWT&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;第二个部分：第二个部分是 JWT 的payload（载荷）也就承载你的数据的地方，它也是一个 JSON，就像下面列举的这样，不必理解咱写了什么内容，咱们只需要知道把这个 JSON 字符串做和头部一样的操作就可以得到 JWT 的 payload 了。至于细节部分网上有很多教程。（同理 payload 也基本上是明文，所以不能存放任何敏感信息）&lt;pre&gt;&lt;code class=&#34;language-JSON&#34;&gt;{
+    &amp;quot;sub&amp;quot;: &amp;quot;user token&amp;quot;,
+    &amp;quot;iss&amp;quot;: server,
+    &amp;quot;aud&amp;quot;: u_username,
+    &amp;quot;uuid&amp;quot;: u_uuid,
+    &amp;quot;iat&amp;quot;: u_time,
+    &amp;quot;exp&amp;quot;: u_time + exp * 1000
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;第三个部分：第三个部分是 JWT 的灵魂所在，他是 JWT 的 sig（签名），说是签名，咱更愿意称它为检验信息，它可以保证 JWT 的内容不被修改。sig 的生成很简单咱这里只列举 HS256 的实现，也就是 HMACSHA256，第一步，把咱们的 head 和 payload 用「 . 」连接起来然后使用 SHA256 算法对其摘要，然后用 HMAC 算法对其加密，最后用 Base64URL 对其编码，就得到了咱们的 sig，当然你也可以用其他的算法进行摘要和加密。（注：key、msg 都是 bytes 类型）&lt;pre&gt;&lt;code class=&#34;language-Python&#34;&gt;      msg = f&#39;{head}.{payload}&#39;.encode()
+      sig = base64.b64encode(hmac.new(key, msg, digestmod=sha256).digest())
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;关于隐患&#34;&gt;关于隐患&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;JWT 不会对信息做任何加密，所有信息都是可以轻松查看的。&lt;/li&gt;
+&lt;li&gt;如果你的项目中使用了非对称加密，那么 JWT 的头很有可能成为重大的漏洞，攻击者可能会在头中声明加密方式是 HS256，但你使用的是 RS256，你的程序会尝试使用你的 RSA 公钥去解密签名，而公钥是大家都知道的，由此攻击者就可以自己签发 JWT，以任何身份登录。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;咱能想到的只有这些了，大家可以在评论区补充&lt;/p&gt;
+">关于 JWT</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" href="https://blog.charlie.moe/post/encryptedcoffee01/"" data-c="
+          &lt;p&gt;没想到这一天来得这么快，现在 EcryptedCoffee 已经有修改密码的功能了，开心ヾ(≧▽≦*)o&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;p&gt;好了现在 EncryptedCoffee 可能会进入断更期，在五一期间咱们不会做任何更新。&lt;/p&gt;
+">关于 EncryptedCoffee #01</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" href="https://blog.charlie.moe/post/encryptedcoffee/"" data-c="
+          &lt;p&gt;咱们的 &lt;a href=&#34;https://github.com/super-coffee/encrypted-coffee&#34;&gt;EncryptedCoffee&lt;/a&gt; 更新啦！&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;p&gt;没什么好说的，在 GitHub 的 README 里写得很详细了。&lt;/p&gt;
+&lt;p&gt;在这篇博文里主要讲一下这个小程序是怎么使用的&lt;/p&gt;
+&lt;h2 id=&#34;关于安装&#34;&gt;&lt;strong&gt;关于安装&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;本软件是一个绿色软件，放在任意位置运行即可（强烈建议把软件本体放在一个文件夹下，软件运行会产生一些文件），若你无法正常运行软件，请运行压缩包内的 &lt;code&gt;快速修复&lt;/code&gt; 文件夹下的 bat 文件以安装 pywin32 的依赖文件。（&lt;strong&gt;注&lt;/strong&gt;：一定要以管理员身份打开）&lt;/p&gt;
+&lt;h2 id=&#34;关于使用&#34;&gt;&lt;strong&gt;关于使用&lt;/strong&gt;&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;双击运行 &lt;code&gt;EncryptedCoffee.exe&lt;/code&gt;，如果你是第一次运行那么程序会在可执行文件的同级目录下生成你的 &lt;code&gt;public.pem&lt;/code&gt;， &lt;code&gt;private.pem&lt;/code&gt; 和 &lt;code&gt;PublicKey&lt;/code&gt; 文件夹，请不要删除这些文件和文件夹、移动他们或者重命名他们。&lt;/li&gt;
+&lt;li&gt;在生成密钥时你可以选择对你的私钥进行加密，（&lt;strong&gt;注&lt;/strong&gt;：你的密码千万不要超过16位）。如果你设置了密码请一定要牢记它，没有任何办法可以找回这个密码，如果你忘记了请删除你的公钥&lt;strong&gt;和&lt;/strong&gt;私钥重新生成 。&lt;br&gt;
+当你完成了这些，你就可以开始享用 EncryptedCoffee 了&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;关于公钥的分享&#34;&gt;&lt;strong&gt;关于公钥的分享&lt;/strong&gt;&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;发送公钥：你可以复制一份你的 &lt;code&gt;public.pem&lt;/code&gt; 发送给你的好友，对于发送给别人的公钥可以随意命名，但请&lt;strong&gt;不要重命名源文件&lt;/strong&gt;。你也可以用记事本打开公钥的文件复制里面的内容发送给你的朋友。&lt;/li&gt;
+&lt;li&gt;接收公钥：你可以把你接受到的pem文件放到 &lt;code&gt;PublicKey&lt;/code&gt; 文件夹下，你可以随意地重命名这个文件，对于接收到的文本公钥内容，你可以在 &lt;code&gt;PublicKey&lt;/code&gt; 文件夹下新建一个文本文档将它的拓展名改为   pem（同样你可以随意命名他），并把你收到的内容复制进去&lt;img src=&#34;https://blog.charlie.moe/post-images/1588258985107.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;就像这样。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;当一切都操作都完成后重启软件，你应该就可以在列表里看到你朋友的公钥了。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;关于未来的版本更新&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;对接 Coffee-key&lt;/li&gt;
+&lt;li&gt;加入密码提示和密码修改&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;s&gt;&lt;strong&gt;至于这个未来是什么时候呢，无可奉告&lt;/strong&gt;&lt;/s&gt;&lt;br&gt;
+如果你有任何问题要反馈，可以在 GitHub上 &lt;a href=&#34;https://github.com/super-coffee/encrypted-coffee/issues/new&#34;&gt;开启一个 issues&lt;/a&gt;&lt;br&gt;
+文章的最后给出下载链接：https://github.com/super-coffee/encrypted-coffee/releases/download/v0.2-beta.2/EncryptedCoffee.7z&lt;/p&gt;
+">关于 EncryptedCoffee #00</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" href="https://blog.charlie.moe/post/py-minecraft-afk-01/"" data-c="
+          &lt;p&gt;经过长时间的发展，AFK 项目已经实现了预想的大部分功能了，接下来就是加入多线程实现动作并发了。&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h2 id=&#34;程序的部分说明&#34;&gt;程序的部分说明&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;[
+     {
+        &amp;quot;class&amp;quot;: [
+            {
+                &amp;quot;op_type&amp;quot;: &amp;quot;keyboard.input&amp;quot;,
+                &amp;quot;loop_times&amp;quot;: -1,
+                &amp;quot;down_time&amp;quot;: 1.0,
+                &amp;quot;up_time&amp;quot;: 1.0,
+                &amp;quot;keys&amp;quot;: &amp;quot;a&amp;quot;
+            }
+        ],
+        &amp;quot;loop_times&amp;quot;: 1
+    }
+]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;配置文件
+&lt;ul&gt;
+&lt;li&gt;虽然你可以再程序中自动生成配置文件，但现在还是要说一下配置文件的结构。从文件的拓展名很容易看出来配置文件本质上是个 json &lt;s&gt;废话&lt;/s&gt;&lt;/li&gt;
+&lt;li&gt;这个json的最外层是一个js数组，对于这样的结构你有什么大胆的猜测吗，相信你已经看出来了，一个配置文件可以有多个子配置，一个子配置中存储的是一组动作，这里只展示了一个动作 &lt;code&gt;&amp;quot;class&amp;quot;&lt;/code&gt; 关键字是用来与 &lt;code&gt;&amp;quot;multi&amp;quot;&lt;/code&gt; 区分的，class 代表顺序执行，若动作分步的循环次数为 -1 也就是无限循环的话，这一组动作就会卡在第一个无限循环动作，不会往下执行，也就是死循环。如果是multi则是动作并发，这一个子配置文件的所有动作分步都会同时进行，包括相反的动作。子配置文件的 &lt;code&gt;&amp;quot;loop_times&amp;quot;&lt;/code&gt; 是指子配置的循环次数，同时所有的子配置也是并发的。（当然所有的并发还没实现）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;快要开学了&lt;br&gt;
+接下来 Super-Coffee的 &lt;strong&gt;所有项目&lt;/strong&gt;都会接近于停滞。只能等暑假再继续。&lt;/p&gt;
+">py-Minecraft-AFK 项目 #01</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" href="https://blog.charlie.moe/post/fix-the-move-methon-00/"" data-c="
+          &lt;h2 id=&#34;缘由&#34;&gt;缘由&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;关于 1.12.2 及以前版本
+&lt;ul&gt;
+&lt;li&gt;咱们在项目一开始就很希望加入鼠标移动的功能，但是由于对 WindowsAPI 的不熟悉，咱们并没有办法在焦点不在MC窗口时操作鼠标移动，因此咱们只能退而求其次使用全局的方法操作。想到全局的方法，咱第一时间想到的是 &lt;code&gt;SetCursorPos()&lt;/code&gt; 函数，确实咱成功了，但在Xiao_Jin 测试时却失效了，在不断的测试下咱们了解到MC在海洋更新之后对鼠标移动做出了破坏性的修改&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;关于1.12.2以上版本
+&lt;ul&gt;
+&lt;li&gt;既然想到是MC更新产生的变化，咱们便当机立断决定分析MC的源码，但很明显咱们三人之中没有人会Java语言，咱们凭借别的语言的基础完全无法理解 &lt;s&gt;Bugjang&lt;/s&gt; Mojang高深的代码，咱们只得放弃。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;转折&#34;&gt;转折&lt;/h2&gt;
+&lt;p&gt;在 Cheny 不断地试验下，咱们发现可以用 &lt;code&gt;SendInput()&lt;/code&gt; 函数实现鼠标移动，但是咱和 Xiao_Jin 发现在 win32api 这个Python轮子里面并没有 &lt;code&gt;SendInput()&lt;/code&gt; ，这也是这篇文章诞生的原因。&lt;/p&gt;
+&lt;h2 id=&#34;解决方法&#34;&gt;解决方法&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;咱们可以另找别的方法
+&lt;ul&gt;
+&lt;li&gt;这明显不是一个好方法，不到万不得已咱们不会去尝试这种不算方法的方法&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;咱们可以用 C++ 写一个Python轮子
+&lt;ul&gt;
+&lt;li&gt;但是问题又来了，咱们三个中并没有人会用 C++ 写 Python 的轮子，在咱们三个人中 Xiao_Jin 会写前端和 Python（ Python 写得很好），Cheny C++ 写得很好，咱只会最基础的 C++ 和 Python，让咱们三个现学显然是不现实的。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;咱们可以用 C++ 写一个外部程序（这也是最后被采纳的方法）
+&lt;ul&gt;
+&lt;li&gt;Cheny 学业繁忙（虽然咱们都很忙）所以写外部程序他不能胜任，所有，这个重担（可能很简单，但咱的 C++ 很烂）就交到了咱的手上。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;现状&#34;&gt;现状&lt;/h2&gt;
+&lt;p&gt;咱已把这个外部程序写出来了但是它表现得很不正常（吃了C++没学好的亏了）&lt;br&gt;
+&lt;img src=&#34;https://blog.charlie.moe/post-images/1586417620743.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;br&gt;
+请不要吐槽咱蹩脚的C++技术，&lt;s&gt;咱会伤心的。&lt;/s&gt; 很显然咱们还需呀很长的时间调试这个程序，但可以保证的是咱们可以在月底之前完成鼠标移动的修复。&lt;/p&gt;
+&lt;h2 id=&#34;求援&#34;&gt;求援&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;如果有Java大佬愿意帮助咱们的话，咱们将感激不尽&lt;/strong&gt;&lt;/p&gt;
+">关于鼠标移动的修复 #00</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" href="https://blog.charlie.moe/post/py-minecraft-afk-00/"" data-c="
+          &lt;h2 id=&#34;起因&#34;&gt;起因&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/super-coffee/py-Minecraft-AFK&#34;&gt;Py-Minecraft-AFK&lt;/a&gt; 项目是咱和 Xiao_Jin 受到 Cheny 的 &lt;a href=&#34;https://github.com/super-coffee/cpp-Minecraft-AFK&#34;&gt;Cpp-Minecraft-AFK&lt;/a&gt; 项目的启发而诞生的。&lt;br&gt;
+最开始咱在机缘巧合下找到了一个名为 win32api 的 Python 轮子，因此咱就萌发了重写一个 Python 版本的 Minecraft-AFK，而这个想法吸引了群里的 Xiao_Jin，在商议下咱们开始了合作。&lt;/p&gt;
+&lt;h2 id=&#34;现状&#34;&gt;现状&lt;/h2&gt;
+&lt;p&gt;经过半个多月的努力，Py-Minecraft-AFK 项目已经初具规模了，现阶段正在考虑加入多线程以实现动作的并发，并且咱们成立了一个 Super-Coffee 组织，在这个组织里你会找到很多&lt;s&gt;没用&lt;/s&gt;有意思的项目。&lt;/p&gt;
+">py-Minecraft-AFK 项目 #00</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" href="https://blog.charlie.moe/post/about/"" data-c="
+          &lt;h2 id=&#34;人设&#34;&gt;人设&lt;/h2&gt;
+&lt;p&gt;姓名：八云笙（CharlieYu）&lt;br&gt;
+年龄：不明&lt;br&gt;
+性别：不明&lt;br&gt;
+身高体重：145cm/38kg&lt;br&gt;
+种族：妖兽（妖怪猫）&lt;br&gt;
+发色：白金色&lt;br&gt;
+瞳色：绿瞳&lt;br&gt;
+性格：腹黑、逗比、弱受&lt;br&gt;
+外表：有着齐腰白金色长发。尾巴大部分是白金色，尖端是暗红色的。圆脸，眼睛很大，有着很深的黑眼圈。耳朵的颜色和发色一样，内侧有一团白色的绒毛。&lt;br&gt;
+关键词：赛博朋克、黑客、箭术、病弱&lt;/p&gt;
+">关于</a>
+      </div>
+      
+    </div>
+  </div>
+</div>
+<script>
+  // var escape = "[{&#34;content&#34;:&#34;&lt;script src=\&#34;https://cdn.bootcdn.net/ajax/libs/blueimp-md5/2.19.0/js/md5.min.js\&#34;&gt;&lt;/script&gt;\n&lt;style type=\&#34;text/css\&#34;&gt;\ninput {\n    outline:0;\n    border:0;\n    border-radius: 10px;\n    padding: 5px;\n    font-size:30px;\n}\n.buttom {\n\tposition: relative;\n\tborder: 0;\n    border-radius: 10px;\n\tpadding: 15px 25px;\n\tdisplay: inline-block;\n\ttext-align: center;\n\tcolor: white;\n    background-color: #fd7e14;\n    box-shadow:0px 4px 0px #f07813;\n}\n.buttom:active {\n\ttop: 4px;\n    background-color: #e47112;\n    box-shadow: 0 0 #e47112;\n}\n&lt;/style&gt;\n&lt;script&gt;\n    function clacPass() {\n        var sn = document.getElementById(\&#34;sn\&#34;).value;\n        var salt = \&#34;6d2df50a-250f-4a30-a5e6-d44fb0960aa0\&#34;;\n        var res = md5(sn + salt).substr(0, 8);\n        document.getElementById(\&#34;res\&#34;).innerHTML = res;\n        }\n&lt;/script&gt;\n&lt;div&gt;\n&lt;input id=\&#34;sn\&#34;&gt;&lt;/input&gt;\n&lt;button class=\&#34;buttom\&#34; type=\&#34;button\&#34; onclick=\&#34;clacPass()\&#34;&gt;计算&lt;/button&gt;\n&lt;/div&gt;\n&lt;p id=\&#34;res\&#34;&gt;&lt;/p&gt;&#34;,&#34;fileName&#34;:&#34;miwifi-sshpass-calculator&#34;,&#34;abstract&#34;:&#34;&#34;,&#34;title&#34;:&#34;小米路由器 SSH 密码计算工具&#34;,&#34;tags&#34;:[{&#34;name&#34;:&#34;Tool&#34;,&#34;slug&#34;:&#34;vy7Zdu5b3&#34;,&#34;used&#34;:true,&#34;link&#34;:&#34;https://blog.charlie.moe/tag/vy7Zdu5b3/&#34;}],&#34;date&#34;:&#34;2022-08-28 23:25:37&#34;,&#34;dateFormat&#34;:&#34;2022-08-28&#34;,&#34;feature&#34;:&#34;&#34;,&#34;link&#34;:&#34;https://blog.charlie.moe/post/miwifi-sshpass-calculator/&#34;,&#34;hideInList&#34;:true,&#34;isTop&#34;:false,&#34;stats&#34;:{&#34;text&#34;:&#34;1 min read&#34;,&#34;time&#34;:30000,&#34;words&#34;:83,&#34;minutes&#34;:1},&#34;description&#34;:&#34;\n\ninput {\n    outline:0;\n    border:0;\n    border-radius: 10px;\n    padding: 5px;\n    font-size:30px;\n}\n.buttom {\n\tposit...&#34;,&#34;toc&#34;:&#34;&#34;},{&#34;content&#34;:&#34;&lt;p&gt;近来，在咱身上发生了很多事情，以至一直都没有更新博客。&lt;/p&gt;\n&lt;p&gt;咱患上了中度焦虑以及重度抑郁，说实话这对咱来说还是蛮讽刺的，不久前咱还劝过 Restent要去及时就医，而咱自己的情况却是一拖再拖。在去医院之前发生了很多不好的事情，就不一一列举了。咱在这里说这个并不是要得到他人的同情什么的，仅仅只是想要在这个世界上多留不一些咱的痕迹罢了。&lt;/p&gt;\n&lt;p&gt;除此之外咱高三了，留给咱的业余时间真的不多了。咱现有的所有服务均有可能随时宕机，并且不会进行维护。就目前看来，Bing API 和 Pastebin API 已经罢工很久了。&lt;/p&gt;\n&lt;p&gt;最后，咱的学业压力正在变得越来越通，咱并不清楚咱是否还能坚持不去。近期咱正在写一个 ESP32 的显示器驱动，目前正在实现 1bit，8bit，16bit，24bit 的帧缓冲区。咱以前说过咱写程序是为了逃避生活，希望这一次它也能带咱走出困境吧。&lt;/p&gt;\n&lt;p&gt;最后的最后，咱要感谢一个人，那就是 XiaoJin ，是他最终成功地把咱劝进了医院，他的关心咱真的不知道该怎么回报，没有他，咱可能已经离开这个世界了吧．再改感谢你让咱重新获得了勇气，谢谢！&lt;/p&gt;\n&#34;,&#34;fileName&#34;:&#34;diary00&#34;,&#34;abstract&#34;:&#34;&#34;,&#34;title&#34;:&#34;大概是日记吧……&#34;,&#34;tags&#34;:[],&#34;date&#34;:&#34;2021-12-25 18:41:20&#34;,&#34;dateFormat&#34;:&#34;2021-12-25&#34;,&#34;feature&#34;:&#34;&#34;,&#34;link&#34;:&#34;https://blog.charlie.moe/post/diary00/&#34;,&#34;hideInList&#34;:true,&#34;isTop&#34;:false,&#34;stats&#34;:{&#34;text&#34;:&#34;2 min read&#34;,&#34;time&#34;:77000,&#34;words&#34;:376,&#34;minutes&#34;:2},&#34;description&#34;:&#34;近来，在咱身上发生了很多事情，以至一直都没有更新博客。\n咱患上了中度焦虑以及重度抑郁，说实话这对咱来说还是蛮讽刺的，不久前咱还劝过 Restent要去及时就医，而咱自己的情况却是一拖再拖。在去医院之前发生了很多不好的事情，就不一一列举了。咱...&#34;,&#34;toc&#34;:&#34;&#34;},{&#34;content&#34;:&#34;&lt;h2 id=\&#34;api-地址\&#34;&gt;API 地址&lt;/h2&gt;\n&lt;pre&gt;&lt;code&gt;https://cn.bing.com/HPImageArchive.aspx?format=&amp;lt;format&amp;gt;&amp;amp;idx=&amp;lt;idx&amp;gt;&amp;amp;n=&amp;lt;n&amp;gt;&amp;amp;mkt=&amp;lt;mkt&amp;gt;\n&lt;/code&gt;&lt;/pre&gt;\n&lt;h2 id=\&#34;参数\&#34;&gt;参数&lt;/h2&gt;\n&lt;ol&gt;\n&lt;li&gt;format (required)\n&lt;ul&gt;\n&lt;li&gt;js：返回 json 响应&lt;/li&gt;\n&lt;li&gt;xml：返回 xml 响应&lt;/li&gt;\n&lt;li&gt;rss：返回 rss 订阅&lt;/li&gt;\n&lt;/ul&gt;\n&lt;/li&gt;\n&lt;li&gt;idx (required)\n&lt;ul&gt;\n&lt;li&gt;1：一天前的，同理 2 为两天前的，最大为 8 返回八天的数据&lt;/li&gt;\n&lt;/ul&gt;\n&lt;/li&gt;\n&lt;li&gt;n (required)\n&lt;ul&gt;\n&lt;li&gt;获取图片数量，最大为 8 返回包括当天的 8张图片信息&lt;/li&gt;\n&lt;/ul&gt;\n&lt;/li&gt;\n&lt;li&gt;mkt (optional)\n&lt;ul&gt;\n&lt;li&gt;zh_CN：中国刷新的图片（过年和一些传统节日会有不同）&lt;/li&gt;\n&lt;li&gt;en_US：美国刷新的图片（貌似都差不多）&lt;/li&gt;\n&lt;li&gt;...&lt;/li&gt;\n&lt;/ul&gt;\n&lt;/li&gt;\n&lt;/ol&gt;\n&lt;h2 id=\&#34;返回以-json-为例\&#34;&gt;返回（以 JSON 为例）&lt;/h2&gt;\n&lt;p&gt;咱们只关心 &lt;code&gt;images&lt;/code&gt; Key 的内容&lt;/p&gt;\n&lt;ol&gt;\n&lt;li&gt;&lt;code&gt;startdate&lt;/code&gt;：生效时间&lt;/li&gt;\n&lt;li&gt;&lt;code&gt;fullstartdate&lt;/code&gt;：生效时间（精确到分钟）&lt;/li&gt;\n&lt;li&gt;&lt;code&gt;enddate&lt;/code&gt;：结束时间（到这天 24:00 过期)&lt;/li&gt;\n&lt;li&gt;&lt;code&gt;url&lt;/code&gt;：标准的 1080p 分辨率的图片 url&lt;/li&gt;\n&lt;li&gt;&lt;code&gt;urlbase&lt;/code&gt;：基准 url（加后缀可以得到不同分辨率的图片）\n&lt;ul&gt;\n&lt;li&gt;大多小于 1920x1200 分辨率的主流分辨率都可以，格式为 &lt;code&gt;_widthxheight.jpg&lt;/code&gt;&lt;/li&gt;\n&lt;li&gt;&lt;code&gt;_UHD.jpg&lt;/code&gt; 为图片原始分辨率（最清晰，每天不定）&lt;/li&gt;\n&lt;/ul&gt;\n&lt;/li&gt;\n&lt;li&gt;&lt;code&gt;copyright&lt;/code&gt;：版权信息&lt;/li&gt;\n&lt;li&gt;&lt;code&gt;copyrightlink&lt;/code&gt;：Bing 搜索版权信息的地址&lt;/li&gt;\n&lt;li&gt;...&lt;/li&gt;\n&lt;/ol&gt;\n&#34;,&#34;fileName&#34;:&#34;BingAPI-00&#34;,&#34;abstract&#34;:&#34;&#34;,&#34;title&#34;:&#34;对 Bing 美图 API 的研究 #00&#34;,&#34;tags&#34;:[{&#34;name&#34;:&#34;API&#34;,&#34;slug&#34;:&#34;19nEcsVTw&#34;,&#34;used&#34;:true,&#34;link&#34;:&#34;https://blog.charlie.moe/tag/19nEcsVTw/&#34;},{&#34;name&#34;:&#34;Learn&#34;,&#34;slug&#34;:&#34;IBdm5nhh7&#34;,&#34;used&#34;:true,&#34;link&#34;:&#34;https://blog.charlie.moe/tag/IBdm5nhh7/&#34;}],&#34;date&#34;:&#34;2021-03-22 19:49:29&#34;,&#34;dateFormat&#34;:&#34;2021-03-22&#34;,&#34;feature&#34;:&#34;https://blog.charlie.moe/post-images/BingAPI-00.jpeg&#34;,&#34;link&#34;:&#34;https://blog.charlie.moe/post/BingAPI-00/&#34;,&#34;hideInList&#34;:false,&#34;isTop&#34;:false,&#34;stats&#34;:{&#34;text&#34;:&#34;2 min read&#34;,&#34;time&#34;:65000,&#34;words&#34;:267,&#34;minutes&#34;:2},&#34;description&#34;:&#34;API 地址\nhttps://cn.bing.com/HPImageArchive.aspx?format=&amp;lt;format&amp;gt;&amp;amp;idx=&amp;lt;idx&amp;gt;&amp;amp;n=&amp;lt;n&amp;gt;&amp;amp;mkt=&amp;lt;mkt...&#34;,&#34;toc&#34;:&#34;&lt;ul class=\&#34;markdownIt-TOC\&#34;&gt;\n&lt;li&gt;\n&lt;ul&gt;\n&lt;li&gt;&lt;a href=\&#34;#api-%E5%9C%B0%E5%9D%80\&#34;&gt;API 地址&lt;/a&gt;&lt;/li&gt;\n&lt;li&gt;&lt;a href=\&#34;#%E5%8F%82%E6%95%B0\&#34;&gt;参数&lt;/a&gt;&lt;/li&gt;\n&lt;li&gt;&lt;a href=\&#34;#%E8%BF%94%E5%9B%9E%E4%BB%A5-json-%E4%B8%BA%E4%BE%8B\&#34;&gt;返回（以 JSON 为例）&lt;/a&gt;&lt;/li&gt;\n&lt;/ul&gt;\n&lt;/li&gt;\n&lt;/ul&gt;\n&#34;},{&#34;content&#34;:&#34;&lt;p&gt;本文会详细地讲解 RSA&amp;amp;AES Encryption 的使用&lt;/p&gt;\n&lt;!-- more --&gt;\n&lt;h2 id=\&#34;基础使用\&#34;&gt;&lt;strong&gt;基础使用&lt;/strong&gt;&lt;/h2&gt;\n&lt;ol&gt;\n&lt;li&gt;下载程序\n&lt;ul&gt;\n&lt;li&gt;首先，不用多说，先在 GitHub 的 &lt;a href=\&#34;https://github.com/LassiCat/RSA-AES-Encryption/releases\&#34;&gt;Release 页面&lt;/a&gt;下载本程序，并双击运行。&lt;/li&gt;\n&lt;li&gt;文件就一个，但运行会生成「keyring.db」，这个文件储存着你的密钥，你好友的公钥，设置。请不要删除这个文件，也不要泄露这个文件。（建议将程序放在一个特定的目录中）&lt;/li&gt;\n&lt;/ul&gt;\n&lt;/li&gt;\n&lt;li&gt;密钥生成\n&lt;ul&gt;\n&lt;li&gt;运行后你会看到一个窗口。&lt;img src=\&#34;https://blog.charlie.moe/post-images/1596776021766.png\&#34; alt=\&#34;\&#34; loading=\&#34;lazy\&#34;&gt;&lt;/li&gt;\n&lt;li&gt;点击上方选项卡中的「杂项」，点击「生成私钥」。&lt;img src=\&#34;https://blog.charlie.moe/post-images/1596776111097.png\&#34; alt=\&#34;\&#34; loading=\&#34;lazy\&#34;&gt;&lt;/li&gt;\n&lt;li&gt;接着会弹出一个窗口，输入你要的密码，如果你不想要密码，可以留空，输入完成后点击确定或者直接回车，按取消等同于留空。（Tips: 请确保你的密码输入正确，否则你无法使用此密钥）&lt;img src=\&#34;https://blog.charlie.moe/post-images/1596776817061.png\&#34; alt=\&#34;\&#34; loading=\&#34;lazy\&#34;&gt;&lt;/li&gt;\n&lt;li&gt;稍等一会儿，会弹出另一个窗口，输入你的描述。（别太长，限制为 50Byte，也就是50个英文字符，或者25个中文字符）&lt;img src=\&#34;https://blog.charlie.moe/post-images/1596776836940.png\&#34; alt=\&#34;\&#34; loading=\&#34;lazy\&#34;&gt;&lt;/li&gt;\n&lt;li&gt;生成完成后你就可以在「选择密钥」的下拉栏里找到你的密钥，选择它，会弹出一个窗口要求你输入密码，若你没有设置密码，留空或者取消，若你设置了密码输入你的密码，回车或者确定。&lt;img src=\&#34;https://blog.charlie.moe/post-images/1596776965744.png\&#34; alt=\&#34;\&#34; loading=\&#34;lazy\&#34;&gt;&lt;/li&gt;\n&lt;/ul&gt;\n&lt;/li&gt;\n&lt;li&gt;管理密钥\n&lt;ul&gt;\n&lt;li&gt;点击「管理密钥」。&lt;img src=\&#34;https://blog.charlie.moe/post-images/1596777171645.png\&#34; alt=\&#34;\&#34; loading=\&#34;lazy\&#34;&gt;&lt;/li&gt;\n&lt;li&gt;接着会弹出一个窗口。&lt;img src=\&#34;https://blog.charlie.moe/post-images/1596777350489.png\&#34; alt=\&#34;\&#34; loading=\&#34;lazy\&#34;&gt;&lt;/li&gt;\n&lt;li&gt;在「私钥」栏，点击选择密钥，双击可以更改描述，回车可以修改密码，shift + 回车可以导出你的私钥，点击下方的「删除」可以删除密钥，「导出」可以导出你的公钥，「导入」可以从文件导入密钥（密钥的类型程序会自行判断）。&lt;/li&gt;\n&lt;li&gt;在「公钥」栏，点击选择密钥，双击可以更改描述，三个按钮同上。&lt;/li&gt;\n&lt;li&gt;「导入」按钮：点击「导入」按钮会弹出一个窗口用于选择文件，你只要选择密钥文件即可。&lt;img src=\&#34;https://blog.charlie.moe/post-images/1596777739807.png\&#34; alt=\&#34;\&#34; loading=\&#34;lazy\&#34;&gt;然后程序会弹出一个窗口要求你输入描述。&lt;/li&gt;\n&lt;li&gt;「导出」按钮：点击「导出」按钮会弹出一个类似的窗口用于保存密钥文件，请务必记得输入文件名。&lt;/li&gt;\n&lt;/ul&gt;\n&lt;/li&gt;\n&lt;li&gt;加密文本\n&lt;ul&gt;\n&lt;li&gt;选择标签栏的「文本加/解密」。&lt;/li&gt;\n&lt;li&gt;先确保，你已经得到了你好友的公钥，然后在「收/发件人」下拉栏里选择收件人。（当然你也可以导出自己的公钥，再导入，你就可以在「收/发件人」下拉栏里找到你自己的公钥了）&lt;img src=\&#34;https://blog.charlie.moe/post-images/1596778594948.png\&#34; alt=\&#34;\&#34; loading=\&#34;lazy\&#34;&gt;&lt;/li&gt;\n&lt;li&gt;在输入框里输入你要发送的文本，然后点击「加密」按钮，就会弹出一个窗口，里面有加密的结果，你可以点击「复制」按钮复制密文并发送给你的好友，完成后你可以点击确定或者直接关掉这个窗口。（你可以通过「签名」复选框选择是否签名签名可以保证信息的可信度，但会增加密文的长度）&lt;img src=\&#34;https://blog.charlie.moe/post-images/1596778838876.png\&#34; alt=\&#34;\&#34; loading=\&#34;lazy\&#34;&gt;&lt;/li&gt;\n&lt;/ul&gt;\n&lt;/li&gt;\n&lt;li&gt;解密文本\n&lt;ul&gt;\n&lt;li&gt;选择标签栏的「文本加/解密」。&lt;/li&gt;\n&lt;li&gt;和加密文本一样，选择发件人的公钥，然后把收到的密文完完全全地复制到输入框内。（请确保输入框原本是空的）。&lt;/li&gt;\n&lt;li&gt;点击「解密」按钮，这会弹出一个窗口，你就可以得到密文的内容了。&lt;/li&gt;\n&lt;li&gt;如果显示签名无效，有可能是你选错了发件人，也可能是对方没有签名。&lt;img src=\&#34;https://blog.charlie.moe/post-images/1596779370064.png\&#34; alt=\&#34;\&#34; loading=\&#34;lazy\&#34;&gt;&lt;/li&gt;\n&lt;/ul&gt;\n&lt;/li&gt;\n&lt;li&gt;加密文件\n&lt;ul&gt;\n&lt;li&gt;选择标签栏的「文件加/解密」。&lt;img src=\&#34;https://blog.charlie.moe/post-images/1596779809154.png\&#34; alt=\&#34;\&#34; loading=\&#34;lazy\&#34;&gt;&lt;/li&gt;\n&lt;li&gt;密钥选择与之前类似。&lt;/li&gt;\n&lt;li&gt;点击「选择文件」按钮，选择你的文件，再点击「选择目录」选择保存路径，最后点击「加密」按钮，这会弹出一个窗口要求你输入文件名，输入完成后点击确定，就可以开始加密了，加密完成后会弹出一个窗口，点击「打开」按钮就可以打开保存路径，生成的文件的后缀是 ref。 &lt;img src=\&#34;https://blog.charlie.moe/post-images/1596780346977.png\&#34; alt=\&#34;\&#34; loading=\&#34;lazy\&#34;&gt;&lt;/li&gt;\n&lt;/ul&gt;\n&lt;/li&gt;\n&lt;li&gt;解密文件\n&lt;ul&gt;\n&lt;li&gt;选择标签栏的「文件加/解密」。&lt;/li&gt;\n&lt;li&gt;操作同上，选择加密过的文件，点击「解密」按钮，然后就会弹出一个窗口。&lt;img src=\&#34;https://blog.charlie.moe/post-images/1596780725126.png\&#34; alt=\&#34;\&#34; loading=\&#34;lazy\&#34;&gt;&lt;/li&gt;\n&lt;/ul&gt;\n&lt;/li&gt;\n&lt;li&gt;简单配置\n&lt;ul&gt;\n&lt;li&gt;参照第一张生成密钥的图片，你可以设置 coffee-keys 的网址，默认保存路径和默认使用的私钥&lt;/li&gt;\n&lt;li&gt;点击「保存」，就可以保存设置&lt;/li&gt;\n&lt;/ul&gt;\n&lt;/li&gt;\n&lt;/ol&gt;\n&lt;h2 id=\&#34;进阶使用\&#34;&gt;&lt;strong&gt;进阶使用&lt;/strong&gt;&lt;/h2&gt;\n&lt;p&gt;你可以发现，程序是使用一个数据库储存所有信息的，你可以使用一些工具打开这个数据库&lt;/p&gt;\n&#34;,&#34;fileName&#34;:&#34;RSA-AES-Encryption-guide&#34;,&#34;abstract&#34;:&#34;&lt;p&gt;本文会详细地讲解 RSA&amp;amp;AES Encryption 的使用&lt;/p&gt;\n&#34;,&#34;title&#34;:&#34;关于 RSA&amp;AES Encryption 的使用教程&#34;,&#34;tags&#34;:[],&#34;date&#34;:&#34;2020-08-07 12:37:35&#34;,&#34;dateFormat&#34;:&#34;2020-08-07&#34;,&#34;feature&#34;:&#34;https://blog.charlie.moe/post-images/RSA-AES-Encryption-guide.png&#34;,&#34;link&#34;:&#34;https://blog.charlie.moe/post/RSA-AES-Encryption-guide/&#34;,&#34;hideInList&#34;:false,&#34;isTop&#34;:false,&#34;stats&#34;:{&#34;text&#34;:&#34;4 min read&#34;,&#34;time&#34;:229000,&#34;words&#34;:1131,&#34;minutes&#34;:4},&#34;description&#34;:&#34;本文会详细地讲解 RSA&amp;amp;AES Encryption 的使用\n\n基础使用\n\n下载程序\n\n首先，不用多说，先在 GitHub 的 Release 页面下载本程序，并双击运行。\n文件就一个，但运行会生成「keyring.db」，这个文...&#34;,&#34;toc&#34;:&#34;&lt;ul class=\&#34;markdownIt-TOC\&#34;&gt;\n&lt;li&gt;\n&lt;ul&gt;\n&lt;li&gt;&lt;a href=\&#34;#%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8\&#34;&gt;&lt;strong&gt;基础使用&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;\n&lt;li&gt;&lt;a href=\&#34;#%E8%BF%9B%E9%98%B6%E4%BD%BF%E7%94%A8\&#34;&gt;&lt;strong&gt;进阶使用&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;\n&lt;/ul&gt;\n&lt;/li&gt;\n&lt;/ul&gt;\n&#34;},{&#34;content&#34;:&#34;&lt;p&gt;关于封面这个程序，它是 EncryptedCoffee 项目的一个带 GUI 的升级版本，咱将其命名为 RSA&amp;amp;AES Encryption。&lt;/p&gt;\n&lt;!-- more --&gt;\n&lt;h2 id=\&#34;关于这个项目较-encryptedcoffee-的变化\&#34;&gt;&lt;strong&gt;关于这个项目较 EncryptedCoffee 的变化&lt;/strong&gt;&lt;/h2&gt;\n&lt;ol&gt;\n&lt;li&gt;这个项目抛弃了原有的一些轮子\n&lt;ul&gt;\n&lt;li&gt;抛弃了原有用于 RSA 实现的 RSA 轮子，改为使用 pycryptodome&lt;/li&gt;\n&lt;li&gt;抛弃了用于剪切板操作的 pywin32， 改为使用 pyperclip&lt;/li&gt;\n&lt;/ul&gt;\n&lt;/li&gt;\n&lt;li&gt;最重要的一点，这个项目现在拥有 GUI 了\n&lt;ul&gt;\n&lt;li&gt;采用 Tkinter 编写的 GUI &lt;s&gt;（Tkinter 写的想要特别好看就算了吧）&lt;/s&gt;&lt;/li&gt;\n&lt;/ul&gt;\n&lt;/li&gt;\n&lt;li&gt;读取大文件的优化\n&lt;ul&gt;\n&lt;li&gt;每次只读 1MiB 的数据到内存中 &lt;s&gt;（妈妈再也不用担心咱爆内存了）&lt;/s&gt;&lt;/li&gt;\n&lt;/ul&gt;\n&lt;/li&gt;\n&lt;/ol&gt;\n&lt;h2 id=\&#34;最后\&#34;&gt;&lt;strong&gt;最后&lt;/strong&gt;&lt;/h2&gt;\n&lt;p&gt;项目的 &lt;a href=\&#34;https://github.com/CharlieYu4994/RSA-AES-Encryption\&#34;&gt;地址&lt;/a&gt;&lt;br&gt;\n这个项目已经脱离了原来的 EncryptedCoffee，咱会经量更进 EncryptedCoffee 的更新 &lt;s&gt;（如果 Xiao_Jin 还更新的话）&lt;/s&gt; 。&lt;/p&gt;\n&#34;,&#34;fileName&#34;:&#34;encryptedcoffee02&#34;,&#34;abstract&#34;:&#34;&lt;p&gt;关于封面这个程序，它是 EncryptedCoffee 项目的一个带 GUI 的升级版本，咱将其命名为 RSA&amp;amp;AES Encryption。&lt;/p&gt;\n&#34;,&#34;title&#34;:&#34;关于 EncryptedCoffee #02&#34;,&#34;tags&#34;:[{&#34;name&#34;:&#34;Learn&#34;,&#34;slug&#34;:&#34;IBdm5nhh7&#34;,&#34;used&#34;:true,&#34;link&#34;:&#34;https://blog.charlie.moe/tag/IBdm5nhh7/&#34;},{&#34;name&#34;:&#34;CKS&#34;,&#34;slug&#34;:&#34;VjSoAqTIL&#34;,&#34;used&#34;:true,&#34;link&#34;:&#34;https://blog.charlie.moe/tag/VjSoAqTIL/&#34;}],&#34;date&#34;:&#34;2020-07-21 10:24:08&#34;,&#34;dateFormat&#34;:&#34;2020-07-21&#34;,&#34;feature&#34;:&#34;https://blog.charlie.moe/post-images/encryptedcoffee02.png&#34;,&#34;link&#34;:&#34;https://blog.charlie.moe/post/encryptedcoffee02/&#34;,&#34;hideInList&#34;:false,&#34;isTop&#34;:false,&#34;stats&#34;:{&#34;text&#34;:&#34;1 min read&#34;,&#34;time&#34;:43000,&#34;words&#34;:201,&#34;minutes&#34;:1},&#34;description&#34;:&#34;关于封面这个程序，它是 EncryptedCoffee 项目的一个带 GUI 的升级版本，咱将其命名为 RSA&amp;amp;AES Encryption。\n\n关于这个项目较 EncryptedCoffee 的变化\n\n这个项目抛弃了原有的一些轮子...&#34;,&#34;toc&#34;:&#34;&lt;ul class=\&#34;markdownIt-TOC\&#34;&gt;\n&lt;li&gt;\n&lt;ul&gt;\n&lt;li&gt;&lt;a href=\&#34;#%E5%85%B3%E4%BA%8E%E8%BF%99%E4%B8%AA%E9%A1%B9%E7%9B%AE%E8%BE%83-encryptedcoffee-%E7%9A%84%E5%8F%98%E5%8C%96\&#34;&gt;&lt;strong&gt;关于这个项目较 EncryptedCoffee 的变化&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;\n&lt;li&gt;&lt;a href=\&#34;#%E6%9C%80%E5%90%8E\&#34;&gt;&lt;strong&gt;最后&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;\n&lt;/ul&gt;\n&lt;/li&gt;\n&lt;/ul&gt;\n&#34;},{&#34;content&#34;:&#34;&lt;!-- more --&gt;\n&lt;figure data-type=\&#34;image\&#34; tabindex=\&#34;1\&#34;&gt;&lt;img src=\&#34;https://blog.charlie.moe/post-images/1594472796571.jfif\&#34; alt=\&#34;\&#34; loading=\&#34;lazy\&#34;&gt;&lt;/figure&gt;\n&#34;,&#34;fileName&#34;:&#34;pass&#34;,&#34;abstract&#34;:&#34;&#34;,&#34;title&#34;:&#34;合格考全部拿下&#34;,&#34;tags&#34;:[],&#34;date&#34;:&#34;2020-07-11 21:05:16&#34;,&#34;dateFormat&#34;:&#34;2020-07-11&#34;,&#34;feature&#34;:&#34;https://blog.charlie.moe/post-images/pass.bmp&#34;,&#34;link&#34;:&#34;https://blog.charlie.moe/post/pass/&#34;,&#34;hideInList&#34;:false,&#34;isTop&#34;:false,&#34;stats&#34;:{&#34;text&#34;:&#34;0 min read&#34;,&#34;time&#34;:0,&#34;words&#34;:0,&#34;minutes&#34;:0},&#34;description&#34;:&#34;\n\n...&#34;,&#34;toc&#34;:&#34;&#34;},{&#34;content&#34;:&#34;&lt;p&gt;关于 JWT 网上有很多介绍，这里就不多做介绍了，简而言之 JWT 就是一个身份证，证明你是你。&lt;/p&gt;\n&lt;!-- more --&gt;\n&lt;h1 id=\&#34;结构和实现\&#34;&gt;结构和实现&lt;/h1&gt;\n&lt;pre&gt;&lt;code&gt;e2FsZyI6ICJIUzI1NiIsInR5cCI6ICJKV1QifQ.\neyJzdWIiOiAidXNlciB0b2tlbiIsICJpc3MiOiAiIiwgImF1ZCI6ICIxMTExIiwgInV1aWQiOi\nAiMTExMSIsICJpYXQiOiAxNTg4Njc3NTA1Mjc3LCAiZXhwIjogMTU4ODY3NzUwNjI3N30.\nzZrdD_mVLIEHtUubrd25SvGiFd-nD2sutam7Apzq0ZA\n&lt;/code&gt;&lt;/pre&gt;\n&lt;p&gt;以上就是一个简单的 JWT。&lt;br&gt;\n很容易就可以看出来，JWT 由三个部分组成，这三个部分由「 . 」分隔开。&lt;/p&gt;\n&lt;ul&gt;\n&lt;li&gt;第一个部分：第一个部分是 JWT 的 head（头部），包含加密方式和类型（类型始终为 JWT）。头是一个 JSON，就像下面列举的这样。然后对这个 JSON 字符串进行 Base64 编码就得到了咱们的头部，当然由于咱们可能要在网页中使用它，所以咱们不能单纯地使用 Base64 而是要使用 Base64 的变种 Base64URL。（由于加密方式是写在 head 中的，而它又基本上是明文，这就导致了一个问题，在下文会讲到）&lt;pre&gt;&lt;code class=\&#34;language-JSON\&#34;&gt;{\n    &amp;quot;alg&amp;quot;: &amp;quot;HS256&amp;quot;,\n    &amp;quot;typ&amp;quot;: &amp;quot;JWT&amp;quot;\n}\n&lt;/code&gt;&lt;/pre&gt;\n&lt;/li&gt;\n&lt;li&gt;第二个部分：第二个部分是 JWT 的payload（载荷）也就承载你的数据的地方，它也是一个 JSON，就像下面列举的这样，不必理解咱写了什么内容，咱们只需要知道把这个 JSON 字符串做和头部一样的操作就可以得到 JWT 的 payload 了。至于细节部分网上有很多教程。（同理 payload 也基本上是明文，所以不能存放任何敏感信息）&lt;pre&gt;&lt;code class=\&#34;language-JSON\&#34;&gt;{\n    &amp;quot;sub&amp;quot;: &amp;quot;user token&amp;quot;,\n    &amp;quot;iss&amp;quot;: server,\n    &amp;quot;aud&amp;quot;: u_username,\n    &amp;quot;uuid&amp;quot;: u_uuid,\n    &amp;quot;iat&amp;quot;: u_time,\n    &amp;quot;exp&amp;quot;: u_time + exp * 1000\n}\n&lt;/code&gt;&lt;/pre&gt;\n&lt;/li&gt;\n&lt;li&gt;第三个部分：第三个部分是 JWT 的灵魂所在，他是 JWT 的 sig（签名），说是签名，咱更愿意称它为检验信息，它可以保证 JWT 的内容不被修改。sig 的生成很简单咱这里只列举 HS256 的实现，也就是 HMACSHA256，第一步，把咱们的 head 和 payload 用「 . 」连接起来然后使用 SHA256 算法对其摘要，然后用 HMAC 算法对其加密，最后用 Base64URL 对其编码，就得到了咱们的 sig，当然你也可以用其他的算法进行摘要和加密。（注：key、msg 都是 bytes 类型）&lt;pre&gt;&lt;code class=\&#34;language-Python\&#34;&gt;      msg = f&#39;{head}.{payload}&#39;.encode()\n      sig = base64.b64encode(hmac.new(key, msg, digestmod=sha256).digest())\n&lt;/code&gt;&lt;/pre&gt;\n&lt;/li&gt;\n&lt;/ul&gt;\n&lt;h1 id=\&#34;关于隐患\&#34;&gt;关于隐患&lt;/h1&gt;\n&lt;ol&gt;\n&lt;li&gt;JWT 不会对信息做任何加密，所有信息都是可以轻松查看的。&lt;/li&gt;\n&lt;li&gt;如果你的项目中使用了非对称加密，那么 JWT 的头很有可能成为重大的漏洞，攻击者可能会在头中声明加密方式是 HS256，但你使用的是 RS256，你的程序会尝试使用你的 RSA 公钥去解密签名，而公钥是大家都知道的，由此攻击者就可以自己签发 JWT，以任何身份登录。&lt;/li&gt;\n&lt;/ol&gt;\n&lt;p&gt;咱能想到的只有这些了，大家可以在评论区补充&lt;/p&gt;\n&#34;,&#34;fileName&#34;:&#34;jwt-00&#34;,&#34;abstract&#34;:&#34;&lt;p&gt;关于 JWT 网上有很多介绍，这里就不多做介绍了，简而言之 JWT 就是一个身份证，证明你是你。&lt;/p&gt;\n&#34;,&#34;title&#34;:&#34;关于 JWT&#34;,&#34;tags&#34;:[{&#34;name&#34;:&#34;Learn&#34;,&#34;slug&#34;:&#34;IBdm5nhh7&#34;,&#34;used&#34;:true,&#34;link&#34;:&#34;https://blog.charlie.moe/tag/IBdm5nhh7/&#34;},{&#34;name&#34;:&#34;CKS&#34;,&#34;slug&#34;:&#34;VjSoAqTIL&#34;,&#34;used&#34;:true,&#34;link&#34;:&#34;https://blog.charlie.moe/tag/VjSoAqTIL/&#34;}],&#34;date&#34;:&#34;2020-05-05 19:10:15&#34;,&#34;dateFormat&#34;:&#34;2020-05-05&#34;,&#34;feature&#34;:&#34;https://blog.charlie.moe/post-images/jwt-00.png&#34;,&#34;link&#34;:&#34;https://blog.charlie.moe/post/jwt-00/&#34;,&#34;hideInList&#34;:false,&#34;isTop&#34;:false,&#34;stats&#34;:{&#34;text&#34;:&#34;3 min read&#34;,&#34;time&#34;:159000,&#34;words&#34;:704,&#34;minutes&#34;:3},&#34;description&#34;:&#34;关于 JWT 网上有很多介绍，这里就不多做介绍了，简而言之 JWT 就是一个身份证，证明你是你。\n\n结构和实现\ne2FsZyI6ICJIUzI1NiIsInR5cCI6ICJKV1QifQ.\neyJzdWIiOiAidXNlciB0b2tl...&#34;,&#34;toc&#34;:&#34;&lt;ul class=\&#34;markdownIt-TOC\&#34;&gt;\n&lt;li&gt;&lt;a href=\&#34;#%E7%BB%93%E6%9E%84%E5%92%8C%E5%AE%9E%E7%8E%B0\&#34;&gt;结构和实现&lt;/a&gt;&lt;/li&gt;\n&lt;li&gt;&lt;a href=\&#34;#%E5%85%B3%E4%BA%8E%E9%9A%90%E6%82%A3\&#34;&gt;关于隐患&lt;/a&gt;&lt;/li&gt;\n&lt;/ul&gt;\n&#34;},{&#34;content&#34;:&#34;&lt;p&gt;没想到这一天来得这么快，现在 EcryptedCoffee 已经有修改密码的功能了，开心ヾ(≧▽≦*)o&lt;/p&gt;\n&lt;!-- more --&gt;\n&lt;p&gt;好了现在 EncryptedCoffee 可能会进入断更期，在五一期间咱们不会做任何更新。&lt;/p&gt;\n&#34;,&#34;fileName&#34;:&#34;encryptedcoffee01&#34;,&#34;abstract&#34;:&#34;&lt;p&gt;没想到这一天来得这么快，现在 EcryptedCoffee 已经有修改密码的功能了，开心ヾ(≧▽≦*)o&lt;/p&gt;\n&#34;,&#34;title&#34;:&#34;关于 EncryptedCoffee #01&#34;,&#34;tags&#34;:[{&#34;name&#34;:&#34;CKS&#34;,&#34;slug&#34;:&#34;VjSoAqTIL&#34;,&#34;used&#34;:true,&#34;link&#34;:&#34;https://blog.charlie.moe/tag/VjSoAqTIL/&#34;}],&#34;date&#34;:&#34;2020-05-01 15:42:10&#34;,&#34;dateFormat&#34;:&#34;2020-05-01&#34;,&#34;feature&#34;:&#34;https://blog.charlie.moe/post-images/encryptedcoffee01.png&#34;,&#34;link&#34;:&#34;https://blog.charlie.moe/post/encryptedcoffee01/&#34;,&#34;hideInList&#34;:false,&#34;isTop&#34;:false,&#34;stats&#34;:{&#34;text&#34;:&#34;1 min read&#34;,&#34;time&#34;:11000,&#34;words&#34;:55,&#34;minutes&#34;:1},&#34;description&#34;:&#34;没想到这一天来得这么快，现在 EcryptedCoffee 已经有修改密码的功能了，开心ヾ(≧▽≦*)o\n\n好了现在 EncryptedCoffee 可能会进入断更期，在五一期间咱们不会做任何更新。\n...&#34;,&#34;toc&#34;:&#34;&#34;},{&#34;content&#34;:&#34;&lt;p&gt;咱们的 &lt;a href=\&#34;https://github.com/super-coffee/encrypted-coffee\&#34;&gt;EncryptedCoffee&lt;/a&gt; 更新啦！&lt;/p&gt;\n&lt;!-- more --&gt;\n&lt;p&gt;没什么好说的，在 GitHub 的 README 里写得很详细了。&lt;/p&gt;\n&lt;p&gt;在这篇博文里主要讲一下这个小程序是怎么使用的&lt;/p&gt;\n&lt;h2 id=\&#34;关于安装\&#34;&gt;&lt;strong&gt;关于安装&lt;/strong&gt;&lt;/h2&gt;\n&lt;p&gt;本软件是一个绿色软件，放在任意位置运行即可（强烈建议把软件本体放在一个文件夹下，软件运行会产生一些文件），若你无法正常运行软件，请运行压缩包内的 &lt;code&gt;快速修复&lt;/code&gt; 文件夹下的 bat 文件以安装 pywin32 的依赖文件。（&lt;strong&gt;注&lt;/strong&gt;：一定要以管理员身份打开）&lt;/p&gt;\n&lt;h2 id=\&#34;关于使用\&#34;&gt;&lt;strong&gt;关于使用&lt;/strong&gt;&lt;/h2&gt;\n&lt;ol&gt;\n&lt;li&gt;双击运行 &lt;code&gt;EncryptedCoffee.exe&lt;/code&gt;，如果你是第一次运行那么程序会在可执行文件的同级目录下生成你的 &lt;code&gt;public.pem&lt;/code&gt;， &lt;code&gt;private.pem&lt;/code&gt; 和 &lt;code&gt;PublicKey&lt;/code&gt; 文件夹，请不要删除这些文件和文件夹、移动他们或者重命名他们。&lt;/li&gt;\n&lt;li&gt;在生成密钥时你可以选择对你的私钥进行加密，（&lt;strong&gt;注&lt;/strong&gt;：你的密码千万不要超过16位）。如果你设置了密码请一定要牢记它，没有任何办法可以找回这个密码，如果你忘记了请删除你的公钥&lt;strong&gt;和&lt;/strong&gt;私钥重新生成 。&lt;br&gt;\n当你完成了这些，你就可以开始享用 EncryptedCoffee 了&lt;/li&gt;\n&lt;/ol&gt;\n&lt;h2 id=\&#34;关于公钥的分享\&#34;&gt;&lt;strong&gt;关于公钥的分享&lt;/strong&gt;&lt;/h2&gt;\n&lt;ol&gt;\n&lt;li&gt;发送公钥：你可以复制一份你的 &lt;code&gt;public.pem&lt;/code&gt; 发送给你的好友，对于发送给别人的公钥可以随意命名，但请&lt;strong&gt;不要重命名源文件&lt;/strong&gt;。你也可以用记事本打开公钥的文件复制里面的内容发送给你的朋友。&lt;/li&gt;\n&lt;li&gt;接收公钥：你可以把你接受到的pem文件放到 &lt;code&gt;PublicKey&lt;/code&gt; 文件夹下，你可以随意地重命名这个文件，对于接收到的文本公钥内容，你可以在 &lt;code&gt;PublicKey&lt;/code&gt; 文件夹下新建一个文本文档将它的拓展名改为   pem（同样你可以随意命名他），并把你收到的内容复制进去&lt;img src=\&#34;https://blog.charlie.moe/post-images/1588258985107.png\&#34; alt=\&#34;\&#34; loading=\&#34;lazy\&#34;&gt;就像这样。&lt;/li&gt;\n&lt;/ol&gt;\n&lt;p&gt;当一切都操作都完成后重启软件，你应该就可以在列表里看到你朋友的公钥了。&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;关于未来的版本更新&lt;/strong&gt;&lt;/p&gt;\n&lt;ol&gt;\n&lt;li&gt;对接 Coffee-key&lt;/li&gt;\n&lt;li&gt;加入密码提示和密码修改&lt;/li&gt;\n&lt;/ol&gt;\n&lt;p&gt;&lt;s&gt;&lt;strong&gt;至于这个未来是什么时候呢，无可奉告&lt;/strong&gt;&lt;/s&gt;&lt;br&gt;\n如果你有任何问题要反馈，可以在 GitHub上 &lt;a href=\&#34;https://github.com/super-coffee/encrypted-coffee/issues/new\&#34;&gt;开启一个 issues&lt;/a&gt;&lt;br&gt;\n文章的最后给出下载链接：https://github.com/super-coffee/encrypted-coffee/releases/download/v0.2-beta.2/EncryptedCoffee.7z&lt;/p&gt;\n&#34;,&#34;fileName&#34;:&#34;encryptedcoffee&#34;,&#34;abstract&#34;:&#34;&lt;p&gt;咱们的 &lt;a href=\&#34;https://github.com/super-coffee/encrypted-coffee\&#34;&gt;EncryptedCoffee&lt;/a&gt; 更新啦！&lt;/p&gt;\n&#34;,&#34;title&#34;:&#34;关于 EncryptedCoffee #00&#34;,&#34;tags&#34;:[{&#34;name&#34;:&#34;CKS&#34;,&#34;slug&#34;:&#34;VjSoAqTIL&#34;,&#34;used&#34;:true,&#34;link&#34;:&#34;https://blog.charlie.moe/tag/VjSoAqTIL/&#34;}],&#34;date&#34;:&#34;2020-04-30 22:24:48&#34;,&#34;dateFormat&#34;:&#34;2020-04-30&#34;,&#34;feature&#34;:&#34;https://blog.charlie.moe/post-images/encryptedcoffee.png&#34;,&#34;link&#34;:&#34;https://blog.charlie.moe/post/encryptedcoffee/&#34;,&#34;hideInList&#34;:false,&#34;isTop&#34;:false,&#34;stats&#34;:{&#34;text&#34;:&#34;3 min read&#34;,&#34;time&#34;:131000,&#34;words&#34;:625,&#34;minutes&#34;:3},&#34;description&#34;:&#34;咱们的 EncryptedCoffee 更新啦！\n\n没什么好说的，在 GitHub 的 README 里写得很详细了。\n在这篇博文里主要讲一下这个小程序是怎么使用的\n关于安装\n本软件是一个绿色软件，放在任意位置运行即可（强烈建议把软件本体放...&#34;,&#34;toc&#34;:&#34;&lt;ul class=\&#34;markdownIt-TOC\&#34;&gt;\n&lt;li&gt;\n&lt;ul&gt;\n&lt;li&gt;&lt;a href=\&#34;#%E5%85%B3%E4%BA%8E%E5%AE%89%E8%A3%85\&#34;&gt;&lt;strong&gt;关于安装&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;\n&lt;li&gt;&lt;a href=\&#34;#%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8\&#34;&gt;&lt;strong&gt;关于使用&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;\n&lt;li&gt;&lt;a href=\&#34;#%E5%85%B3%E4%BA%8E%E5%85%AC%E9%92%A5%E7%9A%84%E5%88%86%E4%BA%AB\&#34;&gt;&lt;strong&gt;关于公钥的分享&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;\n&lt;/ul&gt;\n&lt;/li&gt;\n&lt;/ul&gt;\n&#34;},{&#34;content&#34;:&#34;&lt;p&gt;经过长时间的发展，AFK 项目已经实现了预想的大部分功能了，接下来就是加入多线程实现动作并发了。&lt;/p&gt;\n&lt;!-- more --&gt;\n&lt;h2 id=\&#34;程序的部分说明\&#34;&gt;程序的部分说明&lt;/h2&gt;\n&lt;pre&gt;&lt;code&gt;[\n     {\n        &amp;quot;class&amp;quot;: [\n            {\n                &amp;quot;op_type&amp;quot;: &amp;quot;keyboard.input&amp;quot;,\n                &amp;quot;loop_times&amp;quot;: -1,\n                &amp;quot;down_time&amp;quot;: 1.0,\n                &amp;quot;up_time&amp;quot;: 1.0,\n                &amp;quot;keys&amp;quot;: &amp;quot;a&amp;quot;\n            }\n        ],\n        &amp;quot;loop_times&amp;quot;: 1\n    }\n]\n&lt;/code&gt;&lt;/pre&gt;\n&lt;ul&gt;\n&lt;li&gt;配置文件\n&lt;ul&gt;\n&lt;li&gt;虽然你可以再程序中自动生成配置文件，但现在还是要说一下配置文件的结构。从文件的拓展名很容易看出来配置文件本质上是个 json &lt;s&gt;废话&lt;/s&gt;&lt;/li&gt;\n&lt;li&gt;这个json的最外层是一个js数组，对于这样的结构你有什么大胆的猜测吗，相信你已经看出来了，一个配置文件可以有多个子配置，一个子配置中存储的是一组动作，这里只展示了一个动作 &lt;code&gt;&amp;quot;class&amp;quot;&lt;/code&gt; 关键字是用来与 &lt;code&gt;&amp;quot;multi&amp;quot;&lt;/code&gt; 区分的，class 代表顺序执行，若动作分步的循环次数为 -1 也就是无限循环的话，这一组动作就会卡在第一个无限循环动作，不会往下执行，也就是死循环。如果是multi则是动作并发，这一个子配置文件的所有动作分步都会同时进行，包括相反的动作。子配置文件的 &lt;code&gt;&amp;quot;loop_times&amp;quot;&lt;/code&gt; 是指子配置的循环次数，同时所有的子配置也是并发的。（当然所有的并发还没实现）&lt;/li&gt;\n&lt;/ul&gt;\n&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;快要开学了&lt;br&gt;\n接下来 Super-Coffee的 &lt;strong&gt;所有项目&lt;/strong&gt;都会接近于停滞。只能等暑假再继续。&lt;/p&gt;\n&#34;,&#34;fileName&#34;:&#34;py-minecraft-afk-01&#34;,&#34;abstract&#34;:&#34;&lt;p&gt;经过长时间的发展，AFK 项目已经实现了预想的大部分功能了，接下来就是加入多线程实现动作并发了。&lt;/p&gt;\n&#34;,&#34;title&#34;:&#34;py-Minecraft-AFK 项目 #01&#34;,&#34;tags&#34;:[{&#34;name&#34;:&#34;AFK&#34;,&#34;slug&#34;:&#34;aZBt1Kh3e&#34;,&#34;used&#34;:true,&#34;link&#34;:&#34;https://blog.charlie.moe/tag/aZBt1Kh3e/&#34;}],&#34;date&#34;:&#34;2020-04-24 15:41:46&#34;,&#34;dateFormat&#34;:&#34;2020-04-24&#34;,&#34;feature&#34;:&#34;https://blog.charlie.moe/post-images/py-minecraft-afk-01.png&#34;,&#34;link&#34;:&#34;https://blog.charlie.moe/post/py-minecraft-afk-01/&#34;,&#34;hideInList&#34;:false,&#34;isTop&#34;:false,&#34;stats&#34;:{&#34;text&#34;:&#34;2 min read&#34;,&#34;time&#34;:90000,&#34;words&#34;:406,&#34;minutes&#34;:2},&#34;description&#34;:&#34;经过长时间的发展，AFK 项目已经实现了预想的大部分功能了，接下来就是加入多线程实现动作并发了。\n\n程序的部分说明\n[\n     {\n        &amp;quot;class&amp;quot;: [\n            {\n          ...&#34;,&#34;toc&#34;:&#34;&lt;ul class=\&#34;markdownIt-TOC\&#34;&gt;\n&lt;li&gt;\n&lt;ul&gt;\n&lt;li&gt;&lt;a href=\&#34;#%E7%A8%8B%E5%BA%8F%E7%9A%84%E9%83%A8%E5%88%86%E8%AF%B4%E6%98%8E\&#34;&gt;程序的部分说明&lt;/a&gt;&lt;/li&gt;\n&lt;/ul&gt;\n&lt;/li&gt;\n&lt;/ul&gt;\n&#34;},{&#34;content&#34;:&#34;&lt;h2 id=\&#34;缘由\&#34;&gt;缘由&lt;/h2&gt;\n&lt;ul&gt;\n&lt;li&gt;关于 1.12.2 及以前版本\n&lt;ul&gt;\n&lt;li&gt;咱们在项目一开始就很希望加入鼠标移动的功能，但是由于对 WindowsAPI 的不熟悉，咱们并没有办法在焦点不在MC窗口时操作鼠标移动，因此咱们只能退而求其次使用全局的方法操作。想到全局的方法，咱第一时间想到的是 &lt;code&gt;SetCursorPos()&lt;/code&gt; 函数，确实咱成功了，但在Xiao_Jin 测试时却失效了，在不断的测试下咱们了解到MC在海洋更新之后对鼠标移动做出了破坏性的修改&lt;/li&gt;\n&lt;/ul&gt;\n&lt;/li&gt;\n&lt;li&gt;关于1.12.2以上版本\n&lt;ul&gt;\n&lt;li&gt;既然想到是MC更新产生的变化，咱们便当机立断决定分析MC的源码，但很明显咱们三人之中没有人会Java语言，咱们凭借别的语言的基础完全无法理解 &lt;s&gt;Bugjang&lt;/s&gt; Mojang高深的代码，咱们只得放弃。&lt;/li&gt;\n&lt;/ul&gt;\n&lt;/li&gt;\n&lt;/ul&gt;\n&lt;h2 id=\&#34;转折\&#34;&gt;转折&lt;/h2&gt;\n&lt;p&gt;在 Cheny 不断地试验下，咱们发现可以用 &lt;code&gt;SendInput()&lt;/code&gt; 函数实现鼠标移动，但是咱和 Xiao_Jin 发现在 win32api 这个Python轮子里面并没有 &lt;code&gt;SendInput()&lt;/code&gt; ，这也是这篇文章诞生的原因。&lt;/p&gt;\n&lt;h2 id=\&#34;解决方法\&#34;&gt;解决方法&lt;/h2&gt;\n&lt;ul&gt;\n&lt;li&gt;咱们可以另找别的方法\n&lt;ul&gt;\n&lt;li&gt;这明显不是一个好方法，不到万不得已咱们不会去尝试这种不算方法的方法&lt;/li&gt;\n&lt;/ul&gt;\n&lt;/li&gt;\n&lt;li&gt;咱们可以用 C++ 写一个Python轮子\n&lt;ul&gt;\n&lt;li&gt;但是问题又来了，咱们三个中并没有人会用 C++ 写 Python 的轮子，在咱们三个人中 Xiao_Jin 会写前端和 Python（ Python 写得很好），Cheny C++ 写得很好，咱只会最基础的 C++ 和 Python，让咱们三个现学显然是不现实的。&lt;/li&gt;\n&lt;/ul&gt;\n&lt;/li&gt;\n&lt;li&gt;咱们可以用 C++ 写一个外部程序（这也是最后被采纳的方法）\n&lt;ul&gt;\n&lt;li&gt;Cheny 学业繁忙（虽然咱们都很忙）所以写外部程序他不能胜任，所有，这个重担（可能很简单，但咱的 C++ 很烂）就交到了咱的手上。&lt;/li&gt;\n&lt;/ul&gt;\n&lt;/li&gt;\n&lt;/ul&gt;\n&lt;h2 id=\&#34;现状\&#34;&gt;现状&lt;/h2&gt;\n&lt;p&gt;咱已把这个外部程序写出来了但是它表现得很不正常（吃了C++没学好的亏了）&lt;br&gt;\n&lt;img src=\&#34;https://blog.charlie.moe/post-images/1586417620743.png\&#34; alt=\&#34;\&#34; loading=\&#34;lazy\&#34;&gt;&lt;br&gt;\n请不要吐槽咱蹩脚的C++技术，&lt;s&gt;咱会伤心的。&lt;/s&gt; 很显然咱们还需呀很长的时间调试这个程序，但可以保证的是咱们可以在月底之前完成鼠标移动的修复。&lt;/p&gt;\n&lt;h2 id=\&#34;求援\&#34;&gt;求援&lt;/h2&gt;\n&lt;p&gt;&lt;strong&gt;如果有Java大佬愿意帮助咱们的话，咱们将感激不尽&lt;/strong&gt;&lt;/p&gt;\n&#34;,&#34;fileName&#34;:&#34;fix-the-move-methon-00&#34;,&#34;abstract&#34;:&#34;&#34;,&#34;title&#34;:&#34;关于鼠标移动的修复 #00&#34;,&#34;tags&#34;:[{&#34;name&#34;:&#34;AFK&#34;,&#34;slug&#34;:&#34;aZBt1Kh3e&#34;,&#34;used&#34;:true,&#34;link&#34;:&#34;https://blog.charlie.moe/tag/aZBt1Kh3e/&#34;}],&#34;date&#34;:&#34;2020-04-09 14:50:50&#34;,&#34;dateFormat&#34;:&#34;2020-04-09&#34;,&#34;feature&#34;:&#34;https://blog.charlie.moe/post-images/fix-the-move-methon-00.png&#34;,&#34;link&#34;:&#34;https://blog.charlie.moe/post/fix-the-move-methon-00/&#34;,&#34;hideInList&#34;:false,&#34;isTop&#34;:false,&#34;stats&#34;:{&#34;text&#34;:&#34;3 min read&#34;,&#34;time&#34;:130000,&#34;words&#34;:618,&#34;minutes&#34;:3},&#34;description&#34;:&#34;缘由\n\n关于 1.12.2 及以前版本\n\n咱们在项目一开始就很希望加入鼠标移动的功能，但是由于对 WindowsAPI 的不熟悉，咱们并没有办法在焦点不在MC窗口时操作鼠标移动，因此咱们只能退而求其次使用全局的方法操作。想到全局的方法，咱第...&#34;,&#34;toc&#34;:&#34;&lt;ul class=\&#34;markdownIt-TOC\&#34;&gt;\n&lt;li&gt;\n&lt;ul&gt;\n&lt;li&gt;&lt;a href=\&#34;#%E7%BC%98%E7%94%B1\&#34;&gt;缘由&lt;/a&gt;&lt;/li&gt;\n&lt;li&gt;&lt;a href=\&#34;#%E8%BD%AC%E6%8A%98\&#34;&gt;转折&lt;/a&gt;&lt;/li&gt;\n&lt;li&gt;&lt;a href=\&#34;#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95\&#34;&gt;解决方法&lt;/a&gt;&lt;/li&gt;\n&lt;li&gt;&lt;a href=\&#34;#%E7%8E%B0%E7%8A%B6\&#34;&gt;现状&lt;/a&gt;&lt;/li&gt;\n&lt;li&gt;&lt;a href=\&#34;#%E6%B1%82%E6%8F%B4\&#34;&gt;求援&lt;/a&gt;&lt;/li&gt;\n&lt;/ul&gt;\n&lt;/li&gt;\n&lt;/ul&gt;\n&#34;},{&#34;content&#34;:&#34;&lt;h2 id=\&#34;起因\&#34;&gt;起因&lt;/h2&gt;\n&lt;p&gt;&lt;a href=\&#34;https://github.com/super-coffee/py-Minecraft-AFK\&#34;&gt;Py-Minecraft-AFK&lt;/a&gt; 项目是咱和 Xiao_Jin 受到 Cheny 的 &lt;a href=\&#34;https://github.com/super-coffee/cpp-Minecraft-AFK\&#34;&gt;Cpp-Minecraft-AFK&lt;/a&gt; 项目的启发而诞生的。&lt;br&gt;\n最开始咱在机缘巧合下找到了一个名为 win32api 的 Python 轮子，因此咱就萌发了重写一个 Python 版本的 Minecraft-AFK，而这个想法吸引了群里的 Xiao_Jin，在商议下咱们开始了合作。&lt;/p&gt;\n&lt;h2 id=\&#34;现状\&#34;&gt;现状&lt;/h2&gt;\n&lt;p&gt;经过半个多月的努力，Py-Minecraft-AFK 项目已经初具规模了，现阶段正在考虑加入多线程以实现动作的并发，并且咱们成立了一个 Super-Coffee 组织，在这个组织里你会找到很多&lt;s&gt;没用&lt;/s&gt;有意思的项目。&lt;/p&gt;\n&#34;,&#34;fileName&#34;:&#34;py-minecraft-afk-00&#34;,&#34;abstract&#34;:&#34;&#34;,&#34;title&#34;:&#34;py-Minecraft-AFK 项目 #00&#34;,&#34;tags&#34;:[{&#34;name&#34;:&#34;AFK&#34;,&#34;slug&#34;:&#34;aZBt1Kh3e&#34;,&#34;used&#34;:true,&#34;link&#34;:&#34;https://blog.charlie.moe/tag/aZBt1Kh3e/&#34;}],&#34;date&#34;:&#34;2020-04-08 13:15:59&#34;,&#34;dateFormat&#34;:&#34;2020-04-08&#34;,&#34;feature&#34;:&#34;https://blog.charlie.moe/post-images/py-minecraft-afk-00.png&#34;,&#34;link&#34;:&#34;https://blog.charlie.moe/post/py-minecraft-afk-00/&#34;,&#34;hideInList&#34;:false,&#34;isTop&#34;:false,&#34;stats&#34;:{&#34;text&#34;:&#34;1 min read&#34;,&#34;time&#34;:36000,&#34;words&#34;:165,&#34;minutes&#34;:1},&#34;description&#34;:&#34;起因\nPy-Minecraft-AFK 项目是咱和 Xiao_Jin 受到 Cheny 的 Cpp-Minecraft-AFK 项目的启发而诞生的。\n最开始咱在机缘巧合下找到了一个名为 win32api 的 Python 轮子，因此咱就萌发...&#34;,&#34;toc&#34;:&#34;&lt;ul class=\&#34;markdownIt-TOC\&#34;&gt;\n&lt;li&gt;\n&lt;ul&gt;\n&lt;li&gt;&lt;a href=\&#34;#%E8%B5%B7%E5%9B%A0\&#34;&gt;起因&lt;/a&gt;&lt;/li&gt;\n&lt;li&gt;&lt;a href=\&#34;#%E7%8E%B0%E7%8A%B6\&#34;&gt;现状&lt;/a&gt;&lt;/li&gt;\n&lt;/ul&gt;\n&lt;/li&gt;\n&lt;/ul&gt;\n&#34;},{&#34;content&#34;:&#34;&lt;h2 id=\&#34;人设\&#34;&gt;人设&lt;/h2&gt;\n&lt;p&gt;姓名：八云笙（CharlieYu）&lt;br&gt;\n年龄：不明&lt;br&gt;\n性别：不明&lt;br&gt;\n身高体重：145cm/38kg&lt;br&gt;\n种族：妖兽（妖怪猫）&lt;br&gt;\n发色：白金色&lt;br&gt;\n瞳色：绿瞳&lt;br&gt;\n性格：腹黑、逗比、弱受&lt;br&gt;\n外表：有着齐腰白金色长发。尾巴大部分是白金色，尖端是暗红色的。圆脸，眼睛很大，有着很深的黑眼圈。耳朵的颜色和发色一样，内侧有一团白色的绒毛。&lt;br&gt;\n关键词：赛博朋克、黑客、箭术、病弱&lt;/p&gt;\n&#34;,&#34;fileName&#34;:&#34;about&#34;,&#34;abstract&#34;:&#34;&#34;,&#34;title&#34;:&#34;关于&#34;,&#34;tags&#34;:[],&#34;date&#34;:&#34;2020-04-08 13:00:00&#34;,&#34;dateFormat&#34;:&#34;2020-04-08&#34;,&#34;feature&#34;:&#34;&#34;,&#34;link&#34;:&#34;https://blog.charlie.moe/post/about/&#34;,&#34;hideInList&#34;:true,&#34;isTop&#34;:false,&#34;stats&#34;:{&#34;text&#34;:&#34;1 min read&#34;,&#34;time&#34;:24000,&#34;words&#34;:120,&#34;minutes&#34;:1},&#34;description&#34;:&#34;人设\n姓名：八云笙（CharlieYu）\n年龄：不明\n性别：不明\n身高体重：145cm/38kg\n种族：妖兽（妖怪猫）\n发色：白金色\n瞳色：绿瞳\n性格：腹黑、逗比、弱受\n外表：有着齐腰白金色长发。尾巴大部分是白金色，尖端是暗红色的。圆脸，眼...&#34;,&#34;toc&#34;:&#34;&lt;ul class=\&#34;markdownIt-TOC\&#34;&gt;\n&lt;li&gt;\n&lt;ul&gt;\n&lt;li&gt;&lt;a href=\&#34;#%E4%BA%BA%E8%AE%BE\&#34;&gt;人设&lt;/a&gt;&lt;/li&gt;\n&lt;/ul&gt;\n&lt;/li&gt;\n&lt;/ul&gt;\n&#34;}]";
+  // var json = escape.substr(1, escape.length - 2);
+  // var datas = json.split(',');
+  // for (let i=0; i < datas.length; i++) {
+  //   let item = datas[i];
+  //   let attrs = item.split('34;:&#34')
+  //   debugger
+  //   console.log(datas[i])
+  // }
+  let escapeMap = new Map();
+  escapeMap.set('&#34;', '"');
+  escapeMap.set('&gt;', '>');
+  escapeMap.set('&#39;', "'");
+  escapeMap.set('&lt;', '<');
+  escapeMap.set('&quot;', '"');
+  escapeMap.set('&amp;', '&');
+</script> -->
+
+
+<script src=" /media/js/cool.js"></script>
+
+</html>

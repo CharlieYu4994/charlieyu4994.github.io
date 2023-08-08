@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://blog.charlie.moe</id>
+    <title>CharlieYu4994的博客</title>
+    <updated>2023-08-08T09:01:36.982Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://blog.charlie.moe"/>
+    <link rel="self" href="https://blog.charlie.moe/atom.xml"/>
+    <subtitle>就只是博客而已&lt;br/&gt;
+是一个正太</subtitle>
+    <logo>https://blog.charlie.moe/images/avatar.png</logo>
+    <icon>https://blog.charlie.moe/favicon.ico</icon>
+    <rights>All rights reserved 2023, CharlieYu4994的博客</rights>
+    <entry>
+        <title type="html"><![CDATA[对 Bing 美图 API 的研究 #00]]></title>
+        <id>https://blog.charlie.moe/post/BingAPI-00/</id>
+        <link href="https://blog.charlie.moe/post/BingAPI-00/">
+        </link>
+        <updated>2021-03-22T11:49:29.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="api-地址">API 地址</h2>
+<pre><code>https://cn.bing.com/HPImageArchive.aspx?format=&lt;format&gt;&amp;idx=&lt;idx&gt;&amp;n=&lt;n&gt;&amp;mkt=&lt;mkt&gt;
+</code></pre>
+<h2 id="参数">参数</h2>
+<ol>
+<li>format (required)
+<ul>
+<li>js：返回 json 响应</li>
+<li>xml：返回 xml 响应</li>
+<li>rss：返回 rss 订阅</li>
+</ul>
+</li>
+<li>idx (required)
+<ul>
+<li>1：一天前的，同理 2 为两天前的，最大为 8 返回八天的数据</li>
+</ul>
+</li>
+<li>n (required)
+<ul>
+<li>获取图片数量，最大为 8 返回包括当天的 8张图片信息</li>
+</ul>
+</li>
+<li>mkt (optional)
+<ul>
+<li>zh_CN：中国刷新的图片（过年和一些传统节日会有不同）</li>
+<li>en_US：美国刷新的图片（貌似都差不多）</li>
+<li>...</li>
+</ul>
+</li>
+</ol>
+<h2 id="返回以-json-为例">返回（以 JSON 为例）</h2>
+<p>咱们只关心 <code>images</code> Key 的内容</p>
+<ol>
+<li><code>startdate</code>：生效时间</li>
+<li><code>fullstartdate</code>：生效时间（精确到分钟）</li>
+<li><code>enddate</code>：结束时间（到这天 24:00 过期)</li>
+<li><code>url</code>：标准的 1080p 分辨率的图片 url</li>
+<li><code>urlbase</code>：基准 url（加后缀可以得到不同分辨率的图片）
+<ul>
+<li>大多小于 1920x1200 分辨率的主流分辨率都可以，格式为 <code>_widthxheight.jpg</code></li>
+<li><code>_UHD.jpg</code> 为图片原始分辨率（最清晰，每天不定）</li>
+</ul>
+</li>
+<li><code>copyright</code>：版权信息</li>
+<li><code>copyrightlink</code>：Bing 搜索版权信息的地址</li>
+<li>...</li>
+</ol>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[关于 RSA&AES Encryption 的使用教程]]></title>
+        <id>https://blog.charlie.moe/post/RSA-AES-Encryption-guide/</id>
+        <link href="https://blog.charlie.moe/post/RSA-AES-Encryption-guide/">
+        </link>
+        <updated>2020-08-07T04:37:35.000Z</updated>
+        <summary type="html"><![CDATA[<p>本文会详细地讲解 RSA&amp;AES Encryption 的使用</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>本文会详细地讲解 RSA&amp;AES Encryption 的使用</p>
+<!-- more -->
+<h2 id="基础使用"><strong>基础使用</strong></h2>
+<ol>
+<li>下载程序
+<ul>
+<li>首先，不用多说，先在 GitHub 的 <a href="https://github.com/LassiCat/RSA-AES-Encryption/releases">Release 页面</a>下载本程序，并双击运行。</li>
+<li>文件就一个，但运行会生成「keyring.db」，这个文件储存着你的密钥，你好友的公钥，设置。请不要删除这个文件，也不要泄露这个文件。（建议将程序放在一个特定的目录中）</li>
+</ul>
+</li>
+<li>密钥生成
+<ul>
+<li>运行后你会看到一个窗口。<img src="https://blog.charlie.moe/post-images/1596776021766.png" alt="" loading="lazy"></li>
+<li>点击上方选项卡中的「杂项」，点击「生成私钥」。<img src="https://blog.charlie.moe/post-images/1596776111097.png" alt="" loading="lazy"></li>
+<li>接着会弹出一个窗口，输入你要的密码，如果你不想要密码，可以留空，输入完成后点击确定或者直接回车，按取消等同于留空。（Tips: 请确保你的密码输入正确，否则你无法使用此密钥）<img src="https://blog.charlie.moe/post-images/1596776817061.png" alt="" loading="lazy"></li>
+<li>稍等一会儿，会弹出另一个窗口，输入你的描述。（别太长，限制为 50Byte，也就是50个英文字符，或者25个中文字符）<img src="https://blog.charlie.moe/post-images/1596776836940.png" alt="" loading="lazy"></li>
+<li>生成完成后你就可以在「选择密钥」的下拉栏里找到你的密钥，选择它，会弹出一个窗口要求你输入密码，若你没有设置密码，留空或者取消，若你设置了密码输入你的密码，回车或者确定。<img src="https://blog.charlie.moe/post-images/1596776965744.png" alt="" loading="lazy"></li>
+</ul>
+</li>
+<li>管理密钥
+<ul>
+<li>点击「管理密钥」。<img src="https://blog.charlie.moe/post-images/1596777171645.png" alt="" loading="lazy"></li>
+<li>接着会弹出一个窗口。<img src="https://blog.charlie.moe/post-images/1596777350489.png" alt="" loading="lazy"></li>
+<li>在「私钥」栏，点击选择密钥，双击可以更改描述，回车可以修改密码，shift + 回车可以导出你的私钥，点击下方的「删除」可以删除密钥，「导出」可以导出你的公钥，「导入」可以从文件导入密钥（密钥的类型程序会自行判断）。</li>
+<li>在「公钥」栏，点击选择密钥，双击可以更改描述，三个按钮同上。</li>
+<li>「导入」按钮：点击「导入」按钮会弹出一个窗口用于选择文件，你只要选择密钥文件即可。<img src="https://blog.charlie.moe/post-images/1596777739807.png" alt="" loading="lazy">然后程序会弹出一个窗口要求你输入描述。</li>
+<li>「导出」按钮：点击「导出」按钮会弹出一个类似的窗口用于保存密钥文件，请务必记得输入文件名。</li>
+</ul>
+</li>
+<li>加密文本
+<ul>
+<li>选择标签栏的「文本加/解密」。</li>
+<li>先确保，你已经得到了你好友的公钥，然后在「收/发件人」下拉栏里选择收件人。（当然你也可以导出自己的公钥，再导入，你就可以在「收/发件人」下拉栏里找到你自己的公钥了）<img src="https://blog.charlie.moe/post-images/1596778594948.png" alt="" loading="lazy"></li>
+<li>在输入框里输入你要发送的文本，然后点击「加密」按钮，就会弹出一个窗口，里面有加密的结果，你可以点击「复制」按钮复制密文并发送给你的好友，完成后你可以点击确定或者直接关掉这个窗口。（你可以通过「签名」复选框选择是否签名签名可以保证信息的可信度，但会增加密文的长度）<img src="https://blog.charlie.moe/post-images/1596778838876.png" alt="" loading="lazy"></li>
+</ul>
+</li>
+<li>解密文本
+<ul>
+<li>选择标签栏的「文本加/解密」。</li>
+<li>和加密文本一样，选择发件人的公钥，然后把收到的密文完完全全地复制到输入框内。（请确保输入框原本是空的）。</li>
+<li>点击「解密」按钮，这会弹出一个窗口，你就可以得到密文的内容了。</li>
+<li>如果显示签名无效，有可能是你选错了发件人，也可能是对方没有签名。<img src="https://blog.charlie.moe/post-images/1596779370064.png" alt="" loading="lazy"></li>
+</ul>
+</li>
+<li>加密文件
+<ul>
+<li>选择标签栏的「文件加/解密」。<img src="https://blog.charlie.moe/post-images/1596779809154.png" alt="" loading="lazy"></li>
+<li>密钥选择与之前类似。</li>
+<li>点击「选择文件」按钮，选择你的文件，再点击「选择目录」选择保存路径，最后点击「加密」按钮，这会弹出一个窗口要求你输入文件名，输入完成后点击确定，就可以开始加密了，加密完成后会弹出一个窗口，点击「打开」按钮就可以打开保存路径，生成的文件的后缀是 ref。 <img src="https://blog.charlie.moe/post-images/1596780346977.png" alt="" loading="lazy"></li>
+</ul>
+</li>
+<li>解密文件
+<ul>
+<li>选择标签栏的「文件加/解密」。</li>
+<li>操作同上，选择加密过的文件，点击「解密」按钮，然后就会弹出一个窗口。<img src="https://blog.charlie.moe/post-images/1596780725126.png" alt="" loading="lazy"></li>
+</ul>
+</li>
+<li>简单配置
+<ul>
+<li>参照第一张生成密钥的图片，你可以设置 coffee-keys 的网址，默认保存路径和默认使用的私钥</li>
+<li>点击「保存」，就可以保存设置</li>
+</ul>
+</li>
+</ol>
+<h2 id="进阶使用"><strong>进阶使用</strong></h2>
+<p>你可以发现，程序是使用一个数据库储存所有信息的，你可以使用一些工具打开这个数据库</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[关于 EncryptedCoffee #02]]></title>
+        <id>https://blog.charlie.moe/post/encryptedcoffee02/</id>
+        <link href="https://blog.charlie.moe/post/encryptedcoffee02/">
+        </link>
+        <updated>2020-07-21T02:24:08.000Z</updated>
+        <summary type="html"><![CDATA[<p>关于封面这个程序，它是 EncryptedCoffee 项目的一个带 GUI 的升级版本，咱将其命名为 RSA&amp;AES Encryption。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>关于封面这个程序，它是 EncryptedCoffee 项目的一个带 GUI 的升级版本，咱将其命名为 RSA&amp;AES Encryption。</p>
+<!-- more -->
+<h2 id="关于这个项目较-encryptedcoffee-的变化"><strong>关于这个项目较 EncryptedCoffee 的变化</strong></h2>
+<ol>
+<li>这个项目抛弃了原有的一些轮子
+<ul>
+<li>抛弃了原有用于 RSA 实现的 RSA 轮子，改为使用 pycryptodome</li>
+<li>抛弃了用于剪切板操作的 pywin32， 改为使用 pyperclip</li>
+</ul>
+</li>
+<li>最重要的一点，这个项目现在拥有 GUI 了
+<ul>
+<li>采用 Tkinter 编写的 GUI <s>（Tkinter 写的想要特别好看就算了吧）</s></li>
+</ul>
+</li>
+<li>读取大文件的优化
+<ul>
+<li>每次只读 1MiB 的数据到内存中 <s>（妈妈再也不用担心咱爆内存了）</s></li>
+</ul>
+</li>
+</ol>
+<h2 id="最后"><strong>最后</strong></h2>
+<p>项目的 <a href="https://github.com/CharlieYu4994/RSA-AES-Encryption">地址</a><br>
+这个项目已经脱离了原来的 EncryptedCoffee，咱会经量更进 EncryptedCoffee 的更新 <s>（如果 Xiao_Jin 还更新的话）</s> 。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[合格考全部拿下]]></title>
+        <id>https://blog.charlie.moe/post/pass/</id>
+        <link href="https://blog.charlie.moe/post/pass/">
+        </link>
+        <updated>2020-07-11T13:05:16.000Z</updated>
+        <content type="html"><![CDATA[<!-- more -->
+<figure data-type="image" tabindex="1"><img src="https://blog.charlie.moe/post-images/1594472796571.jfif" alt="" loading="lazy"></figure>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[关于 JWT]]></title>
+        <id>https://blog.charlie.moe/post/jwt-00/</id>
+        <link href="https://blog.charlie.moe/post/jwt-00/">
+        </link>
+        <updated>2020-05-05T11:10:15.000Z</updated>
+        <summary type="html"><![CDATA[<p>关于 JWT 网上有很多介绍，这里就不多做介绍了，简而言之 JWT 就是一个身份证，证明你是你。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>关于 JWT 网上有很多介绍，这里就不多做介绍了，简而言之 JWT 就是一个身份证，证明你是你。</p>
+<!-- more -->
+<h1 id="结构和实现">结构和实现</h1>
+<pre><code>e2FsZyI6ICJIUzI1NiIsInR5cCI6ICJKV1QifQ.
+eyJzdWIiOiAidXNlciB0b2tlbiIsICJpc3MiOiAiIiwgImF1ZCI6ICIxMTExIiwgInV1aWQiOi
+AiMTExMSIsICJpYXQiOiAxNTg4Njc3NTA1Mjc3LCAiZXhwIjogMTU4ODY3NzUwNjI3N30.
+zZrdD_mVLIEHtUubrd25SvGiFd-nD2sutam7Apzq0ZA
+</code></pre>
+<p>以上就是一个简单的 JWT。<br>
+很容易就可以看出来，JWT 由三个部分组成，这三个部分由「 . 」分隔开。</p>
+<ul>
+<li>第一个部分：第一个部分是 JWT 的 head（头部），包含加密方式和类型（类型始终为 JWT）。头是一个 JSON，就像下面列举的这样。然后对这个 JSON 字符串进行 Base64 编码就得到了咱们的头部，当然由于咱们可能要在网页中使用它，所以咱们不能单纯地使用 Base64 而是要使用 Base64 的变种 Base64URL。（由于加密方式是写在 head 中的，而它又基本上是明文，这就导致了一个问题，在下文会讲到）<pre><code class="language-JSON">{
+    &quot;alg&quot;: &quot;HS256&quot;,
+    &quot;typ&quot;: &quot;JWT&quot;
+}
+</code></pre>
+</li>
+<li>第二个部分：第二个部分是 JWT 的payload（载荷）也就承载你的数据的地方，它也是一个 JSON，就像下面列举的这样，不必理解咱写了什么内容，咱们只需要知道把这个 JSON 字符串做和头部一样的操作就可以得到 JWT 的 payload 了。至于细节部分网上有很多教程。（同理 payload 也基本上是明文，所以不能存放任何敏感信息）<pre><code class="language-JSON">{
+    &quot;sub&quot;: &quot;user token&quot;,
+    &quot;iss&quot;: server,
+    &quot;aud&quot;: u_username,
+    &quot;uuid&quot;: u_uuid,
+    &quot;iat&quot;: u_time,
+    &quot;exp&quot;: u_time + exp * 1000
+}
+</code></pre>
+</li>
+<li>第三个部分：第三个部分是 JWT 的灵魂所在，他是 JWT 的 sig（签名），说是签名，咱更愿意称它为检验信息，它可以保证 JWT 的内容不被修改。sig 的生成很简单咱这里只列举 HS256 的实现，也就是 HMACSHA256，第一步，把咱们的 head 和 payload 用「 . 」连接起来然后使用 SHA256 算法对其摘要，然后用 HMAC 算法对其加密，最后用 Base64URL 对其编码，就得到了咱们的 sig，当然你也可以用其他的算法进行摘要和加密。（注：key、msg 都是 bytes 类型）<pre><code class="language-Python">      msg = f'{head}.{payload}'.encode()
+      sig = base64.b64encode(hmac.new(key, msg, digestmod=sha256).digest())
+</code></pre>
+</li>
+</ul>
+<h1 id="关于隐患">关于隐患</h1>
+<ol>
+<li>JWT 不会对信息做任何加密，所有信息都是可以轻松查看的。</li>
+<li>如果你的项目中使用了非对称加密，那么 JWT 的头很有可能成为重大的漏洞，攻击者可能会在头中声明加密方式是 HS256，但你使用的是 RS256，你的程序会尝试使用你的 RSA 公钥去解密签名，而公钥是大家都知道的，由此攻击者就可以自己签发 JWT，以任何身份登录。</li>
+</ol>
+<p>咱能想到的只有这些了，大家可以在评论区补充</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[关于 EncryptedCoffee #01]]></title>
+        <id>https://blog.charlie.moe/post/encryptedcoffee01/</id>
+        <link href="https://blog.charlie.moe/post/encryptedcoffee01/">
+        </link>
+        <updated>2020-05-01T07:42:10.000Z</updated>
+        <summary type="html"><![CDATA[<p>没想到这一天来得这么快，现在 EcryptedCoffee 已经有修改密码的功能了，开心ヾ(≧▽≦*)o</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>没想到这一天来得这么快，现在 EcryptedCoffee 已经有修改密码的功能了，开心ヾ(≧▽≦*)o</p>
+<!-- more -->
+<p>好了现在 EncryptedCoffee 可能会进入断更期，在五一期间咱们不会做任何更新。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[关于 EncryptedCoffee #00]]></title>
+        <id>https://blog.charlie.moe/post/encryptedcoffee/</id>
+        <link href="https://blog.charlie.moe/post/encryptedcoffee/">
+        </link>
+        <updated>2020-04-30T14:24:48.000Z</updated>
+        <summary type="html"><![CDATA[<p>咱们的 <a href="https://github.com/super-coffee/encrypted-coffee">EncryptedCoffee</a> 更新啦！</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>咱们的 <a href="https://github.com/super-coffee/encrypted-coffee">EncryptedCoffee</a> 更新啦！</p>
+<!-- more -->
+<p>没什么好说的，在 GitHub 的 README 里写得很详细了。</p>
+<p>在这篇博文里主要讲一下这个小程序是怎么使用的</p>
+<h2 id="关于安装"><strong>关于安装</strong></h2>
+<p>本软件是一个绿色软件，放在任意位置运行即可（强烈建议把软件本体放在一个文件夹下，软件运行会产生一些文件），若你无法正常运行软件，请运行压缩包内的 <code>快速修复</code> 文件夹下的 bat 文件以安装 pywin32 的依赖文件。（<strong>注</strong>：一定要以管理员身份打开）</p>
+<h2 id="关于使用"><strong>关于使用</strong></h2>
+<ol>
+<li>双击运行 <code>EncryptedCoffee.exe</code>，如果你是第一次运行那么程序会在可执行文件的同级目录下生成你的 <code>public.pem</code>， <code>private.pem</code> 和 <code>PublicKey</code> 文件夹，请不要删除这些文件和文件夹、移动他们或者重命名他们。</li>
+<li>在生成密钥时你可以选择对你的私钥进行加密，（<strong>注</strong>：你的密码千万不要超过16位）。如果你设置了密码请一定要牢记它，没有任何办法可以找回这个密码，如果你忘记了请删除你的公钥<strong>和</strong>私钥重新生成 。<br>
+当你完成了这些，你就可以开始享用 EncryptedCoffee 了</li>
+</ol>
+<h2 id="关于公钥的分享"><strong>关于公钥的分享</strong></h2>
+<ol>
+<li>发送公钥：你可以复制一份你的 <code>public.pem</code> 发送给你的好友，对于发送给别人的公钥可以随意命名，但请<strong>不要重命名源文件</strong>。你也可以用记事本打开公钥的文件复制里面的内容发送给你的朋友。</li>
+<li>接收公钥：你可以把你接受到的pem文件放到 <code>PublicKey</code> 文件夹下，你可以随意地重命名这个文件，对于接收到的文本公钥内容，你可以在 <code>PublicKey</code> 文件夹下新建一个文本文档将它的拓展名改为   pem（同样你可以随意命名他），并把你收到的内容复制进去<img src="https://blog.charlie.moe/post-images/1588258985107.png" alt="" loading="lazy">就像这样。</li>
+</ol>
+<p>当一切都操作都完成后重启软件，你应该就可以在列表里看到你朋友的公钥了。</p>
+<p><strong>关于未来的版本更新</strong></p>
+<ol>
+<li>对接 Coffee-key</li>
+<li>加入密码提示和密码修改</li>
+</ol>
+<p><s><strong>至于这个未来是什么时候呢，无可奉告</strong></s><br>
+如果你有任何问题要反馈，可以在 GitHub上 <a href="https://github.com/super-coffee/encrypted-coffee/issues/new">开启一个 issues</a><br>
+文章的最后给出下载链接：https://github.com/super-coffee/encrypted-coffee/releases/download/v0.2-beta.2/EncryptedCoffee.7z</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[py-Minecraft-AFK 项目 #01]]></title>
+        <id>https://blog.charlie.moe/post/py-minecraft-afk-01/</id>
+        <link href="https://blog.charlie.moe/post/py-minecraft-afk-01/">
+        </link>
+        <updated>2020-04-24T07:41:46.000Z</updated>
+        <summary type="html"><![CDATA[<p>经过长时间的发展，AFK 项目已经实现了预想的大部分功能了，接下来就是加入多线程实现动作并发了。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>经过长时间的发展，AFK 项目已经实现了预想的大部分功能了，接下来就是加入多线程实现动作并发了。</p>
+<!-- more -->
+<h2 id="程序的部分说明">程序的部分说明</h2>
+<pre><code>[
+     {
+        &quot;class&quot;: [
+            {
+                &quot;op_type&quot;: &quot;keyboard.input&quot;,
+                &quot;loop_times&quot;: -1,
+                &quot;down_time&quot;: 1.0,
+                &quot;up_time&quot;: 1.0,
+                &quot;keys&quot;: &quot;a&quot;
+            }
+        ],
+        &quot;loop_times&quot;: 1
+    }
+]
+</code></pre>
+<ul>
+<li>配置文件
+<ul>
+<li>虽然你可以再程序中自动生成配置文件，但现在还是要说一下配置文件的结构。从文件的拓展名很容易看出来配置文件本质上是个 json <s>废话</s></li>
+<li>这个json的最外层是一个js数组，对于这样的结构你有什么大胆的猜测吗，相信你已经看出来了，一个配置文件可以有多个子配置，一个子配置中存储的是一组动作，这里只展示了一个动作 <code>&quot;class&quot;</code> 关键字是用来与 <code>&quot;multi&quot;</code> 区分的，class 代表顺序执行，若动作分步的循环次数为 -1 也就是无限循环的话，这一组动作就会卡在第一个无限循环动作，不会往下执行，也就是死循环。如果是multi则是动作并发，这一个子配置文件的所有动作分步都会同时进行，包括相反的动作。子配置文件的 <code>&quot;loop_times&quot;</code> 是指子配置的循环次数，同时所有的子配置也是并发的。（当然所有的并发还没实现）</li>
+</ul>
+</li>
+</ul>
+<p>快要开学了<br>
+接下来 Super-Coffee的 <strong>所有项目</strong>都会接近于停滞。只能等暑假再继续。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[关于鼠标移动的修复 #00]]></title>
+        <id>https://blog.charlie.moe/post/fix-the-move-methon-00/</id>
+        <link href="https://blog.charlie.moe/post/fix-the-move-methon-00/">
+        </link>
+        <updated>2020-04-09T06:50:50.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="缘由">缘由</h2>
+<ul>
+<li>关于 1.12.2 及以前版本
+<ul>
+<li>咱们在项目一开始就很希望加入鼠标移动的功能，但是由于对 WindowsAPI 的不熟悉，咱们并没有办法在焦点不在MC窗口时操作鼠标移动，因此咱们只能退而求其次使用全局的方法操作。想到全局的方法，咱第一时间想到的是 <code>SetCursorPos()</code> 函数，确实咱成功了，但在Xiao_Jin 测试时却失效了，在不断的测试下咱们了解到MC在海洋更新之后对鼠标移动做出了破坏性的修改</li>
+</ul>
+</li>
+<li>关于1.12.2以上版本
+<ul>
+<li>既然想到是MC更新产生的变化，咱们便当机立断决定分析MC的源码，但很明显咱们三人之中没有人会Java语言，咱们凭借别的语言的基础完全无法理解 <s>Bugjang</s> Mojang高深的代码，咱们只得放弃。</li>
+</ul>
+</li>
+</ul>
+<h2 id="转折">转折</h2>
+<p>在 Cheny 不断地试验下，咱们发现可以用 <code>SendInput()</code> 函数实现鼠标移动，但是咱和 Xiao_Jin 发现在 win32api 这个Python轮子里面并没有 <code>SendInput()</code> ，这也是这篇文章诞生的原因。</p>
+<h2 id="解决方法">解决方法</h2>
+<ul>
+<li>咱们可以另找别的方法
+<ul>
+<li>这明显不是一个好方法，不到万不得已咱们不会去尝试这种不算方法的方法</li>
+</ul>
+</li>
+<li>咱们可以用 C++ 写一个Python轮子
+<ul>
+<li>但是问题又来了，咱们三个中并没有人会用 C++ 写 Python 的轮子，在咱们三个人中 Xiao_Jin 会写前端和 Python（ Python 写得很好），Cheny C++ 写得很好，咱只会最基础的 C++ 和 Python，让咱们三个现学显然是不现实的。</li>
+</ul>
+</li>
+<li>咱们可以用 C++ 写一个外部程序（这也是最后被采纳的方法）
+<ul>
+<li>Cheny 学业繁忙（虽然咱们都很忙）所以写外部程序他不能胜任，所有，这个重担（可能很简单，但咱的 C++ 很烂）就交到了咱的手上。</li>
+</ul>
+</li>
+</ul>
+<h2 id="现状">现状</h2>
+<p>咱已把这个外部程序写出来了但是它表现得很不正常（吃了C++没学好的亏了）<br>
+<img src="https://blog.charlie.moe/post-images/1586417620743.png" alt="" loading="lazy"><br>
+请不要吐槽咱蹩脚的C++技术，<s>咱会伤心的。</s> 很显然咱们还需呀很长的时间调试这个程序，但可以保证的是咱们可以在月底之前完成鼠标移动的修复。</p>
+<h2 id="求援">求援</h2>
+<p><strong>如果有Java大佬愿意帮助咱们的话，咱们将感激不尽</strong></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[py-Minecraft-AFK 项目 #00]]></title>
+        <id>https://blog.charlie.moe/post/py-minecraft-afk-00/</id>
+        <link href="https://blog.charlie.moe/post/py-minecraft-afk-00/">
+        </link>
+        <updated>2020-04-08T05:15:59.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="起因">起因</h2>
+<p><a href="https://github.com/super-coffee/py-Minecraft-AFK">Py-Minecraft-AFK</a> 项目是咱和 Xiao_Jin 受到 Cheny 的 <a href="https://github.com/super-coffee/cpp-Minecraft-AFK">Cpp-Minecraft-AFK</a> 项目的启发而诞生的。<br>
+最开始咱在机缘巧合下找到了一个名为 win32api 的 Python 轮子，因此咱就萌发了重写一个 Python 版本的 Minecraft-AFK，而这个想法吸引了群里的 Xiao_Jin，在商议下咱们开始了合作。</p>
+<h2 id="现状">现状</h2>
+<p>经过半个多月的努力，Py-Minecraft-AFK 项目已经初具规模了，现阶段正在考虑加入多线程以实现动作的并发，并且咱们成立了一个 Super-Coffee 组织，在这个组织里你会找到很多<s>没用</s>有意思的项目。</p>
+]]></content>
+    </entry>
+</feed>
