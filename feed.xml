@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>八云的自留地</title>
+    <link>https://blog.charlie.moe/</link>
+    <description>猫猫的博客</description>
+    <language>zh-cn</language>
+    <generator>Gridea Pro</generator>
+    <lastBuildDate>Sat, 23 May 2026 20:56:40 +0800</lastBuildDate>
+    <atom:link href="https://blog.charlie.moe/feed.xml" rel="self" type="application/rss+xml"></atom:link>
+    <item>
+      <title>PE31625G24DIRA 折腾日记-00</title>
+      <link>https://blog.charlie.moe/post/PE31625G24DIRA-00/</link>
+      <guid isPermaLink="true">https://blog.charlie.moe/post/PE31625G24DIRA-00/</guid>
+      <pubDate>Sat, 23 May 2026 20:56:40 +0800</pubDate>
+      <description><![CDATA[<p>最近买了一块 Silicom 的 PE31625G24DIRA，一块基于 Intel EZFM10840 交换芯片的 100G 六端口交换卡，或者说是一张 switch on NIC。可能有大船二手价格很便宜，但折腾起来挺麻烦的。这篇文章就是把这段时间的发现都记下来，想到哪写到哪。</p>
+]]></description>
+      <category>learn</category>
+      <category>network</category>
+      <category>linux</category>
+    </item>
+    <item>
+      <title>对 Bing 美图 API 的研究 #00</title>
+      <link>https://blog.charlie.moe/post/BingAPI-00/</link>
+      <guid isPermaLink="true">https://blog.charlie.moe/post/BingAPI-00/</guid>
+      <pubDate>Mon, 22 Mar 2021 19:49:29 +0800</pubDate>
+      <description><![CDATA[<h2 id="api-">API 地址</h2>
+<pre><code>https://cn.bing.com/HPImageArchive.aspx?format=&lt;format&gt;&amp;idx=&lt;idx&gt;&amp;n=&lt;n&gt;&amp;mkt=&lt;mkt&gt;
+</code></pre>
+<h2 id="heading">参数</h2>
+<ol>
+<li>format (required)
+<ul>
+<li>js：返回 json 响应</li>
+<li>xml：返回 xml 响应</li>
+<li>rss：返回 rss 订阅</li>
+</ul>
+</li>
+<li>idx&hellip;</li>
+</ol>
+]]></description>
+      <category>API</category>
+      <category>learn</category>
+      <enclosure url="https://blog.charlie.moe/post-images/BingAPI-00.jpeg" length="0" type="image/jpeg"></enclosure>
+    </item>
+    <item>
+      <title>关于 RSA&amp;AES Encryption 的使用教程</title>
+      <link>https://blog.charlie.moe/post/RSA-AES-Encryption-guide/</link>
+      <guid isPermaLink="true">https://blog.charlie.moe/post/RSA-AES-Encryption-guide/</guid>
+      <pubDate>Fri, 07 Aug 2020 12:37:35 +0800</pubDate>
+      <description><![CDATA[<p>本文会详细地讲解 RSA&amp;AES Encryption 的使用</p>
+]]></description>
+      <enclosure url="https://blog.charlie.moe/post-images/RSA-AES-Encryption-guide.png" length="0" type="image/png"></enclosure>
+    </item>
+    <item>
+      <title>关于 EncryptedCoffee #02</title>
+      <link>https://blog.charlie.moe/post/encryptedcoffee02/</link>
+      <guid isPermaLink="true">https://blog.charlie.moe/post/encryptedcoffee02/</guid>
+      <pubDate>Tue, 21 Jul 2020 10:24:08 +0800</pubDate>
+      <description><![CDATA[<p>关于封面这个程序，它是 EncryptedCoffee 项目的一个带 GUI 的升级版本，咱将其命名为 RSA&amp;AES Encryption。</p>
+]]></description>
+      <category>learn</category>
+      <enclosure url="https://blog.charlie.moe/post-images/encryptedcoffee02.png" length="0" type="image/png"></enclosure>
+    </item>
+    <item>
+      <title>合格考全部拿下</title>
+      <link>https://blog.charlie.moe/post/pass/</link>
+      <guid isPermaLink="true">https://blog.charlie.moe/post/pass/</guid>
+      <pubDate>Sat, 11 Jul 2020 21:05:16 +0800</pubDate>
+      <description><![CDATA[<!-- more -->
+<p><img src="https://blog.charlieyu4994.cn/post-images/1594472796571.jfif" alt="" /></p>
+]]></description>
+      <enclosure url="https://blog.charlie.moe/post-images/pass.bmp" length="0" type="image/jpeg"></enclosure>
+    </item>
+    <item>
+      <title>关于 JWT</title>
+      <link>https://blog.charlie.moe/post/jwt-00/</link>
+      <guid isPermaLink="true">https://blog.charlie.moe/post/jwt-00/</guid>
+      <pubDate>Tue, 05 May 2020 19:10:15 +0800</pubDate>
+      <description><![CDATA[<p>关于 JWT 网上有很多介绍，这里就不多做介绍了，简而言之 JWT 就是一个身份证，证明你是你。</p>
+]]></description>
+      <category>learn</category>
+      <enclosure url="https://blog.charlie.moe/post-images/jwt-00.png" length="0" type="image/png"></enclosure>
+    </item>
+    <item>
+      <title>关于 EncryptedCoffee #01</title>
+      <link>https://blog.charlie.moe/post/encryptedcoffee01/</link>
+      <guid isPermaLink="true">https://blog.charlie.moe/post/encryptedcoffee01/</guid>
+      <pubDate>Fri, 01 May 2020 15:42:10 +0800</pubDate>
+      <description><![CDATA[<p>没想到这一天来得这么快，现在 EcryptedCoffee 已经有修改密码的功能了，开心ヾ(≧▽≦*)o</p>
+]]></description>
+      <category>learn</category>
+      <enclosure url="https://blog.charlie.moe/post-images/encryptedcoffee01.png" length="0" type="image/png"></enclosure>
+    </item>
+    <item>
+      <title>关于 EncryptedCoffee #00</title>
+      <link>https://blog.charlie.moe/post/encryptedcoffee/</link>
+      <guid isPermaLink="true">https://blog.charlie.moe/post/encryptedcoffee/</guid>
+      <pubDate>Thu, 30 Apr 2020 22:24:48 +0800</pubDate>
+      <description><![CDATA[<p>咱们的 <a href="https://github.com/super-coffee/encrypted-coffee">EncryptedCoffee</a> 更新啦！</p>
+]]></description>
+      <enclosure url="https://blog.charlie.moe/post-images/encryptedcoffee.png" length="0" type="image/png"></enclosure>
+    </item>
+    <item>
+      <title>py-Minecraft-AFK 项目 #01</title>
+      <link>https://blog.charlie.moe/post/py-minecraft-afk-01/</link>
+      <guid isPermaLink="true">https://blog.charlie.moe/post/py-minecraft-afk-01/</guid>
+      <pubDate>Fri, 24 Apr 2020 15:41:46 +0800</pubDate>
+      <description><![CDATA[<p>经过长时间的发展，AFK 项目已经实现了预想的大部分功能了，接下来就是加入多线程实现动作并发了。</p>
+]]></description>
+      <category>minecraft</category>
+      <category>AFK</category>
+      <enclosure url="https://blog.charlie.moe/post-images/py-minecraft-afk-01.png" length="0" type="image/png"></enclosure>
+    </item>
+    <item>
+      <title>关于鼠标移动的修复 #00</title>
+      <link>https://blog.charlie.moe/post/fix-the-move-methon-00/</link>
+      <guid isPermaLink="true">https://blog.charlie.moe/post/fix-the-move-methon-00/</guid>
+      <pubDate>Thu, 09 Apr 2020 14:50:50 +0800</pubDate>
+      <description><![CDATA[<h2 id="heading">缘由</h2>
+<ul>
+<li>关于 1.12.2 及以前版本
+<ul>
+<li>咱们在项目一开始就很希望加入鼠标移动的功能，但是由于对 WindowsAPI 的不熟悉，咱们并没有办法在焦点不在MC窗口时操作鼠标移动，因此咱们只能退而求其次使用全局的方法操作。想到全局的方法，咱第一时间想到的是 <code>SetCursorPos()</code> 函数，确实咱成功了，但在Xiao_Jin 测试时却失效了，在不断的测试下咱们了解到MC在海洋&hellip;</li>
+</ul>
+</li>
+</ul>
+]]></description>
+      <category>minecraft</category>
+      <category>AFK</category>
+      <enclosure url="https://blog.charlie.moe/post-images/fix-the-move-methon-00.png" length="0" type="image/png"></enclosure>
+    </item>
+  </channel>
+</rss>
